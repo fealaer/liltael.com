@@ -1,8 +1,3 @@
-
-/*
- * GET home page.
- */
-
-exports.index = function(req, res){
-  res.render('index.html');
+module.exports = function (app) {
+  require('./api/v0')(app);
 };
