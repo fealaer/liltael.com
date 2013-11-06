@@ -49,23 +49,32 @@ if ('development' === ENV) {
 // development only
 if ('development' === ENV) {
   app.use(express.errorHandler());
+} else {
+  app.use(appErrorHandler());
 }
 
-app.use(function (err, req, res, next) {
+function appErrorHandler(err, req, res, next) {
   if (typeof err == 'number') {
     err = new HttpError(err);
   }
   if (err instanceof HttpError) {
     res.sendHttpError(err);
   } else {
-    if ('development' === ENV) {
+    if ('development' === ENV && res) {
       express.errorHandler()(err, req, res, next);
-    } else {
-      log.error(err);
+    } else if (res) {
+      log.error(err.message, err);
       err = new HttpError(500);
       res.sendHttpError(err);
+    } else {
+      log.error(err.stack);
     }
   }
+}
+
+process.on('uncaughtException', function(err) {
+  log.error(err.stack);
+  setTimeout(function() {process.exit(1);}, 2000);
 });
 
 http.createServer(app).listen(config.get('port'), function () {
