@@ -9,14 +9,13 @@ var schema = new Schema({
   username: {
     type: String,
     unique: true,
-    require: 'Username is required'
+    required: 'Username is required'
   },
   quotes: {
     type: Array
   },
   hashedPassword: {
     type: String,
-    required: 'Password is required',
     select: false
   },
   salt: {
@@ -24,6 +23,12 @@ var schema = new Schema({
     select: false
   }
 }, { versionKey: false });
+
+schema.pre('validate', function (next) {
+  if (!this.hashedPassword)
+    this.invalidate('password', 'Password is required');
+  next();
+});
 
 schema.methods.encryptPassword = function (password) {
   return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
