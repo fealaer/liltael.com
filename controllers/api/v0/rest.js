@@ -23,6 +23,7 @@ function RestApi(Model) {
 
   this.post = function (req, res, next) {
     var rawData = req.body.data || req.body;
+    delete rawData._id;
     var newModel = new Model(rawData);
     newModel.validate(function (err) {
       if (err) {
