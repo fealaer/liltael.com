@@ -9,63 +9,64 @@ var schema = new Schema({
   username: {
     type: String,
     unique: true,
-    require: true
-  },
-  hashedPassword: {
-    type: String,
-    required: true
-  },
-  salt: {
-    type: String,
-    required: true
+    require: 'Username is required'
   },
   quotes: {
     type: Array
   },
-  created: {
-    type: Date,
-    default: Date.now
+  hashedPassword: {
+    type: String,
+    required: 'Password is required',
+    select: false
+  },
+  salt: {
+    type: String,
+    select: false
   }
-});
-schema.methods.encryptPassword = function(password) {
+}, { versionKey: false });
+
+schema.methods.encryptPassword = function (password) {
   return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
 };
 
-schema.virtual('password',{type: String, required: true})
-  .set(function(password) {
+schema.virtual('password')
+    .set(function (password) {
       this._plainPassword = password;
       this.salt = Math.random();
       this.hashedPassword = this.encryptPassword(password);
     })
-  .get(function() {return this._plainPassword;});
+    .get(function () {
+      return this._plainPassword;
+    });
 
-schema.methods.checkPassword = function(password) {
+schema.methods.checkPassword = function (password) {
+  if (!password) return false;
   return this.encryptPassword(password) == this.hashedPassword;
 };
 
-schema.statics.authorize = function(username, password, callback) {
+schema.statics.authorize = function (username, password, callback) {
   var User = this;
 
   async.waterfall([
-      function (callback) {
-        User.findOne({username: username}, callback);
-      },
-      function (user, callback) {
-        if (user) {
-          if (user.checkPassword(password)) {
-            callback(null, user);
-          } else {
-            callback(new AuthError("Wrong password"))
-          }
+    function (callback) {
+      User.findOne({username: username}, callback);
+    },
+    function(user, callback) {
+      if (user){
+        if (user.checkPassword(password)) {
+          callback(null, user);
         } else {
-          var user = new User({username: username, password: password});
-          user.save(function (err) {
-            if (err) return callback(err);
-            callback(null, user);
-          });
+          callback(new AuthError("Wrong password"))
         }
+      } else {
+        var user = new User({username: username, password: password});
+        user.save(function (err) {
+          if (err) return callback(err);
+          callback(null, user);
+        });
       }
-    ], callback);
+    }
+  ], callback);
 };
 
 exports.User = mongoose.model('User', schema);
