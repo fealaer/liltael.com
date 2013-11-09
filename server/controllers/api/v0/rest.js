@@ -1,7 +1,6 @@
-var User = require('models/user').User;
 var ObjectID = require('mongodb').ObjectID;
-var ApiResponse = require('helpers/api/v0/response');
-var ApiError = require('helpers/api/v0/error');
+var ApiResponse = require('../../../helpers/api/v0/response');
+var ApiError = require('../../../helpers/api/v0/error');
 
 module.exports = function (Model) {
   return new RestApi(Model);

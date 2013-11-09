@@ -1,4 +1,4 @@
-// Generated on 2013-10-31 using generator-angular 0.5.1
+// Generated on 2013-11-09 using generator-angular 0.6.0-rc.1
 'use strict';
 
 // # Globbing
@@ -12,6 +12,11 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
 
   grunt.initConfig({
+    requirejs: {
+      options: {
+        baseUrl: '.'
+      }
+    },
     yeoman: {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
@@ -23,7 +28,7 @@ module.exports = function (grunt) {
         tasks: ['coffee:dist']
       },
       coffeeTest: {
-        files: ['test/spec/app/{,*/}*.coffee'],
+        files: ['test/app/spec/{,*/}*.coffee'],
         tasks: ['coffee:test']
       },
       styles: {
@@ -100,7 +105,8 @@ module.exports = function (grunt) {
     },
     jshint: {
       options: {
-        jshintrc: '.jshintrc'
+        jshintrc: '.jshintrc',
+        reporter: require('jshint-stylish')
       },
       all: [
         'Gruntfile.js',
@@ -124,7 +130,7 @@ module.exports = function (grunt) {
       test: {
         files: [{
           expand: true,
-          cwd: 'test/spec/app',
+          cwd: 'test/app/spec',
           src: '{,*/}*.coffee',
           dest: '.tmp/spec',
           ext: '.js'
@@ -158,7 +164,7 @@ module.exports = function (grunt) {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
-        dirs: ['<%= yeoman.dist %>']
+        assetsDirs: ['<%= yeoman.dist %>']
       }
     },
     imagemin: {
@@ -228,7 +234,7 @@ module.exports = function (grunt) {
             '.htaccess',
             'bower_components/**/*',
             'images/{,*/}*.{gif,webp}',
-            'styles/fonts/*'
+            'fonts/*'
           ]
         }, {
           expand: true,
@@ -265,17 +271,18 @@ module.exports = function (grunt) {
     },
     karma: {
       unit: {
-        configFile: './test/karma.conf.js',
+        configFile: './test/app/karma.conf.js',
         singleRun: true
       }
     },
-    mochacli: {
+    mochaTest: {
+      test: {
         options: {
-            require: ['should'],
-            reporter: 'nyan',
-            bail: true
+          reporter: 'progress',
+          bail: false
         },
-        all: ['test/spec/server/{,*/}*.js']
+        src: ['test/server/spec/{,*/}*.js']
+      }
     },
     cdnify: {
       dist: {
@@ -286,9 +293,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.dist %>/scripts',
+          cwd: '.tmp/concat/scripts',
           src: '*.js',
-          dest: '<%= yeoman.dist %>/scripts'
+          dest: '.tmp/concat/scripts'
         }]
       }
     },
@@ -303,7 +310,7 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-mocha');
+  grunt.loadNpmTasks('grunt-mocha-test');
 
   grunt.registerTask('server', function (target) {
     if (target === 'dist') {
@@ -325,7 +332,7 @@ module.exports = function (grunt) {
     'autoprefixer',
     'connect:test',
     'karma',
-    'mochacli'
+    'mochaTest'
   ]);
 
   grunt.registerTask('build', [
@@ -334,9 +341,9 @@ module.exports = function (grunt) {
     'concurrent:dist',
     'autoprefixer',
     'concat',
+    'ngmin',
     'copy:dist',
     'cdnify',
-    'ngmin',
     'cssmin',
     'uglify',
     'rev',

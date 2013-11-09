@@ -4,7 +4,7 @@
 module.exports = function(config) {
   config.set({
     // base path, that will be used to resolve files and exclude
-    basePath: '../',
+    basePath: '../../',
 
     // testing framework to use (jasmine/mocha/qunit/...)
     frameworks: ['mocha'],
@@ -12,20 +12,21 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test/mocha.conf.js',
+      'test/app/mocha.conf.js',
 
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/bower_components/angular-resource/angular-resource.js',
       'app/bower_components/angular-cookies/angular-cookies.js',
       'app/bower_components/angular-sanitize/angular-sanitize.js',
+      'app/bower_components/angular-route/angular-route.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
-      'test/mock/app/**/*.js',
-      'test/spec/app/**/*.js',
+      'test/app/mock/**/*.js',
+      'test/app/spec/**/*.js',
 
       'node_modules/chai/chai.js',
-      'test/lib/chai-helper.js'
+      'test/app/lib/chai-helper.js'
     ],
 
     // list of files / patterns to exclude

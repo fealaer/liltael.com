@@ -1,4 +1,4 @@
-var log = require('lib/log')(module);
+var log = require('../../../lib/log')(module);
 var util = require('util');
 var ENV = process.env.NODE_ENV;
 

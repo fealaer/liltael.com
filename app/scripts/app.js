@@ -3,7 +3,8 @@
 angular.module('StartingPointJSApp', [
   'ngCookies',
   'ngResource',
-  'ngSanitize'
+  'ngSanitize',
+  'ngRoute'
 ])
   .config(function ($routeProvider) {
     $routeProvider

@@ -1,10 +1,10 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
-var config = require('config');
-var log = require('lib/log')(module);
-var mongoose = require('lib/mongoose');
-var HttpError = require('error').HttpError;
+var config = require('./config');
+var log = require('./lib/log')(module);
+var mongoose = require('./lib/mongoose');
+var HttpError = require('./error').HttpError;
 
 
 var app = express();
@@ -35,15 +35,15 @@ app.use(express.session({
   store: new MongoStore({mongoose_connection: mongoose.connection})
 }));
 
-app.use(require('middleware/sendHttpError'));
+app.use(require('./middleware/sendHttpError'));
 app.use(app.router);
 
-require('routes')(app);
+require('./routes')(app);
 
 if ('development' === ENV) {
-  app.use(express.static(path.join(__dirname, 'app')));
+  app.use(express.static(path.join(__dirname, '../app')));
 } else if ('production' === ENV) {
-  app.use(express.static(path.join(__dirname, 'dist')));
+  app.use(express.static(path.join(__dirname, '../dist')));
 }
 
 // development only
