@@ -23,7 +23,7 @@ module.exports = function (grunt) {
         tasks: ['coffee:dist']
       },
       coffeeTest: {
-        files: ['test/spec/{,*/}*.coffee'],
+        files: ['test/spec/app/{,*/}*.coffee'],
         tasks: ['coffee:test']
       },
       styles: {
@@ -124,7 +124,7 @@ module.exports = function (grunt) {
       test: {
         files: [{
           expand: true,
-          cwd: 'test/spec',
+          cwd: 'test/spec/app',
           src: '{,*/}*.coffee',
           dest: '.tmp/spec',
           ext: '.js'
@@ -265,9 +265,17 @@ module.exports = function (grunt) {
     },
     karma: {
       unit: {
-        configFile: 'karma.conf.js',
+        configFile: './test/karma.conf.js',
         singleRun: true
       }
+    },
+    mochacli: {
+        options: {
+            require: ['should'],
+            reporter: 'nyan',
+            bail: true
+        },
+        all: ['test/spec/server/{,*/}*.js']
     },
     cdnify: {
       dist: {
@@ -295,6 +303,8 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-mocha');
+
   grunt.registerTask('server', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -314,7 +324,8 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma'
+    'karma',
+    'mochacli'
   ]);
 
   grunt.registerTask('build', [
