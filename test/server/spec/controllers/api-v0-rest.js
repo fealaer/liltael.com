@@ -22,7 +22,23 @@ describe('API V0: rest', function () {
         callback(null, records);
       };
       rest.get(req, res, next);
-      res.result.should.have.property('result').with.length(2);
+      res.result.should.have.property('result').with.eql(records);
+      res.result.should.have.property('status').with.eql({code: 200, name: 'OK'});
+      res.result.should.have.property('error').with.be.empty;
+    });
+
+    it('should respond with error on GET method', function () {
+      TestModel.find = function (query, callback) {
+        var error = new Error(500, 'Internal server error');
+        callback(error, null);
+      };
+      rest.get(req, res, next);
+      res.result.should.have.property('result').with.be.empty;
+      res.result.should.have.property('status').with.eql({code: 500, name: 'Internal server error'});
+      res.result.should.have.property('error');
+      res.result.error.should.have.property('message').with.equal('Internal server error');
+      res.result.error.should.have.property('code').with.equal(500);
+      res.result.error.should.have.property('moreInfo').with.equal('http://localhost:3000/api/v0/docs/errors/500');
     });
   });
 });

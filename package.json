@@ -77,8 +77,8 @@
   },
   "private": true,
   "scripts": {
-    "test": "grunt test",
-    "start": "NODE_ENV=development node server/app.js",
+    "test":   "NODE_ENV=test grunt test; echo '\\n'; echo '\\033[00;32mINFO [npm test]:\\033[0m Run \\033[04;32mcat .tmp/tests.log\\033[0m to see an application log'",
+    "start":  "NODE_ENV=development node server/app.js",
     "postinstall": "echo postinstall time; ./node_modules/.bin/grunt build"
   }
 }

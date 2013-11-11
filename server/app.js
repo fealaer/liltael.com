@@ -14,7 +14,7 @@ app.set('port', process.env.PORT || 3000);
 var ENV = app.get('env');
 
 app.use(express.favicon());
-if ('development' === ENV) {
+if ('development' === ENV || 'test' === ENV) {
   app.set('views', __dirname + '/app');
   app.use(express.logger('dev'));
 } else if ('production' === ENV) {
@@ -40,14 +40,13 @@ app.use(app.router);
 
 require('./routes')(app);
 
-if ('development' === ENV) {
+if ('development' === ENV || 'test' === ENV) {
   app.use(express.static(path.join(__dirname, '../app')));
 } else if ('production' === ENV) {
   app.use(express.static(path.join(__dirname, '../dist')));
 }
 
-// development only
-if ('development' === ENV) {
+if ('development' === ENV || 'test' === ENV) {
   app.use(express.errorHandler());
 } else {
   app.use(appErrorHandler());
@@ -60,7 +59,7 @@ function appErrorHandler(err, req, res, next) {
   if (err instanceof HttpError) {
     res.sendHttpError(err);
   } else {
-    if ('development' === ENV && res) {
+    if (('development' === ENV || 'test' === ENV) && res) {
       express.errorHandler()(err, req, res, next);
     } else if (res) {
       log.error(err.message, err);
