@@ -10,11 +10,31 @@ function RestApi(Model) {
   this.Model = Model;
 
   this.get = function (req, res, next) {
-    Model.find({}, function (err, users) {
+    Model.find({}, function (err, records) {
       if (err) {
         res.json(new ApiResponse(new ApiError(err), null));
       } else {
-        res.json(new ApiResponse(null, users));
+        res.json(new ApiResponse(null, records));
+      }
+    });
+  };
+
+  this.getById = function (req, res, next) {
+    validateObjectId(req.params.id, function (err, id) {
+      if (err) {
+        res.json(new ApiResponse(err, null));
+      } else {
+        Model.findById(_id, function (err, record) {
+          if (err) {
+            res.json(new ApiResponse(new ApiError(err), null));
+          } else {
+            if (!record) {
+              res.json(new ApiResponse(new ApiError(null, 404, 'Record not found'), null));
+            } else {
+              res.json(new ApiResponse(null, record));
+            }
+          }
+        });
       }
     });
   };
@@ -31,74 +51,64 @@ function RestApi(Model) {
           if (err) {
             res.json(new ApiResponse(new ApiError(err), null));
           } else {
-            res.json(new ApiResponse(null, apiStatus.S201, newModel));
+            res.json(new ApiResponse(null, newModel));
           }
         });
-      }
-    });
-
-  };
-
-  this.getById = function (req, res, next) {
-    try {
-      var id = new ObjectID(req.params.id);
-    } catch (e) {
-      res.json(new ApiResponse(new ApiError(null, 400, 'Incorrect record ID'), null));
-    }
-    Model.findById(id, function (err, user) {
-      if (err) {
-        res.json(new ApiResponse(new ApiError(err), null));
-      } else {
-        if (!user) {
-          res.json(new ApiResponse(new ApiError(null, 404, 'Record not found'), apiStatus.S404, null));
-        } else {
-          res.json(new ApiResponse(null, user));
-        }
       }
     });
   };
 
   this.putById = function (req, res, next) {
-    try {
-      var rawData = req.body.data || req.body;
-      var id = new ObjectID(rawData.id || rawData._id);
-      delete rawData._id;
-    } catch (e) {
-      res.json(new ApiResponse(new ApiError(null, 400, 'Incorrect record ID'), null));
-    }
-    Model.update({"_id": id}, rawData, {upsert: true}, function (err, result) {
+    var rawData = req.body.data || req.body;
+    validateObjectId(rawData.id, function (err, id) {
       if (err) {
-        res.json(new ApiResponse(new ApiError(err), null));
+        res.json(new ApiResponse(err, null));
       } else {
-        if (result < 1) {
-          res.json(new ApiResponse(new ApiError(null, 404, 'Record does not exist'), null));
-        } else {
-          res.json(new ApiResponse(null, {"recordsAffected": result}));
-        }
+        delete rawData._id;
+        Model.update({"_id": _id}, rawData, {upsert: true}, function (err, record) {
+          if (err) {
+            res.json(new ApiResponse(new ApiError(err), null));
+          } else {
+            if (record < 1) {
+              res.json(new ApiResponse(new ApiError(null, 404, 'Record does not exist'), null));
+            } else {
+              res.json(new ApiResponse(null, {"recordsAffected": record}));
+            }
+          }
+        });
       }
     });
   };
 
   this.deleteById = function (req, res, next) {
-    try {
-      var rawData = req.body.data || req.body;
-      var id = new ObjectID(rawData.id);
-    } catch (e) {
-      res.json(new ApiResponse(new ApiError(null, 400, 'Incorrect record ID'), null));
-    }
-    Model.remove({"_id": id}, function (err, result) {
+    var rawData = req.body.data || req.body;
+    validateObjectId(rawData.id, function (err, id) {
       if (err) {
-        res.json(new ApiResponse(new ApiError(err), null));
+        res.json(new ApiResponse(err, null));
       } else {
-        if (result < 1) {
-          res.json(new ApiResponse(new ApiError(null, 404, 'Record does not exist'), null));
-        } else {
-          res.json(new ApiResponse(null, {"recordsAffected": result}));
-        }
+        Model.remove({"_id": id}, function (err, record) {
+          if (err) {
+            res.json(new ApiResponse(new ApiError(err), null));
+          } else {
+            if (record < 1) {
+              res.json(new ApiResponse(new ApiError(null, 404, 'Record does not exist'), null));
+            } else {
+              res.json(new ApiResponse(null, {"recordsAffected": record}));
+            }
+          }
+        });
       }
     });
   };
+}
 
+function validateObjectId(id, callback) {
+  try {
+    var _id = new ObjectID(id);
+  } catch (e) {
+    callback(new ApiError(null, 400, 'Incorrect record ID'), null);
+  }
+  callback(null, _id);
 }
 
 RestApi.prototype.name = "RestApi";
