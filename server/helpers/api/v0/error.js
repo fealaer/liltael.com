@@ -42,6 +42,4 @@ function extractFieldNameAndValue(msg) {
   var value = msg.substr(startValue, endValue - startValue);
 
   return util.format("Not unique value '%s' for field '%s'", value, field);
-
-  //"username must be unique"
 }
