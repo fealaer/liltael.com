@@ -3,7 +3,10 @@
 var rekuire = require('rekuire'),
     chai = require('chai'),
     expect = chai.expect,
-    should = chai.should();
+    should = chai.should(),
+    ApiResponse = rekuire('server/helpers/api/v0/response'),
+    ApiStatus = rekuire('server/helpers/api/v0/status'),
+    ApiError = rekuire('server/helpers/api/v0/error');;
 chai.Assertion.includeStack = true;
 
 describe('API V0: rest', function () {
@@ -23,7 +26,7 @@ describe('API V0: rest', function () {
       };
       rest.get(req, res, next);
       res.result.should.have.property('result').with.eql(records);
-      res.result.should.have.property('status').with.eql({code: 200, name: 'OK'});
+      res.result.should.have.property('status').with.eql(ApiStatus.S200);
       res.result.should.have.property('error').with.be.empty;
     });
 
@@ -34,7 +37,7 @@ describe('API V0: rest', function () {
       };
       rest.get(req, res, next);
       res.result.should.have.property('result').with.be.empty;
-      res.result.should.have.property('status').with.eql({code: 500, name: 'Internal server error'});
+      res.result.should.have.property('status').with.eql(ApiStatus.S500);
       res.result.should.have.property('error');
       res.result.error.should.have.property('message').with.equal('Internal server error');
       res.result.error.should.have.property('code').with.equal(500);

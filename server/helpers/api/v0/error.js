@@ -1,6 +1,5 @@
 var log = require('../../../lib/log')(module);
 var util = require('util');
-var ENV = process.env.NODE_ENV;
 
 function ApiError(err, code, message) {
   if (err) {
@@ -27,7 +26,6 @@ function ApiError(err, code, message) {
   }
   this.moreInfo = util.format('http://localhost:3000/api/v0/docs/errors/%d', this.code);
 }
-
 
 ApiError.prototype.name = "ApiError";
 

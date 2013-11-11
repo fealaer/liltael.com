@@ -1,4 +1,5 @@
-var apiStatus = require('./status');
+var apiStatus = require('./status'),
+    HttpError = require('../../../error').HttpError;
 
 function ApiResponse(error, result) {
   if (!error) {
@@ -6,6 +7,8 @@ function ApiResponse(error, result) {
   } else {
     this.status = apiStatus.statusByCode(error.code);
   }
+  if ((!error && !result) || (error && result))
+    throw new HttpError(500, "Internal server error: Illegal arguments for ApiResponse. Server can't return valid response.");
   this.result = result || {};
   this.error = error || {};
 }
