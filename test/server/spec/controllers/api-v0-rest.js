@@ -125,12 +125,6 @@ describe('REST API v0 method', function () {
   });
 
   describe('Get by Id:', function () {
-
-    beforeEach(function () {
-      rest = rekuire('server/controllers/api/v0/rest')(TestModel);
-      res = new Response();
-    });
-
     it('should respond with "Incorrect record ID" error', function () {
       var params = {id: "abba"};
       req = new Request(null, params);
@@ -188,12 +182,6 @@ describe('REST API v0 method', function () {
   });
 
   describe('Delete by Id:', function () {
-
-    beforeEach(function () {
-      rest = rekuire('server/controllers/api/v0/rest')(TestModel);
-      res = new Response();
-    });
-
     it('should respond with "Incorrect record ID" error', function () {
       var data = {id: "abba"};
       req = new Request(data);
@@ -243,6 +231,63 @@ describe('REST API v0 method', function () {
       var data = {id: "5260001073657b99d0000001"};
       req = new Request(data);
       rest.deleteById(req, res, next);
+      res.result.should.have.property('status', ApiStatus.S200);
+      res.result.should.have.property('result');
+      res.result.result.should.have.property('recordsAffected', 1);
+      res.result.should.have.property('error').with.be.empty;
+    });
+  });
+
+  describe('Put by Id:', function () {
+    it('should respond with "Incorrect record ID" error', function () {
+      var data = {id: "abba"};
+      req = new Request(data);
+      rest.putById(req, res, next);
+      res.result.should.have.property('status', ApiStatus.S400);
+      res.result.should.have.property('error');
+      res.result.error.should.have.property('message', 'Incorrect record ID');
+      res.result.error.should.have.property('code', 400);
+      res.result.error.should.have.property('moreInfo', 'http://localhost:3000/api/v0/docs/errors/400');
+      res.result.should.have.property('result').with.be.empty;
+    });
+
+    it('should respond with DB error', function () {
+      TestModel.update = function (conditions, update, options, callback) {
+        callback({message: 'some error'});
+      };
+      var data = {id: "5260001073657b99d0000001"};
+      req = new Request(data);
+      rest.putById(req, res, next);
+      res.result.should.have.property('status', ApiStatus.S500);
+      res.result.should.have.property('error');
+      res.result.error.should.have.property('message', 'Internal server error');
+      res.result.error.should.have.property('code', 500);
+      res.result.error.should.have.property('moreInfo', 'http://localhost:3000/api/v0/docs/errors/500');
+      res.result.should.have.property('result').with.be.empty;
+    });
+
+    it('should respond with "Record does not exist" error', function () {
+      TestModel.update = function (conditions, update, options, callback) {
+        callback(null, 0);
+      };
+      var data = {id: "5260001073657b99d0000001"};
+      req = new Request(data);
+      rest.putById(req, res, next);
+      res.result.should.have.property('status', ApiStatus.S404);
+      res.result.should.have.property('error');
+      res.result.error.should.have.property('message', 'Record does not exist');
+      res.result.error.should.have.property('code', 404);
+      res.result.error.should.have.property('moreInfo', 'http://localhost:3000/api/v0/docs/errors/404');
+      res.result.should.have.property('result').with.be.empty;
+    });
+
+    it('should update a single document in a collection and return that only one document affected', function () {
+      TestModel.update = function (conditions, update, options, callback) {
+        callback(null, 1);
+      };
+      var data = {id: "5260001073657b99d0000001"};
+      req = new Request(data);
+      rest.putById(req, res, next);
       res.result.should.have.property('status', ApiStatus.S200);
       res.result.should.have.property('result');
       res.result.result.should.have.property('recordsAffected', 1);
