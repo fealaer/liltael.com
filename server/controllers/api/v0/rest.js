@@ -20,7 +20,7 @@ function RestApi(Model) {
   };
 
   this.getById = function (req, res, next) {
-    validateObjectId(req.params.id, function (err, id) {
+    validateObjectId(req.params.id, function (err, _id) {
       if (err) {
         res.json(new ApiResponse(err, null));
       } else {
@@ -60,19 +60,19 @@ function RestApi(Model) {
 
   this.putById = function (req, res, next) {
     var rawData = req.body.data || req.body;
-    validateObjectId(rawData.id, function (err, id) {
+    validateObjectId(rawData.id, function (err, _id) {
       if (err) {
         res.json(new ApiResponse(err, null));
       } else {
         delete rawData._id;
-        Model.update({"_id": _id}, rawData, {upsert: true}, function (err, record) {
+        Model.update({"_id": _id}, rawData, {upsert: true}, function (err, affected) {
           if (err) {
             res.json(new ApiResponse(new ApiError(err), null));
           } else {
-            if (record < 1) {
+            if (affected < 1) {
               res.json(new ApiResponse(new ApiError(null, 404, 'Record does not exist'), null));
             } else {
-              res.json(new ApiResponse(null, {"recordsAffected": record}));
+              res.json(new ApiResponse(null, {recordsAffected: affected}));
             }
           }
         });
@@ -82,18 +82,18 @@ function RestApi(Model) {
 
   this.deleteById = function (req, res, next) {
     var rawData = req.body.data || req.body;
-    validateObjectId(rawData.id, function (err, id) {
+    validateObjectId(rawData.id, function (err, _id) {
       if (err) {
         res.json(new ApiResponse(err, null));
       } else {
-        Model.remove({"_id": id}, function (err, record) {
+        Model.remove({"_id": _id}, function (err, affected) {
           if (err) {
             res.json(new ApiResponse(new ApiError(err), null));
           } else {
-            if (record < 1) {
+            if (affected < 1) {
               res.json(new ApiResponse(new ApiError(null, 404, 'Record does not exist'), null));
             } else {
-              res.json(new ApiResponse(null, {"recordsAffected": record}));
+              res.json(new ApiResponse(null, {recordsAffected: affected}));
             }
           }
         });
@@ -105,10 +105,10 @@ function RestApi(Model) {
 function validateObjectId(id, callback) {
   try {
     var _id = new ObjectID(id);
+    callback(null, _id);
   } catch (e) {
     callback(new ApiError(null, 400, 'Incorrect record ID'), null);
   }
-  callback(null, _id);
 }
 
 RestApi.prototype.name = "RestApi";
