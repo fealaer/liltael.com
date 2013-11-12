@@ -283,9 +283,12 @@ describe('REST API v0 method', function () {
 
     it('should update a single document in a collection and return that only one document affected', function () {
       TestModel.update = function (conditions, update, options, callback) {
+        conditions.should.have.property('_id').with.be.not.empty;
+        update.should.have.property('newField', 'newField');
+        options.should.have.property('upsert', true);
         callback(null, 1);
       };
-      var data = {id: "5260001073657b99d0000001"};
+      var data = {id: "5260001073657b99d0000001", newField: "newField"};
       req = new Request(data);
       rest.putById(req, res, next);
       res.result.should.have.property('status', ApiStatus.S200);
