@@ -26,8 +26,8 @@ describe('REST API V0 method', function () {
         callback(null, records);
       };
       rest.get(req, res, next);
-      res.result.should.have.property('result').with.eql(records);
-      res.result.should.have.property('status').with.eql(ApiStatus.S200);
+      res.result.should.have.property('result', records);
+      res.result.should.have.property('status', ApiStatus.S200);
       res.result.should.have.property('error').with.be.empty;
     });
 
@@ -38,11 +38,11 @@ describe('REST API V0 method', function () {
       };
       rest.get(req, res, next);
       res.result.should.have.property('result').with.be.empty;
-      res.result.should.have.property('status').with.eql(ApiStatus.S500);
+      res.result.should.have.property('status', ApiStatus.S500);
       res.result.should.have.property('error');
-      res.result.error.should.have.property('message').with.equal('Internal server error');
-      res.result.error.should.have.property('code').with.equal(500);
-      res.result.error.should.have.property('moreInfo').with.equal('http://localhost:3000/api/v0/docs/errors/500');
+      res.result.error.should.have.property('message', 'Internal server error');
+      res.result.error.should.have.property('code', 500);
+      res.result.error.should.have.property('moreInfo', 'http://localhost:3000/api/v0/docs/errors/500');
     });
   });
 
@@ -59,10 +59,10 @@ describe('REST API V0 method', function () {
       req = new Request(data);
       rest.post(req, res, next);
       res.result.should.have.property('result');
-      res.result.result.data.should.have.property('name').with.equal("test");
-      res.result.result.data.should.have.property('fake').with.equal(true);
+      res.result.result.data.should.have.property('name', "test");
+      res.result.result.data.should.have.property('fake', true);
       res.result.result.data.should.not.have.property('_id');
-      res.result.should.have.property('status').with.eql(ApiStatus.S200);
+      res.result.should.have.property('status', ApiStatus.S200);
       res.result.should.have.property('error').with.be.empty;
     });
 
@@ -77,11 +77,11 @@ describe('REST API V0 method', function () {
       var data = {_id: "5260001073657b99d0000001", name: "test", fake: true};
       req = new Request(data);
       rest.post(req, res, next);
-      res.result.should.have.property('status').with.eql(ApiStatus.S500);
+      res.result.should.have.property('status', ApiStatus.S500);
       res.result.should.have.property('error');
-      res.result.error.should.have.property('message').with.equal('Internal server error');
-      res.result.error.should.have.property('code').with.equal(500);
-      res.result.error.should.have.property('moreInfo').with.equal('http://localhost:3000/api/v0/docs/errors/500');
+      res.result.error.should.have.property('message', 'Internal server error');
+      res.result.error.should.have.property('code', 500);
+      res.result.error.should.have.property('moreInfo', 'http://localhost:3000/api/v0/docs/errors/500');
       res.result.should.have.property('result').with.be.empty;
     });
 
@@ -112,16 +112,16 @@ describe('REST API V0 method', function () {
       var data = {_id: "5260001073657b99d0000001", name: "test", fake: true};
       req = new Request(data);
       rest.post(req, res, next);
-      res.result.should.have.property('status').with.eql(ApiStatus.S400);
+      res.result.should.have.property('status', ApiStatus.S400);
       res.result.should.have.property('error');
-      res.result.error.should.have.property('message').with.equal('Validation failed');
-      res.result.error.should.have.property('code').with.equal(400);
-      res.result.error.should.have.property('moreInfo').with.equal('http://localhost:3000/api/v0/docs/errors/400');
+      res.result.error.should.have.property('message', 'Validation failed');
+      res.result.error.should.have.property('code', 400);
+      res.result.error.should.have.property('moreInfo', 'http://localhost:3000/api/v0/docs/errors/400');
       res.result.error.should.have.property('errors').with.length(2);
-      res.result.error.errors[0].should.have.property('path').with.equal('username');
-      res.result.error.errors[0].should.have.property('message').with.equal('Validator "required" failed for path username');
-      res.result.error.errors[1].should.have.property('path').with.equal('password');
-      res.result.error.errors[1].should.have.property('message').with.equal('Validator "required" failed for path password');
+      res.result.error.errors[0].should.have.property('path', 'username');
+      res.result.error.errors[0].should.have.property('message', 'Validator "required" failed for path username');
+      res.result.error.errors[1].should.have.property('path', 'password');
+      res.result.error.errors[1].should.have.property('message', 'Validator "required" failed for path password');
       res.result.should.have.property('result').with.be.empty;
     });
   });

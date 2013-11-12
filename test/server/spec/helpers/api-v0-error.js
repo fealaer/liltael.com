@@ -30,14 +30,14 @@ describe('Api Error V0:', function () {
       }
     };
     var error = new ApiError(err, 404, 'Record not found');
-    error.should.have.property('message').with.equal('Validation failed');
-    error.should.have.property('code').with.equal(400);
-    error.should.have.property('moreInfo').with.equal('http://localhost:3000/api/v0/docs/errors/400');
+    error.should.have.property('message', 'Validation failed');
+    error.should.have.property('code', 400);
+    error.should.have.property('moreInfo', 'http://localhost:3000/api/v0/docs/errors/400');
     error.should.have.property('errors').with.length(2);
-    error.errors[0].should.have.property('path').with.equal('username');
-    error.errors[0].should.have.property('message').with.equal('Validator "required" failed for path username');
-    error.errors[1].should.have.property('path').with.equal('password');
-    error.errors[1].should.have.property('message').with.equal('Validator "required" failed for path password');
+    error.errors[0].should.have.property('path', 'username');
+    error.errors[0].should.have.property('message', 'Validator "required" failed for path username');
+    error.errors[1].should.have.property('path', 'password');
+    error.errors[1].should.have.property('message', 'Validator "required" failed for path password');
   });
 
   it('should create new ApiError based on MongoError', function () {
@@ -47,22 +47,22 @@ describe('Api Error V0:', function () {
       code: 11000
     };
     var error = new ApiError(err, 404, 'Record not found');
-    error.should.have.property('message').with.equal("Not unique value 'ann' for field 'UserName'");
-    error.should.have.property('code').with.equal(400);
-    error.should.have.property('moreInfo').with.equal('http://localhost:3000/api/v0/docs/errors/400');
+    error.should.have.property('message', "Not unique value 'ann' for field 'UserName'");
+    error.should.have.property('code', 400);
+    error.should.have.property('moreInfo', 'http://localhost:3000/api/v0/docs/errors/400');
   });
 
   it('should create new ApiError based on error', function () {
     var error = new ApiError({}, 404, 'Record not found');
-    error.should.have.property('message').with.equal('Internal server error');
-    error.should.have.property('code').with.equal(500);
-    error.should.have.property('moreInfo').with.equal('http://localhost:3000/api/v0/docs/errors/500');
+    error.should.have.property('message', 'Internal server error');
+    error.should.have.property('code', 500);
+    error.should.have.property('moreInfo', 'http://localhost:3000/api/v0/docs/errors/500');
   });
 
   it('should create new ApiError based on code and message', function () {
     var error = new ApiError(null, 404, 'Record not found');
-    error.should.have.property('message').with.equal('Record not found');
-    error.should.have.property('code').with.equal(404);
-    error.should.have.property('moreInfo').with.equal('http://localhost:3000/api/v0/docs/errors/404');
+    error.should.have.property('message', 'Record not found');
+    error.should.have.property('code', 404);
+    error.should.have.property('moreInfo', 'http://localhost:3000/api/v0/docs/errors/404');
   });
 });

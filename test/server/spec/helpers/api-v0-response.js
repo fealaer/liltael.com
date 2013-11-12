@@ -15,28 +15,28 @@ describe('Api Response V0:', function () {
   it('should create new ApiResponse with valid result', function () {
     var records = [1, 2];
     var res = new ApiResponse(null, records);
-    res.should.have.property('result').with.eql(records);
-    res.should.have.property('status').with.eql(ApiStatus.S200);
+    res.should.have.property('result', records);
+    res.should.have.property('status', ApiStatus.S200);
     res.should.have.property('error').with.be.empty;
   });
 
   it('should create new ApiResponse with error and 500 status', function () {
     var res = new ApiResponse(new ApiError(null, 500, 'Internal server error'), null);
-    res.should.have.property('status').with.eql(ApiStatus.S500);
+    res.should.have.property('status', ApiStatus.S500);
     res.should.have.property('error');
-    res.error.should.have.property('message').with.equal('Internal server error');
-    res.error.should.have.property('code').with.equal(500);
-    res.error.should.have.property('moreInfo').with.equal('http://localhost:3000/api/v0/docs/errors/500');
+    res.error.should.have.property('message', 'Internal server error');
+    res.error.should.have.property('code', 500);
+    res.error.should.have.property('moreInfo', 'http://localhost:3000/api/v0/docs/errors/500');
     res.should.have.property('result').with.be.empty;
   });
 
   it('should create new ApiResponse with error and 404 status', function () {
     var res = new ApiResponse(new ApiError(null, 404, 'Record not found'), null);
-    res.should.have.property('status').with.eql(ApiStatus.S404);
+    res.should.have.property('status', ApiStatus.S404);
     res.should.have.property('error');
-    res.error.should.have.property('message').with.equal('Record not found');
-    res.error.should.have.property('code').with.equal(404);
-    res.error.should.have.property('moreInfo').with.equal('http://localhost:3000/api/v0/docs/errors/404');
+    res.error.should.have.property('message', 'Record not found');
+    res.error.should.have.property('code', 404);
+    res.error.should.have.property('moreInfo', 'http://localhost:3000/api/v0/docs/errors/404');
     res.should.have.property('result').with.be.empty;
   });
 
