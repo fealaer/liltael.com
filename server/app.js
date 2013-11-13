@@ -15,7 +15,7 @@ var ENV = app.get('env');
 
 app.use(express.favicon());
 if ('development' === ENV || 'test' === ENV) {
-  app.set('views', __dirname + '/app');
+  app.set('views', __dirname + '/client');
   app.use(express.logger('dev'));
 } else if ('production' === ENV) {
   app.set('views', __dirname + '/dist');
@@ -41,7 +41,7 @@ app.use(app.router);
 require('./routes')(app);
 
 if ('development' === ENV || 'test' === ENV) {
-  app.use(express.static(path.join(__dirname, '../app')));
+  app.use(express.static(path.join(__dirname, '../client')));
 } else if ('production' === ENV) {
   app.use(express.static(path.join(__dirname, '../dist')));
 }

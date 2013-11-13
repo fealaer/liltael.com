@@ -1,22 +1,22 @@
 'use strict';
 
-describe('StartingPointJSApp', function () {
+describe('StartingPointJsApp', function () {
 
   // load the controller's module
   var module;
   beforeEach(function () {
-    module = angular.module('StartingPointJSApp');
+    module = angular.module('startingPointJsApp');
   });
 
   it("should be registered", function () {
-    module.should.not.equal(null);
+    expect(module).not.toBe(null);
   });
 });
 
 describe('Controller: MainCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('StartingPointJSApp'));
+  beforeEach(module('startingPointJsApp'));
 
   var MainCtrl,
     scope;
@@ -30,6 +30,6 @@ describe('Controller: MainCtrl', function () {
   }));
 
   it('should attach a list of awesomeThings to the scope', function () {
-    scope.should.have.property('awesomeThings').with.length(7);
+    expect(scope.awesomeThings.length).toBe(7);
   });
 });

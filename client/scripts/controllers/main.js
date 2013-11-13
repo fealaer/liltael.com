@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('StartingPointJSApp')
+angular.module('startingPointJsApp')
   .controller('MainCtrl', function ($scope) {
     $scope.awesomeThings = [
       {name: 'NodeJS', description: 'Node.js is a platform built on Chrome\'s JavaScript runtime for easily building fast, scalable network applications.'},
