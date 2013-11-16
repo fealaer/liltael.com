@@ -8,10 +8,7 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test/client/e2e/**/*.js',
-
-      'node_modules/chai/chai.js',
-      'test/client/lib/chai-helper.js'
+      'test/client/e2e/**/*.js'
     ],
 
     // list of files / patterns to exclude

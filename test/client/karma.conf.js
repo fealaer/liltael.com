@@ -8,6 +8,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'client/bower_components/jquery/jquery.js',
       'client/bower_components/angular/angular.js',
       'client/bower_components/angular-mocks/angular-mocks.js',
       'client/bower_components/angular-resource/angular-resource.js',
@@ -17,8 +18,19 @@ module.exports = function(config) {
       'client/scripts/*.js',
       'client/scripts/**/*.js',
       'test/client/mock/**/*.js',
-      'test/client/spec/**/*.js'
+      'test/client/spec/**/*.js',
+      'client/views/**/*.html'
     ],
+
+    // generate js files from html templates to expose them during testing.
+    preprocessors: {
+      'client/views/**/*.html': ['ng-html2js']
+    },
+
+    ngHtml2JsPreprocessor: {
+      // strip this from the file path
+      stripPrefix: 'client/'
+    },
 
     // list of files / patterns to exclude
     exclude: [],
@@ -43,6 +55,7 @@ module.exports = function(config) {
       "karma-chrome-launcher",
       "karma-firefox-launcher",
       "karma-phantomjs-launcher",
+      "karma-ng-html2js-preprocessor",
       "karma-junit-reporter"
     ],
 

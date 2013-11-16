@@ -8,7 +8,6 @@ angular.module('startingPointJsApp')
       {name: 'HTML5 Boilerplate', description: 'HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.'},
       {name: 'AngularJS', description: 'AngularJS is a toolset for building the framework most suited to your application development.'},
       {name: 'Karma', description: 'Spectacular Test Runner for JavaScript.'},
-      {name: 'Mocha', description: 'Mocha is a feature-rich JavaScript test framework.'},
-      {name: 'Chai', description: 'Chai is a BDD / TDD assertion library.'}
+      {name: 'Jasmine', description: 'Jasmine is a behavior-driven development framework for testing JavaScript code.'}
     ];
   });

@@ -1,0 +1,23 @@
+<div class="jumbotron">
+    <h2>User quotes</h1>
+    <p class="lead">Here you can find some users and theirs quotes</p>
+</div>
+
+<div class="marketing ">
+    <div class="panel panel-success user" ng-repeat="user in users">
+        <div class="panel-body row">
+            <div class="col-md-1">
+                <img ng-src="{{user.avatar}}"/>
+                <h5>{{user.username}}</h5>
+            </div>
+            <div class="col-md-11">
+                <h6>Quotes:</h6>
+                <ul class="quotes list-group">
+                    <li class="quote list-group-item" ng-repeat="quote in user.quotes">
+                        <p class="list-group-item-text">{{quote}}</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

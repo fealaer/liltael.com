@@ -12,9 +12,9 @@ angular.module('startingPointJsApp', [
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/user', {
-        templateUrl: 'views/user.html',
-        controller: 'UserCtrl'
+      .when('/users', {
+        templateUrl: 'views/users.html',
+        controller: 'UsersCtrl'
       })
       .otherwise({
         redirectTo: '/'
