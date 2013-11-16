@@ -8,11 +8,11 @@ var ObjectID = require('mongodb').ObjectID;
 // 3. close connection
 
 async.series([
-    open,
-    dropDatabase,
-    requireModels,
-    createUsers
-], function(err, results) {
+  open,
+  dropDatabase,
+  requireModels,
+  createUsers
+], function (err, results) {
   console.log(arguments);
   mongoose.disconnect();
 });
@@ -36,16 +36,15 @@ function requireModels(callback) {
 
 function createUsers(callback) {
   var users = [
-    {_id: new ObjectID("5260001073657b99d0000001"), username: 'Neo', password: 'almostsuper', quotes: ["I know kung fu.", "Mr. Wizard. Get me the hell out of here."]},
-    {username: 'Agent Smith', password: 'imelrond', quotes: ["Never send a human to do a machine's job."]},
-    {username: 'Trinity', password: 'trinityhassecrets', quotes: ["Dodge this."]},
-    {username: 'Mouse', password: 'pipipi', quotes: ["To deny our own impulses is to deny the very thing that makes us human."]},
-    {username: 'admin', password: 'thetruehero'}
+    {username: 'Neo', password: 'almostsuper', avatar: 'images/users/neo.jpeg', quotes: ["I know kung fu.", "Mr. Wizard. Get me the hell out of here."], _id: new ObjectID("5260001073657b99d0000001")},
+    {username: 'Agent Smith', password: 'imelrond', avatar: 'images/users/agent-smith.jpeg', quotes: ["Never send a human to do a machine's job."]},
+    {username: 'Trinity', password: 'trinityhassecrets', avatar: 'images/users/trinity.jpeg', quotes: ["Dodge this."]},
+    {username: 'Mouse', password: 'pipipi', avatar: 'images/users/mouse.jpeg', quotes: ["To deny our own impulses is to deny the very thing that makes us human."]}
   ];
 
   async.each(users,
-    function (userData, callback) {
-      var user = new mongoose.models.User(userData);
-      user.save(callback);
-    }, callback);
+      function (userData, callback) {
+        var user = new mongoose.models.User(userData);
+        user.save(callback);
+      }, callback);
 }

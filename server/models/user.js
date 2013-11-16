@@ -14,6 +14,9 @@ var schema = new Schema({
   quotes: {
     type: Array
   },
+  avatar: {
+    type: String
+  },
   hashedPassword: {
     type: String,
     select: false
