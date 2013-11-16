@@ -277,16 +277,20 @@ module.exports = function (grunt) {
       e2e: {
         configFile: './test/client/karma-e2e.conf.js',
         singleRun: true
+      },
+      unitWatch: {
+        configFile: './test/client/karma.conf.js',
+        singleRun: false,
+        autoWatch: true
+      },
+      e2eWatch: {
+        configFile: './test/client/karma-e2e.conf.js',
+        singleRun: false,
+        autoWatch: true
       }
     },
-    mochaTest: {
-      test: {
-        options: {
-          reporter: 'progress',
-          bail: false
-        },
-        src: ['test/server/spec/{,*/}*.js']
-      }
+    'jasmine-node': {
+      args: '--captureExceptions --color --matchall test/server/spec/'
     },
     cdnify: {
       dist: {
@@ -314,8 +318,6 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-mocha-test');
-
   grunt.registerTask('server', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -335,8 +337,21 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma',
-    'mochaTest'
+    'karma:unit',
+    'karma:e2e',
+    'jasmine-node'
+  ]);
+
+  grunt.registerTask('unitWatch', [
+    'karma:unitWatch'
+  ]);
+
+  grunt.registerTask('e2eWatch', [
+    'karma:e2eWatch'
+  ]);
+
+  grunt.registerTask('serverTest', [
+    'jasmine-node'
   ]);
 
   grunt.registerTask('build', [
