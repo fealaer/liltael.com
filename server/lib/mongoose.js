@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     log = require('./log')(module),
-    config = require('../config');
+    config = require('../config'),
+    mongoStore = require('./mongoStore');
 
 module.exports = mongoose;
 
@@ -40,7 +41,7 @@ function connect() {
         }
         log.info('Connection to MongoDB was opened');
         mongoose.readyState = 1;
-        mongoose.db = mongoose.connection.db;
+        mongoStore.getMongoStore().collection = null;
       });
     }
   });

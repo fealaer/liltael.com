@@ -1,11 +1,9 @@
-var express = require('express');
-var http = require('http');
-var path = require('path');
-var config = require('./config');
-var log = require('./lib/log')(module);
-var mongoose = require('./lib/mongoose');
-var HttpError = require('./error').HttpError;
-
+var express = require('express'),
+    http = require('http'),
+    path = require('path'),
+    config = require('./config'),
+    log = require('./lib/log')(module),
+    HttpError = require('./error').HttpError;
 
 var app = express();
 
@@ -22,29 +20,32 @@ if ('development' === ENV || 'test' === ENV) {
   app.use(express.logger('default'));
 }
 
-app.use(express.bodyParser());
-app.use(express.cookieParser());
-app.use(express.methodOverride());
-
-var MongoStore = require('connect-mongo')(express);
-
-app.use(express.session({
-  secret: config.get('session:secret'),
-  key: config.get('session:key'),
-  cookie: config.get('session:cookie'),
-  store: new MongoStore({mongoose_connection: mongoose.connection})
-}));
-
-app.use(require('./middleware/sendHttpError'));
-app.use(app.router);
-
-require('./routes')(app);
-
 if ('development' === ENV || 'test' === ENV) {
   app.use(express.static(path.join(__dirname, '../client')));
 } else if ('production' === ENV) {
   app.use(express.static(path.join(__dirname, '../dist')));
 }
+
+app.use(express.bodyParser());
+app.use(express.cookieParser());
+app.use(express.methodOverride());
+
+var mongoose = require('./lib/mongoose'),
+    mongoStore = require('./lib/mongoStore');
+var store = mongoStore.createMongoStore(express, mongoose);
+
+app.use(express.session({
+  secret: config.get('session:secret'),
+  key: config.get('session:key'),
+  cookie: config.get('session:cookie'),
+  store: store
+}));
+
+app.use(require('./middleware/loadUser'));
+app.use(require('./middleware/sendHttpError'));
+app.use(app.router);
+
+require('./routes')(app);
 
 if ('development' === ENV || 'test' === ENV) {
   app.use(express.errorHandler());
@@ -71,9 +72,9 @@ function appErrorHandler(err, req, res, next) {
   }
 }
 
-process.on('uncaughtException', function(err) {
+process.on('uncaughtException', function (err) {
+  log.error('Uncaught Exception: ' + err.message);
   log.error(err.stack);
-  setTimeout(function() {process.exit(1);}, 2000);
 });
 
 http.createServer(app).listen(config.get('port'), function () {
