@@ -1,10 +1,10 @@
-var log = require('../../../lib/log')(module);
+var log = require('../../lib/log')(module);
 var util = require('util');
+var HOSTNAME = process.env.NODE_HOSTNAME || 'localhost:3000';
 
-function ApiError(err, code, message) {
+function JsonError(err, code, message) {
   if (err) {
-    log.error(err.stack);
-    if (err.name == 'ValidationError') {
+    if (err.name === 'ValidationError') {
       this.message = err.message;
       this.code = 400;
       this.errors = [];
@@ -13,10 +13,14 @@ function ApiError(err, code, message) {
           path: err.errors[errName].path,
           message: err.errors[errName].message});
       }
-    } else if (err.name == "MongoError" && err.code == 11000) {
+    } else if (err.name === "MongoError" && err.code === 11000) {
       this.message = extractFieldNameAndValue(err.message);
       this.code = 400;
+    } else if (err.name === 'AuthError') {
+      this.message = err.message;
+      this.code = 400;
     } else {
+      log.error(err.stack);
       this.message = 'Internal server error';
       this.code = 500;
     }
@@ -24,12 +28,13 @@ function ApiError(err, code, message) {
     this.message = message;
     this.code = code;
   }
-  this.moreInfo = util.format('http://localhost:3000/api/v0/docs/errors/%d', this.code);
+  log.warn(this.message);
+  this.moreInfo = util.format('http://%s/api/docs/errors/%d', HOSTNAME, this.code);
 }
 
-ApiError.prototype.name = "ApiError";
+JsonError.prototype.name = "JsonError";
 
-module.exports = ApiError;
+module.exports = JsonError;
 
 function extractFieldNameAndValue(msg) {
   var start = msg.indexOf('.$') + 2;

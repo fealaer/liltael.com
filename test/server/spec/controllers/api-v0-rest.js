@@ -1,9 +1,8 @@
 'use strict';
 
 var rekuire = require('rekuire'),
-    ApiResponse = rekuire('server/helpers/api/v0/response'),
-    ApiStatus = rekuire('server/helpers/api/v0/status'),
-    ApiError = rekuire('server/helpers/api/v0/error');
+    JsonResponse = rekuire('server/helpers/json/response'),
+    Status = rekuire('server/helpers/json/status');
 
 describe('REST API v0 method', function () {
   var rest, req, res, next;
@@ -21,7 +20,7 @@ describe('REST API v0 method', function () {
       };
       rest.get(req, res, next);
       expect(res.result.result).toBe(records);
-      expect(res.result.status).toBe(ApiStatus.S200);
+      expect(res.result.status).toBe(Status.S200);
       expect(Object.keys(res.result.error).length === 0).toBe(true);
     });
 
@@ -32,11 +31,11 @@ describe('REST API v0 method', function () {
       };
       rest.get(req, res, next);
       expect(Object.keys(res.result.result).length === 0).toBe(true);
-      expect(res.result.status).toBe(ApiStatus.S500);
+      expect(res.result.status).toBe(Status.S500);
       expect(res.result.error).not.toBeUndefined();
       expect(res.result.error.message).toBe('Internal server error');
       expect(res.result.error.code).toBe(500);
-      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/v0/docs/errors/500');
+      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/docs/errors/500');
     });
   });
 
@@ -55,7 +54,7 @@ describe('REST API v0 method', function () {
       expect(res.result.result.data.name).toBe("test");
       expect(res.result.result.data.fake).toBe(true);
       expect(res.result.result.data._id).toBeUndefined();
-      expect(res.result.status).toBe(ApiStatus.S200);
+      expect(res.result.status).toBe(Status.S200);
       expect(Object.keys(res.result.error).length === 0).toBe(true);
     });
 
@@ -70,11 +69,11 @@ describe('REST API v0 method', function () {
       var data = {_id: "5260001073657b99d0000001", name: "test", fake: true};
       req = new Request(data);
       rest.post(req, res, next);
-      expect(res.result.status).toBe(ApiStatus.S500);
+      expect(res.result.status).toBe(Status.S500);
       expect(res.result.error).not.toBeUndefined();
       expect(res.result.error.message).toBe('Internal server error');
       expect(res.result.error.code).toBe(500);
-      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/v0/docs/errors/500');
+      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/docs/errors/500');
       expect(Object.keys(res.result.result).length === 0).toBe(true);
     });
 
@@ -104,11 +103,11 @@ describe('REST API v0 method', function () {
       var data = {_id: "5260001073657b99d0000001", name: "test", fake: true};
       req = new Request(data);
       rest.post(req, res, next);
-      expect(res.result.status).toBe(ApiStatus.S400);
+      expect(res.result.status).toBe(Status.S400);
       expect(res.result.error).not.toBeUndefined();
       expect(res.result.error.message).toBe('Validation failed');
       expect(res.result.error.code).toBe(400);
-      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/v0/docs/errors/400');
+      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/docs/errors/400');
       expect(res.result.error.errors.length).toBe(2);
       expect(res.result.error.errors[0].path).toBe('username');
       expect(res.result.error.errors[0].message).toBe('Validator "required" failed for path username');
@@ -123,11 +122,11 @@ describe('REST API v0 method', function () {
       var params = {id: "abba"};
       req = new Request(null, params);
       rest.getById(req, res, next);
-      expect(res.result.status).toBe(ApiStatus.S400);
+      expect(res.result.status).toBe(Status.S400);
       expect(res.result.error).not.toBeUndefined();
       expect(res.result.error.message).toBe('Incorrect record ID');
       expect(res.result.error.code).toBe(400);
-      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/v0/docs/errors/400');
+      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/docs/errors/400');
       expect(Object.keys(res.result.result).length === 0).toBe(true);
     });
 
@@ -138,11 +137,11 @@ describe('REST API v0 method', function () {
       var params = {id: "5260001073657b99d0000001"};
       req = new Request(null, params);
       rest.getById(req, res, next);
-      expect(res.result.status).toBe(ApiStatus.S500);
+      expect(res.result.status).toBe(Status.S500);
       expect(res.result.error).not.toBeUndefined();
       expect(res.result.error.message).toBe('Internal server error');
       expect(res.result.error.code).toBe(500);
-      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/v0/docs/errors/500');
+      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/docs/errors/500');
       expect(Object.keys(res.result.result).length === 0).toBe(true);
     });
 
@@ -153,11 +152,11 @@ describe('REST API v0 method', function () {
       var params = {id: "5260001073657b99d0000001"};
       req = new Request(null, params);
       rest.getById(req, res, next);
-      expect(res.result.status).toBe(ApiStatus.S404);
+      expect(res.result.status).toBe(Status.S404);
       expect(res.result.error).not.toBeUndefined();
       expect(res.result.error.message).toBe('Record not found');
       expect(res.result.error.code).toBe(404);
-      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/v0/docs/errors/404');
+      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/docs/errors/404');
       expect(Object.keys(res.result.result).length === 0).toBe(true);
     });
 
@@ -169,7 +168,7 @@ describe('REST API v0 method', function () {
       var params = {id: "5260001073657b99d0000001"};
       req = new Request(null, params);
       rest.getById(req, res, next);
-      expect(res.result.status).toBe(ApiStatus.S200);
+      expect(res.result.status).toBe(Status.S200);
       expect(res.result.result).toBe(data);
       expect(Object.keys(res.result.error).length === 0).toBe(true);
     });
@@ -180,11 +179,11 @@ describe('REST API v0 method', function () {
       var data = {id: "abba"};
       req = new Request(data);
       rest.deleteById(req, res, next);
-      expect(res.result.status).toBe(ApiStatus.S400);
+      expect(res.result.status).toBe(Status.S400);
       expect(res.result.error).not.toBeUndefined();
       expect(res.result.error.message).toBe('Incorrect record ID');
       expect(res.result.error.code).toBe(400);
-      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/v0/docs/errors/400');
+      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/docs/errors/400');
       expect(Object.keys(res.result.result).length === 0).toBe(true);
     });
 
@@ -195,11 +194,11 @@ describe('REST API v0 method', function () {
       var data = {id: "5260001073657b99d0000001"};
       req = new Request(data);
       rest.deleteById(req, res, next);
-      expect(res.result.status).toBe(ApiStatus.S500);
+      expect(res.result.status).toBe(Status.S500);
       expect(res.result.error).not.toBeUndefined();
       expect(res.result.error.message).toBe('Internal server error');
       expect(res.result.error.code).toBe(500);
-      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/v0/docs/errors/500');
+      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/docs/errors/500');
       expect(Object.keys(res.result.result).length === 0).toBe(true);
     });
 
@@ -210,11 +209,11 @@ describe('REST API v0 method', function () {
       var data = {id: "5260001073657b99d0000001"};
       req = new Request(data);
       rest.deleteById(req, res, next);
-      expect(res.result.status).toBe(ApiStatus.S404);
+      expect(res.result.status).toBe(Status.S404);
       expect(res.result.error).not.toBeUndefined();
       expect(res.result.error.message).toBe('Record does not exist');
       expect(res.result.error.code).toBe(404);
-      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/v0/docs/errors/404');
+      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/docs/errors/404');
       expect(Object.keys(res.result.result).length === 0).toBe(true);
     });
 
@@ -225,7 +224,7 @@ describe('REST API v0 method', function () {
       var data = {id: "5260001073657b99d0000001"};
       req = new Request(data);
       rest.deleteById(req, res, next);
-      expect(res.result.status).toBe(ApiStatus.S200);
+      expect(res.result.status).toBe(Status.S200);
       expect(res.result.result).not.toBeUndefined();
       expect(res.result.result.recordsAffected).toBe(1);
       expect(Object.keys(res.result.error).length === 0).toBe(true);
@@ -237,11 +236,11 @@ describe('REST API v0 method', function () {
       var data = {id: "abba"};
       req = new Request(data);
       rest.putById(req, res, next);
-      expect(res.result.status).toBe(ApiStatus.S400);
+      expect(res.result.status).toBe(Status.S400);
       expect(res.result.error).not.toBeUndefined();
       expect(res.result.error.message).toBe('Incorrect record ID');
       expect(res.result.error.code).toBe(400);
-      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/v0/docs/errors/400');
+      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/docs/errors/400');
       expect(Object.keys(res.result.result).length === 0).toBe(true);
     });
 
@@ -252,11 +251,11 @@ describe('REST API v0 method', function () {
       var data = {id: "5260001073657b99d0000001"};
       req = new Request(data);
       rest.putById(req, res, next);
-      expect(res.result.status).toBe(ApiStatus.S500);
+      expect(res.result.status).toBe(Status.S500);
       expect(res.result.error).not.toBeUndefined();
       expect(res.result.error.message).toBe('Internal server error');
       expect(res.result.error.code).toBe(500);
-      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/v0/docs/errors/500');
+      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/docs/errors/500');
       expect(Object.keys(res.result.result).length === 0).toBe(true);
     });
 
@@ -267,11 +266,11 @@ describe('REST API v0 method', function () {
       var data = {id: "5260001073657b99d0000001"};
       req = new Request(data);
       rest.putById(req, res, next);
-      expect(res.result.status).toBe(ApiStatus.S404);
+      expect(res.result.status).toBe(Status.S404);
       expect(res.result.error).not.toBeUndefined();
       expect(res.result.error.message).toBe('Record does not exist');
       expect(res.result.error.code).toBe(404);
-      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/v0/docs/errors/404');
+      expect(res.result.error.moreInfo).toBe('http://localhost:3000/api/docs/errors/404');
       expect(Object.keys(res.result.result).length === 0).toBe(true);
     });
 
@@ -285,7 +284,7 @@ describe('REST API v0 method', function () {
       var data = {id: "5260001073657b99d0000001", newField: "newField"};
       req = new Request(data);
       rest.putById(req, res, next);
-      expect(res.result.status).toBe(ApiStatus.S200);
+      expect(res.result.status).toBe(Status.S200);
       expect(res.result.result).not.toBeUndefined();
       expect(res.result.result.recordsAffected).toBe(1);
       expect(Object.keys(res.result.error).length === 0).toBe(true);
