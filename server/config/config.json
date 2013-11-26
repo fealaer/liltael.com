@@ -4,6 +4,7 @@
     "uri": "mongodb://localhost/start_point",
     "options": {
       "server": {
+        "auto_reconnect": false,
         "socketOptions": {
           "keepAlive": 1
         }
@@ -16,7 +17,7 @@
     "cookie": {
       "path": "/",
       "httpOnly": true,
-      "maxAge": null
+      "maxAge": 3600000
     }
   }
 }
