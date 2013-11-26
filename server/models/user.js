@@ -1,6 +1,8 @@
-var crypto = require('crypto');
-var async = require('async');
-var util = require('util');
+var crypto = require('crypto'),
+    async = require('async'),
+    util = require('util'),
+    AuthError = require('../error').AuthError,
+    ValidationError = require('../error').ValidationError;
 
 var mongoose = require('../lib/mongoose'),
     Schema = mongoose.Schema;
@@ -48,23 +50,22 @@ schema.virtual('password')
     });
 
 schema.methods.checkPassword = function (password) {
-  if (!password) return false;
-  return this.encryptPassword(password) == this.hashedPassword;
+  return this.encryptPassword(password) === this.hashedPassword;
 };
 
 schema.statics.authorize = function (username, password, callback) {
   var User = this;
-
+  if (!password) return callback(new ValidationError("Password is required"));
   async.waterfall([
     function (callback) {
-      User.findOne({username: username}, callback);
+      User.findOne({username: username}, {username: 1, hashedPassword: 1, salt: 1, avatar: 1, quotes: 1}, callback);
     },
     function(user, callback) {
       if (user){
         if (user.checkPassword(password)) {
           callback(null, user);
         } else {
-          callback(new AuthError("Wrong password"))
+          callback(new AuthError("Wrong password"));
         }
       } else {
         var user = new User({username: username, password: password});
@@ -78,16 +79,3 @@ schema.statics.authorize = function (username, password, callback) {
 };
 
 exports.User = mongoose.model('User', schema);
-
-function AuthError(message) {
-  Error.apply(this, arguments);
-  Error.captureStackTrace(this, AuthError);
-
-  this.message = message;
-}
-
-util.inherits(AuthError, Error);
-
-AuthError.prototype.name = "AuthError";
-
-module.exports.AuthError = AuthError;
