@@ -54,7 +54,7 @@ if ('development' === ENV || 'test' === ENV) {
 }
 
 function appErrorHandler(err, req, res, next) {
-  if (typeof err == 'number') {
+  if (typeof err === 'number') {
     err = new HttpError(err);
   }
   if (err instanceof HttpError) {

@@ -55,20 +55,23 @@ schema.methods.checkPassword = function (password) {
 
 schema.statics.authorize = function (username, password, callback) {
   var User = this;
-  if (!password) return callback(new ValidationError("Password is required"));
+  var validationError = new ValidationError();
+  if (!password) validationError.addError("password", "Password is required");
+  if (!username) validationError.addError("username", "Username is required");
+  if (validationError.getErrorsSize() !== 0) return callback(validationError);
   async.waterfall([
     function (callback) {
-      User.findOne({username: username}, {username: 1, hashedPassword: 1, salt: 1, avatar: 1, quotes: 1}, callback);
+      User.findOne({username: username}, {_id: 1, username: 1, hashedPassword: 1, salt: 1, avatar: 1, quotes: 1}, callback);
     },
     function(user, callback) {
       if (user){
         if (user.checkPassword(password)) {
           callback(null, user);
         } else {
-          callback(new AuthError("Wrong password"));
+          callback(new AuthError(400, "Wrong username or password"));
         }
       } else {
-        var user = new User({username: username, password: password});
+        user = new User({username: username, password: password});
         user.save(function (err) {
           if (err) return callback(err);
           callback(null, user);
@@ -78,4 +81,4 @@ schema.statics.authorize = function (username, password, callback) {
   ], callback);
 };
 
-exports.User = mongoose.model('User', schema);
+module.exports = mongoose.model('User', schema);

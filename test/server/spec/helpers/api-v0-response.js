@@ -1,46 +1,46 @@
 'use strict';
 
-var rekuire = require('rekuire'),
-    JsonResponse = rekuire('server/helpers/json/response'),
-    Status = rekuire('server/helpers/json/status'),
-    JsonError = rekuire('server/helpers/json/error');
+var JsonResponse = require('../../../../server/helpers/json/response'),
+    Status = require('../../../../server/helpers/json/status'),
+    JsonError = require('../../../../server/helpers/json/error'),
+    expect = require('expect.js');
 
 describe('Api Response V0:', function () {
 
   it('should create new JsonResponse with valid result', function () {
     var records = [1, 2];
     var res = new JsonResponse(null, records);
-    expect(res.result).toBe(records);
-    expect(res.status).toBe(Status.S200);
-    expect(Object.keys(res.error).length === 0).toBe(true);
+    expect(res.result).to.be(records);
+    expect(res.status).to.be(Status.S200);
+    expect(Object.keys(res.error).length === 0).to.be(true);
   });
 
   it('should create new JsonResponse with error and 500 status', function () {
     var res = new JsonResponse(new JsonError(null, 500, 'Internal server error'), null);
-    expect(res.status).toBe(Status.S500);
-    expect(Object.keys(res.error).length !== 0).toBe(true);
-    expect(res.error.message).toBe('Internal server error');
-    expect(res.error.code).toBe(500);
-    expect(res.error.moreInfo).toBe('http://localhost:3000/api/docs/errors/500');
-    expect(Object.keys(res.result).length === 0).toBe(true);
+    expect(res.status).to.be(Status.S500);
+    expect(Object.keys(res.error).length !== 0).to.be(true);
+    expect(res.error.message).to.be('Internal server error');
+    expect(res.error.code).to.be(500);
+    expect(res.error.moreInfo).to.be('http://localhost:3000/api/docs/errors/500');
+    expect(Object.keys(res.result).length === 0).to.be(true);
   });
 
   it('should create new JsonResponse with error and 404 status', function () {
     var res = new JsonResponse(new JsonError(null, 404, 'Record not found'), null);
-    expect(res.status).toBe(Status.S404);
-    expect(res.error.message).toBe('Record not found');
-    expect(res.error.code).toBe(404);
-    expect(res.error.moreInfo).toBe('http://localhost:3000/api/docs/errors/404');
-    expect(Object.keys(res.result).length === 0).toBe(true);
+    expect(res.status).to.be(Status.S404);
+    expect(res.error.message).to.be('Record not found');
+    expect(res.error.code).to.be(404);
+    expect(res.error.moreInfo).to.be('http://localhost:3000/api/docs/errors/404');
+    expect(Object.keys(res.result).length === 0).to.be(true);
   });
 
   it('should throw exception when try to create JsonResponse with error and result simultaneously', function () {
     expect(function(){new JsonResponse(new JsonError(null, 404, 'Record not found'), [1, 2]);})
-        .toThrow("Internal server error: Illegal arguments for JsonResponse. Server can't return valid response.");
+        .to.throwError("Internal server error: Illegal arguments for JsonResponse. Server can't return valid response.");
   });
 
   it('should throw exception when try to create JsonResponse with out error or result simultaneously', function () {
     expect(function(){new JsonResponse(null, null);})
-        .toThrow("Internal server error: Illegal arguments for JsonResponse. Server can't return valid response.");
+        .to.throwError("Internal server error: Illegal arguments for JsonResponse. Server can't return valid response.");
   });
 });

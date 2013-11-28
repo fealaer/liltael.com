@@ -18,7 +18,7 @@ function JsonError(err, code, message) {
       this.code = 400;
     } else if (err.name === 'AuthError') {
       this.message = err.message;
-      this.code = 400;
+      this.code = err.status;
     } else {
       log.error(err.stack);
       this.message = 'Internal server error';

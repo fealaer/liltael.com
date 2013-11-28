@@ -1,7 +1,7 @@
 'use strict';
 
-var rekuire = require('rekuire'),
-    JsonError = rekuire('server/helpers/json/error');
+var JsonError = require('../../../../server/helpers/json/error'),
+    expect = require('expect.js');
 
 describe('Api Error V0:', function () {
 
@@ -25,14 +25,14 @@ describe('Api Error V0:', function () {
       }
     };
     var error = new JsonError(err, 404, 'Record not found');
-    expect(error.message).toBe('Validation failed');
-    expect(error.code).toBe(400);
-    expect(error.moreInfo).toBe('http://localhost:3000/api/docs/errors/400');
-    expect(error.errors.length).toBe(2);
-    expect(error.errors[0].path).toBe('username');
-    expect(error.errors[0].message).toBe('Validator "required" failed for path username');
-    expect(error.errors[1].path).toBe('password');
-    expect(error.errors[1].message).toBe('Validator "required" failed for path password');
+    expect(error.message).to.be('Validation failed');
+    expect(error.code).to.be(400);
+    expect(error.moreInfo).to.be('http://localhost:3000/api/docs/errors/400');
+    expect(error.errors.length).to.be(2);
+    expect(error.errors[0].path).to.be('username');
+    expect(error.errors[0].message).to.be('Validator "required" failed for path username');
+    expect(error.errors[1].path).to.be('password');
+    expect(error.errors[1].message).to.be('Validator "required" failed for path password');
   });
 
   it('should create new JsonError based on MongoError', function () {
@@ -42,22 +42,34 @@ describe('Api Error V0:', function () {
       code: 11000
     };
     var error = new JsonError(err, 404, 'Record not found');
-    expect(error.message).toBe("Not unique value 'ann' for field 'UserName'");
-    expect(error.code).toBe(400);
-    expect(error.moreInfo).toBe('http://localhost:3000/api/docs/errors/400');
+    expect(error.message).to.be("Not unique value 'ann' for field 'UserName'");
+    expect(error.code).to.be(400);
+    expect(error.moreInfo).to.be('http://localhost:3000/api/docs/errors/400');
+  });
+
+  it('should create new JsonError based on AuthError', function () {
+    var err =
+    { name: "AuthError",
+      message: "You aren't authorized",
+      status: 401
+    };
+    var error = new JsonError(err);
+    expect(error.message).to.be(err.message);
+    expect(error.code).to.be(err.status);
+    expect(error.moreInfo).to.be('http://localhost:3000/api/docs/errors/401');
   });
 
   it('should create new JsonError based on error', function () {
     var error = new JsonError({}, 404, 'Record not found');
-    expect(error.message).toBe('Internal server error');
-    expect(error.code).toBe(500);
-    expect(error.moreInfo).toBe('http://localhost:3000/api/docs/errors/500');
+    expect(error.message).to.be('Internal server error');
+    expect(error.code).to.be(500);
+    expect(error.moreInfo).to.be('http://localhost:3000/api/docs/errors/500');
   });
 
   it('should create new JsonError based on code and message', function () {
     var error = new JsonError(null, 404, 'Record not found');
-    expect(error.message).toBe('Record not found');
-    expect(error.code).toBe(404);
-    expect(error.moreInfo).toBe('http://localhost:3000/api/docs/errors/404');
+    expect(error.message).to.be('Record not found');
+    expect(error.code).to.be(404);
+    expect(error.moreInfo).to.be('http://localhost:3000/api/docs/errors/404');
   });
 });

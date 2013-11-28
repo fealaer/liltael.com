@@ -11,6 +11,8 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
 
+  grunt.loadNpmTasks('grunt-mocha-test');
+
   grunt.initConfig({
     requirejs: {
       options: {
@@ -289,8 +291,13 @@ module.exports = function (grunt) {
         autoWatch: true
       }
     },
-    'jasmine-node': {
-      args: '--captureExceptions --color --matchall test/server/spec/'
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'spec'
+        },
+        src: ['test/server/**/*.js']
+      }
     },
     cdnify: {
       dist: {
@@ -339,7 +346,7 @@ module.exports = function (grunt) {
     'connect:test',
     'karma:unit',
     'karma:e2e',
-    'jasmine-node'
+    'mochaTest'
   ]);
 
   grunt.registerTask('unitWatch', [
@@ -351,7 +358,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('serverTest', [
-    'jasmine-node'
+    'mochaTest'
   ]);
 
   grunt.registerTask('build', [

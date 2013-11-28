@@ -11,35 +11,43 @@ function HttpError(status, message) {
   this.message = message || http.STATUS_CODES[status] || 'Error';
 }
 
-function AuthError(message) {
+function AuthError(status, message) {
   Error.apply(this, arguments);
   Error.captureStackTrace(this, AuthError);
 
   this.message = message;
+  this.status = status;
 }
 
-function DBError(message) {
+function DBError(status, message) {
   Error.apply(this, arguments);
   Error.captureStackTrace(this, DBError);
 
   this.message = message;
+  this.status = status;
 }
 
-function ValidationError(path, message) {
+function ValidationError() {
   Error.apply(this, arguments);
   Error.captureStackTrace(this, ValidationError);
 
   this.message = 'Validation Error';
-  this.errors = [{
-    message: message,
-    path: path
-  }];
+  this.errors = {};
+  this.addError = function (path, message) {
+    this.errors[path] = {
+      message: message,
+      path: path
+    };
+  };
   this.code = 400;
+  this.getErrorsSize = function() {
+    return Object.keys(this.errors).length;
+  }
 }
 
 util.inherits(HttpError, Error);
-util.inherits(AuthError, Error);
-util.inherits(DBError, Error);
+util.inherits(AuthError, HttpError);
+util.inherits(DBError, HttpError);
 util.inherits(ValidationError, Error);
 
 HttpError.prototype.name = "HttpError";

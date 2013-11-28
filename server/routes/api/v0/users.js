@@ -1,4 +1,4 @@
-var User = require('../../../models/user').User,
+var User = require('../../../models/user'),
     rest = require('../../../controllers/api/v0/rest')(User),
     checkDB = require('../../../middleware/checkDB');
 
