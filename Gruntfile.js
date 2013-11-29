@@ -11,8 +11,6 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
 
-  grunt.loadNpmTasks('grunt-mocha-test');
-
   grunt.initConfig({
     requirejs: {
       options: {
@@ -236,6 +234,7 @@ module.exports = function (grunt) {
             '.htaccess',
             'bower_components/**/*',
             'images/{,*/}*.{gif,webp}',
+            'uploads/**/*.*',
             'fonts/*'
           ]
         }, {
@@ -294,7 +293,7 @@ module.exports = function (grunt) {
     mochaTest: {
       test: {
         options: {
-          reporter: 'spec'
+          reporter: 'progress'
         },
         src: ['test/server/**/*.js']
       }

@@ -3,12 +3,13 @@ var mongoose = require('mongoose'),
     config = require('../config'),
     mongoStore = require('./mongoStore');
 
+var uri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || config.get('mongoose:uri');
+
 module.exports = mongoose;
 
 var connectTimeout, closeTimeout;
-
 function connect() {
-  mongoose.connect(config.get('mongoose:uri'), config.get('mongoose:options'), function (err) {
+  mongoose.connect(uri, config.get('mongoose:options'), function (err) {
     log.info("Try to connect to MongoDB");
     if (err) {
       log.error(err.message);
@@ -41,7 +42,11 @@ function connect() {
         }
         log.info('Connection to MongoDB was opened');
         mongoose.readyState = 1;
-        mongoStore.getMongoStore().collection = null;
+        try {
+          mongoStore.getMongoStore().collection = null;
+        } catch (err) {
+          log.error(err.stack);
+        }
       });
     }
   });
