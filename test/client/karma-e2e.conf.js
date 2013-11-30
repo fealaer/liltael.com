@@ -47,14 +47,8 @@ module.exports = function (config) {
       "karma-script-launcher",
       "karma-chrome-launcher",
       "karma-firefox-launcher",
-      "karma-phantomjs-launcher",
-      "karma-junit-reporter"
+      "karma-phantomjs-launcher"
     ],
-
-    junitReporter: {
-      outputFile: 'test_out/e2e.xml',
-      suite: 'e2e'
-    },
 
     urlRoot: '/_karma_/',
 

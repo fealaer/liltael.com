@@ -5,7 +5,6 @@ angular.module('startingPointJsApp')
       return {
         restrict: 'A',
         transclude: true,
-        scope: {},
         controller: function ($scope) {
           var menuItems = $scope.menuItems = Menu.get();
 

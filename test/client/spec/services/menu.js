@@ -12,16 +12,16 @@ describe('Service: Menu', function () {
   }));
 
   it('should do something', function () {
-    expect(!!Menu).toBe(true);
+    expect(!!Menu).to.be(true);
   });
 
   it('should return array with 2 menu items', function () {
     var menu = Menu.get();
-    expect(menu.length).toBe(2);
-    expect(menu[0].link).toBe('/');
-    expect(menu[0].title).toBe('Home');
-    expect(menu[1].link).toBe('/users');
-    expect(menu[1].title).toBe('Users');
+    expect(menu.length).to.be(2);
+    expect(menu[0].link).to.be('/');
+    expect(menu[0].title).to.be('Home');
+    expect(menu[1].link).to.be('/users');
+    expect(menu[1].title).to.be('Users');
   });
 
 });

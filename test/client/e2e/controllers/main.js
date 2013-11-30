@@ -1,6 +1,6 @@
 'use strict';
 
-describe('startingPointJsApp', function () {
+describe('Controller: MainCtrl', function () {
 
   beforeEach(function () {
     browser().navigateTo('/');
@@ -10,9 +10,7 @@ describe('startingPointJsApp', function () {
     expect(browser().location().url()).toBe('/');
   });
 
-  describe('Controller: MainCtrl', function () {
-    it('should render a list of awesomeThings to the scope', function () {
-      expect(repeater('.technology').count()).toBe(6);
-    });
+  it('should render a list of awesomeThings to the scope', function () {
+    expect(repeater('.technology').count()).toBe(6);
   });
 });

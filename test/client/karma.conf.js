@@ -15,9 +15,10 @@ module.exports = function(config) {
       'client/bower_components/angular-cookies/angular-cookies.js',
       'client/bower_components/angular-sanitize/angular-sanitize.js',
       'client/bower_components/angular-route/angular-route.js',
+      'client/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'client/bower_components/angular-local-storage/angular-local-storage.js',
       'client/scripts/*.js',
       'client/scripts/**/*.js',
-      'test/client/mock/**/*.js',
       'test/client/spec/**/*.js',
       'client/views/**/*.html'
     ],
@@ -36,7 +37,7 @@ module.exports = function(config) {
     exclude: [],
 
     // testing framework to use (jasmine/mocha/qunit/...)
-    frameworks: ['jasmine'],
+    frameworks: ['mocha', 'expect', 'sinon'],
 
     // Start these browsers, currently available:
     // - Chrome
@@ -49,17 +50,15 @@ module.exports = function(config) {
     browsers: ['Chrome'],
 
     plugins: [
-      'karma-jasmine',
-      "karma-ng-scenario",
+      'karma-mocha',
+      'karma-expect',
+      'karma-sinon',
       "karma-script-launcher",
       "karma-chrome-launcher",
       "karma-firefox-launcher",
       "karma-phantomjs-launcher",
-      "karma-ng-html2js-preprocessor",
-      "karma-junit-reporter"
+      "karma-ng-html2js-preprocessor"
     ],
-
-    reporters: ['progress'],
 
     // level of logging
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
@@ -70,11 +69,6 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false,
-
-    junitReporter : {
-      outputFile: 'test_out/e2e.xml',
-      suite: 'e2e'
-    }
+    singleRun: false
   });
 };

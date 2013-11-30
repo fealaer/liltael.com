@@ -1,6 +1,6 @@
 'use strict';
 
-describe('startingPointJsApp', function () {
+describe('Controller: UsersCtrl', function () {
 
   beforeEach(function () {
     browser().navigateTo('/#/users');
@@ -10,10 +10,8 @@ describe('startingPointJsApp', function () {
     expect(browser().location().url()).toBe('/users');
   });
 
-  describe('Controller: UsersCtrl', function () {
-    it('should render a list of Users with their quotes to the scope', function () {
-      expect(repeater('.user').count()).toBe(4);
-      expect(repeater('.quote').count()).toBe(5);
-    });
+  it('should render a list of Users with their quotes to the scope', function () {
+    expect(repeater('.user').count()).toBe(4);
+    expect(repeater('.quote').count()).toBe(5);
   });
 });

@@ -42,11 +42,7 @@ app.use(app.router);
 
 require('./routes')(app);
 
-if ('production' === ENV) {
-  app.use(appErrorHandler());
-} else {
-  app.use(express.errorHandler());
-}
+app.use(appErrorHandler());
 
 function appErrorHandler() {
   return function (err, req, res, next) {

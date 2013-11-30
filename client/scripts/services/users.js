@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('startingPointJsApp')
-    .factory('User', ['$resource',
+    .factory('Users', ['$resource',
       function ($resource) {
         return $resource('api/v0/users', {}, {});
       }]);

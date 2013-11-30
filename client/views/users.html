@@ -7,7 +7,7 @@
     <div class="panel panel-success user" ng-repeat="user in users">
         <div class="panel-body row">
             <div class="col-md-1">
-                <img ng-src="{{user.avatar}}"/>
+                <img ng-src="{{user.avatar || 'uploads/images/users/matrix.jpeg'}}"/>
                 <h5>{{user.username}}</h5>
             </div>
             <div class="col-md-11">
@@ -20,4 +20,14 @@
             </div>
         </div>
     </div>
+</div>
+<div ng-show="user">
+    <form class="form-inline" ng-submit="addComment(data)">
+        <h2 class="header">You can add comment here</h2>
+        <textarea class="form-control"
+               ng-model="data.comment" name="comment"
+               placeholder="Comment" required autofocus></textarea>
+        <button class="btn btn-lg btn-success" type="submit">Send</button>
+        <button class="btn btn-lg btn-warning pull-right" ng-click="clear()">Clear</button>
+    </form>
 </div>

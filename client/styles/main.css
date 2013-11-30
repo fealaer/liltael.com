@@ -51,6 +51,15 @@ body {
   padding: 14px 24px;
 }
 
+.btn-auth {
+    padding: 9px 12px;
+    margin-left: 2px;
+}
+
+.modal {
+    display: block;
+}
+
 /* Supporting marketing content */
 .marketing {
   margin: 40px 0;
