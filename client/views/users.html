@@ -21,13 +21,3 @@
         </div>
     </div>
 </div>
-<div ng-show="user">
-    <form class="form-inline" ng-submit="addComment(data)">
-        <h2 class="header">You can add comment here</h2>
-        <textarea class="form-control"
-               ng-model="data.comment" name="comment"
-               placeholder="Comment" required autofocus></textarea>
-        <button class="btn btn-lg btn-success" type="submit">Send</button>
-        <button class="btn btn-lg btn-warning pull-right" ng-click="clear()">Clear</button>
-    </form>
-</div>

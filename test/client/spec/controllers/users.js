@@ -12,30 +12,18 @@ describe('Controller: UsersCtrl', function () {
         return {"$promise": deferred.promise};
       }
     };
-    mockAuth = {
-      user: null,
-      getUser: function () {
-        return this.user;
-      },
-      subscribe: function (scope, callback) {
-        this.user = {username: 'Neo'};
-        callback();
-      }
-    };
   });
 
-  var spyUsersGet, spyAuthGetUser, spyAuthSubscribe;
+  var spyUsersGet;
   beforeEach(function () {
     spyUsersGet = sinon.spy(mockUsers, 'get');
-    spyAuthGetUser = sinon.spy(mockAuth, 'getUser');
-    spyAuthSubscribe = sinon.spy(mockAuth, 'subscribe');
   });
 
   var UsersCtrl, scope, q, deferred;
   beforeEach(inject(function ($controller, $rootScope, $q) {
     scope = $rootScope.$new();
     q = $q;
-    UsersCtrl = $controller('UsersCtrl', {$scope: scope, Users: mockUsers, Auth: mockAuth});
+    UsersCtrl = $controller('UsersCtrl', {$scope: scope, Users: mockUsers});
   }));
 
   var error, result;
@@ -68,15 +56,5 @@ describe('Controller: UsersCtrl', function () {
     scope.$root.$digest();
     deferred.resolve(error);
     expect(Object.keys(scope.users).length === 0).to.be(true);
-  });
-
-  it('should subscribe on changes in Auth service', function () {
-    deferred.resolve(result);
-    scope.$root.$digest();
-    expect(scope.users.length).to.be(2);
-    expect(scope.user).to.eql({username: 'Neo'});
-    sinon.assert.calledOnce(spyUsersGet);
-    sinon.assert.calledOnce(spyAuthSubscribe);
-    sinon.assert.calledTwice(spyAuthGetUser);
   });
 });
