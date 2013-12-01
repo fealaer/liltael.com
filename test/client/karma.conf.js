@@ -17,7 +17,6 @@ module.exports = function(config) {
       'client/bower_components/angular-route/angular-route.js',
       'client/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'client/bower_components/angular-local-storage/angular-local-storage.js',
-      'client/scripts/*.js',
       'client/scripts/**/*.js',
       'test/client/spec/**/*.js',
       'client/views/**/*.html'
