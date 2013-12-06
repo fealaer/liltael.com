@@ -12,7 +12,7 @@ describe('Service: Quotes', function () {
 
   var data, userId, error, result, quote;
   beforeEach(function () {
-    quote = 'Test quote';
+    quote = 'My name... is Neo.';
     userId = '5260001073657b99d0000001';
     data = {quote: quote, userId: userId};
     error = {
