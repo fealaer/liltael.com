@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: AuthModalCtrl', function () {
+describe('Controller: AuthCtrl', function () {
 
   var signIn, signOut;
   beforeEach(function(){
@@ -11,14 +11,11 @@ describe('Controller: AuthModalCtrl', function () {
   var modalSignIn, modalCancel, usernameInput, passwordInput;
   beforeEach(function () {
     browser().navigateTo('/');
+    signOut.click();
     modalSignIn = element('div.modal-body button.btn-success');
     modalCancel = element('div.modal-body button.btn-warning');
     usernameInput = input('data.username');
     passwordInput = input('data.password');
-  });
-
-  afterEach(function () {
-    signOut.click();
   });
 
   it('should has proper active elements on page after load', function () {
