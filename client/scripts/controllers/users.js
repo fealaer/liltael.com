@@ -23,7 +23,7 @@ angular.module('startingPointJsApp')
                 break;
               }
             }
-            $scope.data.quote = '';
+            $scope.data = {};
           }
         });
       };
