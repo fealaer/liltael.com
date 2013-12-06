@@ -11,6 +11,6 @@ describe('Controller: MainCtrl', function () {
   });
 
   it('should render a list of awesomeThings to the scope', function () {
-    expect(repeater('.technology').count()).toBe(6);
+    expect(repeater('.technology').count()).toBe(13);
   });
 });
