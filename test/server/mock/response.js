@@ -20,6 +20,6 @@ function Response() {
   };
 }
 
-Response.prototype.name = "Response";
+Response.prototype.name = 'Response';
 
 module.exports = Response;

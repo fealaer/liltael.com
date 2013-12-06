@@ -7,7 +7,7 @@ describe('Service: Auth', function () {
   var mockScope, Auth, httpBackend, err, user, localStorageService;
   beforeEach(inject(function (_Auth_, _$httpBackend_, _localStorageService_) {
     user = {username: 'Neo'};
-    err = {"code": 500, "message": "Internal server error"};
+    err = {'code': 500, 'message': 'Internal server error'};
     Auth = _Auth_;
     mockScope = {$on: function(event, callback){}};
     httpBackend = _$httpBackend_;
@@ -18,14 +18,14 @@ describe('Service: Auth', function () {
   var error, result;
   beforeEach(function () {
     error = {
-      "status": {"code": 500, "name": "Internal server error"},
-      "result": {},
-      "error": err
+      'status': {'code': 500, 'name': 'Internal server error'},
+      'result': {},
+      'error': err
     };
     result = {
-      "status": {"code": 200, "name": "OK"},
-      "result": user,
-      "error": {}
+      'status': {'code': 200, 'name': 'OK'},
+      'result': user,
+      'error': {}
     };
   });
 

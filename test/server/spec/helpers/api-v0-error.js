@@ -37,19 +37,19 @@ describe('Api Error V0:', function () {
 
   it('should create new JsonError based on MongoError', function () {
     var err =
-    { name: "MongoError",
-      message: "E11000 duplicate key error index: medinfo.users.$UserName_1  dup key: { : \"ann\" }",
+    { name: 'MongoError',
+      message: 'E11000 duplicate key error index: medinfo.users.$UserName_1  dup key: { : "ann" }',
       code: 11000
     };
     var error = new JsonError(err, 404, 'Record not found');
-    expect(error.message).to.be("Not unique value 'ann' for field 'UserName'");
+    expect(error.message).to.be('Not unique value \'ann\' for field \'UserName\'');
     expect(error.code).to.be(400);
     expect(error.moreInfo).to.be('http://localhost:3000/api/docs/errors/400');
   });
 
   it('should create new JsonError based on AuthError', function () {
     var err =
-    { name: "AuthError",
+    { name: 'AuthError',
       message: "You aren't authorized",
       status: 401
     };

@@ -52,11 +52,11 @@ module.exports = function(config) {
       'karma-mocha',
       'karma-expect',
       'karma-sinon',
-      "karma-script-launcher",
-      "karma-chrome-launcher",
-      "karma-firefox-launcher",
-      "karma-phantomjs-launcher",
-      "karma-ng-html2js-preprocessor"
+      'karma-script-launcher',
+      'karma-chrome-launcher',
+      'karma-firefox-launcher',
+      'karma-phantomjs-launcher',
+      'karma-ng-html2js-preprocessor'
     ],
 
     // level of logging

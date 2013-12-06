@@ -13,17 +13,17 @@ describe('Service: User', function () {
   var error, result;
   beforeEach(function () {
     error = {
-      "status": {"code": 500, "name": "Internal server error"},
-      "result": {},
-      "error": {"code": 500, "message": "Internal server error"}
+      'status': {'code': 500, 'name': 'Internal server error'},
+      'result': {},
+      'error': {'code': 500, 'message': 'Internal server error'}
     };
     result = {
-      "status": {"code": 200, "name": "OK"},
-      "result": [
+      'status': {'code': 200, 'name': 'OK'},
+      'result': [
         {username: 'Neo'},
         {username: 'Trinity'}
       ],
-      "error": {}
+      'error': {}
     };
   });
 

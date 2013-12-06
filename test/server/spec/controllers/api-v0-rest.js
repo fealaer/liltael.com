@@ -50,10 +50,10 @@ describe('REST API v0 method', function () {
       TestModel.prototype.save = function (callback) {
         callback(null);
       };
-      var data = {_id: "5260001073657b99d0000001", name: "test", fake: true};
+      var data = {_id: '5260001073657b99d0000001', name: 'test', fake: true};
       req = new Request(data);
       rest.post(req, res, next);
-      expect(res.result.result.data.name).to.be("test");
+      expect(res.result.result.data.name).to.be('test');
       expect(res.result.result.data.fake).to.be(true);
       expect(res.result.result.data._id).to.be(undefined);
       expect(res.result.status).to.be(Status.S200);
@@ -67,7 +67,7 @@ describe('REST API v0 method', function () {
       TestModel.prototype.save = function (callback) {
         callback({message: 'some error'});
       };
-      var data = {_id: "5260001073657b99d0000001", name: "test", fake: true};
+      var data = {_id: '5260001073657b99d0000001', name: 'test', fake: true};
       req = new Request(data);
       rest.post(req, res, next);
       expect(res.result.status).to.be(Status.S500);
@@ -101,7 +101,7 @@ describe('REST API v0 method', function () {
       TestModel.prototype.save = function (callback) {
         callback(null);
       };
-      var data = {_id: "5260001073657b99d0000001", name: "test", fake: true};
+      var data = {_id: '5260001073657b99d0000001', name: 'test', fake: true};
       req = new Request(data);
       rest.post(req, res, next);
       expect(res.result.status).to.be(Status.S400);
@@ -119,8 +119,8 @@ describe('REST API v0 method', function () {
   });
 
   describe('Get by Id:', function () {
-    it('should respond with "Incorrect record ID" error', function () {
-      var params = {id: "abba"};
+    it('should respond with \'Incorrect record ID\' error', function () {
+      var params = {id: 'abba'};
       req = new Request(null, params);
       rest.getById(req, res, next);
       expect(res.result.status).to.be(Status.S400);
@@ -135,7 +135,7 @@ describe('REST API v0 method', function () {
       TestModel.findById = function (id, callback) {
         callback({message: 'some error'});
       };
-      var params = {id: "5260001073657b99d0000001"};
+      var params = {id: '5260001073657b99d0000001'};
       req = new Request(null, params);
       rest.getById(req, res, next);
       expect(res.result.status).to.be(Status.S500);
@@ -146,11 +146,11 @@ describe('REST API v0 method', function () {
       expect(Object.keys(res.result.result).length === 0).to.be(true);
     });
 
-    it('should respond with "Record not found" error', function () {
+    it('should respond with \'Record not found\' error', function () {
       TestModel.findById = function (id, callback) {
         callback(null, null);
       };
-      var params = {id: "5260001073657b99d0000001"};
+      var params = {id: '5260001073657b99d0000001'};
       req = new Request(null, params);
       rest.getById(req, res, next);
       expect(res.result.status).to.be(Status.S404);
@@ -165,8 +165,8 @@ describe('REST API v0 method', function () {
       TestModel.findById = function (id, callback) {
         callback(null, data);
       };
-      var data = {_id: "5260001073657b99d0000001", name: "test", fake: true};
-      var params = {id: "5260001073657b99d0000001"};
+      var data = {_id: '5260001073657b99d0000001', name: 'test', fake: true};
+      var params = {id: '5260001073657b99d0000001'};
       req = new Request(null, params);
       rest.getById(req, res, next);
       expect(res.result.status).to.be(Status.S200);
@@ -176,8 +176,8 @@ describe('REST API v0 method', function () {
   });
 
   describe('Delete by Id:', function () {
-    it('should respond with "Incorrect record ID" error', function () {
-      var data = {id: "abba"};
+    it('should respond with \'Incorrect record ID\' error', function () {
+      var data = {id: 'abba'};
       req = new Request(data);
       rest.deleteById(req, res, next);
       expect(res.result.status).to.be(Status.S400);
@@ -192,7 +192,7 @@ describe('REST API v0 method', function () {
       TestModel.remove = function (id, callback) {
         callback({message: 'some error'});
       };
-      var data = {id: "5260001073657b99d0000001"};
+      var data = {id: '5260001073657b99d0000001'};
       req = new Request(data);
       rest.deleteById(req, res, next);
       expect(res.result.status).to.be(Status.S500);
@@ -203,11 +203,11 @@ describe('REST API v0 method', function () {
       expect(Object.keys(res.result.result).length === 0).to.be(true);
     });
 
-    it('should respond with "Record does not exist" error', function () {
+    it('should respond with \'Record does not exist\' error', function () {
       TestModel.remove = function (id, callback) {
         callback(null, 0);
       };
-      var data = {id: "5260001073657b99d0000001"};
+      var data = {id: '5260001073657b99d0000001'};
       req = new Request(data);
       rest.deleteById(req, res, next);
       expect(res.result.status).to.be(Status.S404);
@@ -222,7 +222,7 @@ describe('REST API v0 method', function () {
       TestModel.remove = function (id, callback) {
         callback(null, 1);
       };
-      var data = {id: "5260001073657b99d0000001"};
+      var data = {id: '5260001073657b99d0000001'};
       req = new Request(data);
       rest.deleteById(req, res, next);
       expect(res.result.status).to.be(Status.S200);
@@ -233,8 +233,8 @@ describe('REST API v0 method', function () {
   });
 
   describe('Put by Id:', function () {
-    it('should respond with "Incorrect record ID" error', function () {
-      var data = {id: "abba"};
+    it('should respond with \'Incorrect record ID\' error', function () {
+      var data = {id: 'abba'};
       req = new Request(data);
       rest.putById(req, res, next);
       expect(res.result.status).to.be(Status.S400);
@@ -249,7 +249,7 @@ describe('REST API v0 method', function () {
       TestModel.update = function (conditions, update, options, callback) {
         callback({message: 'some error'});
       };
-      var data = {id: "5260001073657b99d0000001"};
+      var data = {id: '5260001073657b99d0000001'};
       req = new Request(data);
       rest.putById(req, res, next);
       expect(res.result.status).to.be(Status.S500);
@@ -260,11 +260,11 @@ describe('REST API v0 method', function () {
       expect(Object.keys(res.result.result).length === 0).to.be(true);
     });
 
-    it('should respond with "Record does not exist" error', function () {
+    it('should respond with \'Record does not exist\' error', function () {
       TestModel.update = function (conditions, update, options, callback) {
         callback(null, 0);
       };
-      var data = {id: "5260001073657b99d0000001"};
+      var data = {id: '5260001073657b99d0000001'};
       req = new Request(data);
       rest.putById(req, res, next);
       expect(res.result.status).to.be(Status.S404);
@@ -282,7 +282,7 @@ describe('REST API v0 method', function () {
         expect(options.upsert).to.be(true);
         callback(null, 1);
       };
-      var data = {id: "5260001073657b99d0000001", newField: "newField"};
+      var data = {id: '5260001073657b99d0000001', newField: 'newField'};
       req = new Request(data);
       rest.putById(req, res, next);
       expect(res.result.status).to.be(Status.S200);
@@ -297,4 +297,4 @@ function TestModel(data) {
   this.data = data;
 }
 
-TestModel.prototype.name = "TestModel";
+TestModel.prototype.name = 'TestModel';

@@ -56,8 +56,8 @@ schema.methods.checkPassword = function (password) {
 schema.statics.authorize = function (username, password, callback) {
   var User = this;
   var validationError = new ValidationError();
-  if (!password) validationError.addError("password", "Password is required");
-  if (!username) validationError.addError("username", "Username is required");
+  if (!password) validationError.addError('password', 'Password is required');
+  if (!username) validationError.addError('username', 'Username is required');
   if (validationError.getErrorsSize() !== 0) return callback(validationError);
   async.waterfall([
     function (callback) {
@@ -68,7 +68,7 @@ schema.statics.authorize = function (username, password, callback) {
         if (user.checkPassword(password)) {
           callback(null, user);
         } else {
-          callback(new AuthError(400, "Wrong username or password"));
+          callback(new AuthError(400, 'Wrong username or password'));
         }
       } else {
         user = new User({username: username, password: password});

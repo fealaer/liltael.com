@@ -3,7 +3,7 @@ function Status(code, name) {
   this.name = name;
 }
 
-Status.prototype.name = "Status";
+Status.prototype.name = 'Status';
 
 module.exports.S200 = S200 = new Status(200, 'OK');
 module.exports.S400 = S400 = new Status(400, 'Bad Request');

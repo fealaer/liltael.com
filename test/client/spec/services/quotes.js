@@ -16,14 +16,14 @@ describe('Service: Quotes', function () {
     userId = '5260001073657b99d0000001';
     data = {quote: quote, userId: userId};
     error = {
-      "status": {"code": 500, "name": "Internal server error"},
-      "result": {},
-      "error": {"code": 500, "message": "Internal server error"}
+      'status': {'code': 500, 'name': 'Internal server error'},
+      'result': {},
+      'error': {'code': 500, 'message': 'Internal server error'}
     };
     result = {
-      "status": {"code": 200, "name": "OK"},
-      "result": {quote: quote},
-      "error": {}
+      'status': {'code': 200, 'name': 'OK'},
+      'result': {quote: quote},
+      'error': {}
     };
   });
 

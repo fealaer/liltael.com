@@ -36,11 +36,11 @@ describe('Api Response V0:', function () {
 
   it('should throw exception when try to create JsonResponse with error and result simultaneously', function () {
     expect(function(){new JsonResponse(new JsonError(null, 404, 'Record not found'), [1, 2]);})
-        .to.throwError("Internal server error: Illegal arguments for JsonResponse. Server can't return valid response.");
+        .to.throwError('Internal server error: Illegal arguments for JsonResponse. Server can\'t return valid response.');
   });
 
   it('should throw exception when try to create JsonResponse with out error or result simultaneously', function () {
     expect(function(){new JsonResponse(null, null);})
-        .to.throwError("Internal server error: Illegal arguments for JsonResponse. Server can't return valid response.");
+        .to.throwError('Internal server error: Illegal arguments for JsonResponse. Server can\'t return valid response.');
   });
 });

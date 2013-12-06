@@ -8,11 +8,11 @@ function JsonResponse(error, result) {
     this.status = apiStatus.statusByCode(error.code);
   }
   if ((!error && !result) || (error && result))
-    throw new HttpError(500, "Internal server error: Illegal arguments for JsonResponse. Server can't return valid response.");
+    throw new HttpError(500, 'Internal server error: Illegal arguments for JsonResponse. Server can\'t return valid response.');
   this.result = result || {};
   this.error = error || {};
 }
 
-JsonResponse.prototype.name = "JsonResponse";
+JsonResponse.prototype.name = 'JsonResponse';
 
 module.exports = JsonResponse;

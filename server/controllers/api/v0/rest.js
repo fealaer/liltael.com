@@ -65,7 +65,7 @@ function RestApi(Model) {
         res.json(new JsonResponse(err, null));
       } else {
         delete rawData._id;
-        Model.update({"_id": _id}, rawData, {upsert: true}, function (err, affected) {
+        Model.update({'_id': _id}, rawData, {upsert: true}, function (err, affected) {
           if (err) {
             res.json(new JsonResponse(new JsonError(err), null));
           } else {
@@ -86,7 +86,7 @@ function RestApi(Model) {
       if (err) {
         res.json(new JsonResponse(err, null));
       } else {
-        Model.remove({"_id": _id}, function (err, affected) {
+        Model.remove({'_id': _id}, function (err, affected) {
           if (err) {
             res.json(new JsonResponse(new JsonError(err), null));
           } else {
@@ -111,4 +111,4 @@ function validateObjectId(id, callback) {
   }
 }
 
-RestApi.prototype.name = "RestApi";
+RestApi.prototype.name = 'RestApi';

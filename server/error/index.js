@@ -50,10 +50,10 @@ util.inherits(AuthError, HttpError);
 util.inherits(DBError, HttpError);
 util.inherits(ValidationError, Error);
 
-HttpError.prototype.name = "HttpError";
-AuthError.prototype.name = "AuthError";
-DBError.prototype.name = "DBError";
-ValidationError.prototype.name = "ValidationError";
+HttpError.prototype.name = 'HttpError';
+AuthError.prototype.name = 'AuthError';
+DBError.prototype.name = 'DBError';
+ValidationError.prototype.name = 'ValidationError';
 
 module.exports.HttpError = HttpError;
 module.exports.AuthError = AuthError;

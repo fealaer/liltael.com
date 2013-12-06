@@ -11,22 +11,22 @@ describe('Controller: UsersCtrl', function () {
     user = {username: 'Neo', _id: userId};
     data = {quote: quote};
     getUserResult = {
-      "status": {"code": 200, "name": "OK"},
-      "result": [
+      'status': {'code': 200, 'name': 'OK'},
+      'result': [
         {username: 'Neo', _id: userId, quotes: ['I know kung fu.']},
         {username: 'Trinity', _id: '1'}
       ],
-      "error": {}
+      'error': {}
     };
     saveQuoteResult = {
-      "status": {"code": 200, "name": "OK"},
-      "result": {quote: quote, userId: userId},
-      "error": {}
+      'status': {'code': 200, 'name': 'OK'},
+      'result': {quote: quote, userId: userId},
+      'error': {}
     };
     error = {
-      "status": {"code": 500, "name": "Internal server error"},
-      "result": {},
-      "error": {"code": 500, "message": "Internal server error"}
+      'status': {'code': 500, 'name': 'Internal server error'},
+      'result': {},
+      'error': {'code': 500, 'message': 'Internal server error'}
     };
   });
 
@@ -35,7 +35,7 @@ describe('Controller: UsersCtrl', function () {
     mockUsers = {
       get: function () {
         usersDeferred = q.defer();
-        return {"$promise": usersDeferred.promise};
+        return {'$promise': usersDeferred.promise};
       }
     };
     mockQuotes = function Quotes(data) {

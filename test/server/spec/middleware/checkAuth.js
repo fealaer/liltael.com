@@ -16,7 +16,7 @@ describe('Middleware checkAuth', function () {
     var req = {}, res = null, next = function(err) {
       expect(err).to.be.ok();
       expect(err.name).to.be('AuthError');
-      expect(err.message).to.be("You aren't authorized");
+      expect(err.message).to.be('You aren\'t authorized');
       expect(err.status).to.be(401);
       done();
     };

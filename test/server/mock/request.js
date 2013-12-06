@@ -4,6 +4,6 @@ function Request(data, params) {
   this.params = params;
 }
 
-Request.prototype.name = "Request";
+Request.prototype.name = 'Request';
 
 module.exports = Request;

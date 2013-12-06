@@ -14,8 +14,8 @@ module.exports.signIn = function (req, res, next) {
     }
     req.session.user = user._id;
     user = JSON.parse(JSON.stringify(user));
-    delete user["hashedPassword"];
-    delete user["salt"];
+    delete user['hashedPassword'];
+    delete user['salt'];
     return res.json(new JsonResponse(null, user));
   });
 };

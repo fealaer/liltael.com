@@ -7,8 +7,8 @@ describe('Controller: AuthModalCtrl', function () {
 
   var res, err;
   beforeEach(function() {
-    res = {"username": "Neo"};
-    err = {"message": "Wrong username or password"};
+    res = {'username': 'Neo'};
+    err = {'message': 'Wrong username or password'};
   });
 
   var mockModal, mockAuth;

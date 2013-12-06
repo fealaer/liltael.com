@@ -10,7 +10,7 @@ module.exports = mongoose;
 var connectTimeout, closeTimeout;
 function connect() {
   mongoose.connect(uri, config.get('mongoose:options'), function (err) {
-    log.info("Try to connect to MongoDB");
+    log.info('Try to connect to MongoDB');
     if (err) {
       log.error(err.message);
       if (closeTimeout) {

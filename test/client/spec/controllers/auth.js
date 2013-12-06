@@ -7,14 +7,14 @@ describe('Controller: AuthCtrl', function () {
   var error, result;
   beforeEach(function(){
     result = {
-      "status": {"code": 200, "name": "OK"},
-      "result": {},
-      "error": {}
+      'status': {'code': 200, 'name': 'OK'},
+      'result': {},
+      'error': {}
     };
     error = {
-      "status": {"code": 500, "name": "Internal server error"},
-      "result": {},
-      "error": {"code": 500, "message": "Internal server error"}
+      'status': {'code': 500, 'name': 'Internal server error'},
+      'result': {},
+      'error': {'code': 500, 'message': 'Internal server error'}
     };
   });
 

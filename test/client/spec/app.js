@@ -8,7 +8,7 @@ describe('StartingPointJsApp', function () {
     module = angular.module('startingPointJsApp');
   });
 
-  it("should be registered", function () {
+  it('should be registered', function () {
     expect(module).not.to.be(null);
   });
 });

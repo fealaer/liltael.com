@@ -43,11 +43,11 @@ module.exports = function (config) {
 
     plugins: [
       'karma-jasmine',
-      "karma-ng-scenario",
-      "karma-script-launcher",
-      "karma-chrome-launcher",
-      "karma-firefox-launcher",
-      "karma-phantomjs-launcher"
+      'karma-ng-scenario',
+      'karma-script-launcher',
+      'karma-chrome-launcher',
+      'karma-firefox-launcher',
+      'karma-phantomjs-launcher'
     ],
 
     urlRoot: '/_karma_/',

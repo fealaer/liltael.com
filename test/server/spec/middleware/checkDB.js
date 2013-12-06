@@ -28,7 +28,7 @@ describe('Middleware checkDB', function () {
     var req = {}, res = null, next = function (err) {
       expect(err).to.be.ok();
       expect(err.name).to.be('DBError');
-      expect(err.message).to.be("DataBase disconnected");
+      expect(err.message).to.be('DataBase disconnected');
       expect(err.status).to.be(500);
       done();
     };
