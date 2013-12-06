@@ -1,7 +1,7 @@
 {
   "name": "starting-point-js",
   "version": "0.0.1",
-  "description": "Starting point of JavaScript stack",
+  "description": "This is small template of web-project well tuned for fast building robust web-applications based on JavaScript technologies.",
   "author": {
     "name": "Andrey Pushkarev",
     "email": "fealaer@gmail.com"
