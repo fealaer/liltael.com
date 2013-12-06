@@ -35,19 +35,28 @@ describe('Controller: UsersCtrl', function () {
   });
 
   it('should add new quote and show it in view', function () {
+    var quoteInput = input('data.quote'),
+        submitButton = 'div.addQuote :submit',
+        quoteInputElement = 'div.addQuote :input';
+    var quote1 = 'My name... is Neo.',
+        quote2 = 'Choice, the problem is choice.';
     signIn.click();
     usernameInput.enter('Neo');
     passwordInput.enter('almostsuper');
     modalSignIn.click();
     expect(repeater('.user').count()).toBe(4);
     expect(repeater('.quote').count()).toBe(5);
-    input('data.quote').enter('My name... is Neo.');
-    element('.addQuote :submit').click();
+    quoteInput.enter(quote1);
+    expect(element(quoteInputElement).val()).toBe(quote1);
+    element(submitButton).click();
     expect(repeater('.user').count()).toBe(4);
     expect(repeater('.quote').count()).toBe(6);
-    input('data.quote').enter('Choice, the problem is choice.');
-    element('.addQuote :submit').click();
+    expect(element(quoteInputElement).val()).toBe('');
+    quoteInput.enter(quote2);
+    expect(element(quoteInputElement).val()).toBe(quote2);
+    element(submitButton).click();
     expect(repeater('.user').count()).toBe(4);
     expect(repeater('.quote').count()).toBe(7);
+    expect(element(quoteInputElement).val()).toBe('');
   });
 });
