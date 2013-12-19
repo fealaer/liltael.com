@@ -1,16 +1,11 @@
 'use strict';
 
-var rekuire = require('rekuire'),
-    chai = require('chai'),
-    expect = chai.expect,
-    should = chai.should();
-chai.Assertion.includeStack = true;
-
-var ApiError = rekuire('server/helpers/api/v0/error');
+var JsonError = require('../../../../server/helpers/json/error'),
+    expect = require('expect.js');
 
 describe('Api Error V0:', function () {
 
-  it('should create new ApiError based on ValidatorError', function () {
+  it('should create new JsonError based on ValidatorError', function () {
     var err =
     { message: 'Validation failed',
       name: 'ValidationError',
@@ -29,40 +24,52 @@ describe('Api Error V0:', function () {
         }
       }
     };
-    var error = new ApiError(err, 404, 'Record not found');
-    error.should.have.property('message', 'Validation failed');
-    error.should.have.property('code', 400);
-    error.should.have.property('moreInfo', 'http://localhost:3000/api/v0/docs/errors/400');
-    error.should.have.property('errors').with.length(2);
-    error.errors[0].should.have.property('path', 'username');
-    error.errors[0].should.have.property('message', 'Validator "required" failed for path username');
-    error.errors[1].should.have.property('path', 'password');
-    error.errors[1].should.have.property('message', 'Validator "required" failed for path password');
+    var error = new JsonError(err, 404, 'Record not found');
+    expect(error.message).to.be('Validation failed');
+    expect(error.code).to.be(400);
+    expect(error.moreInfo).to.be('http://localhost:3000/api/docs/errors/400');
+    expect(error.errors.length).to.be(2);
+    expect(error.errors[0].path).to.be('username');
+    expect(error.errors[0].message).to.be('Validator "required" failed for path username');
+    expect(error.errors[1].path).to.be('password');
+    expect(error.errors[1].message).to.be('Validator "required" failed for path password');
   });
 
-  it('should create new ApiError based on MongoError', function () {
+  it('should create new JsonError based on MongoError', function () {
     var err =
-    { name: "MongoError",
-      message: "E11000 duplicate key error index: medinfo.users.$UserName_1  dup key: { : \"ann\" }",
+    { name: 'MongoError',
+      message: 'E11000 duplicate key error index: medinfo.users.$UserName_1  dup key: { : "ann" }',
       code: 11000
     };
-    var error = new ApiError(err, 404, 'Record not found');
-    error.should.have.property('message', "Not unique value 'ann' for field 'UserName'");
-    error.should.have.property('code', 400);
-    error.should.have.property('moreInfo', 'http://localhost:3000/api/v0/docs/errors/400');
+    var error = new JsonError(err, 404, 'Record not found');
+    expect(error.message).to.be('Not unique value \'ann\' for field \'UserName\'');
+    expect(error.code).to.be(400);
+    expect(error.moreInfo).to.be('http://localhost:3000/api/docs/errors/400');
   });
 
-  it('should create new ApiError based on error', function () {
-    var error = new ApiError({}, 404, 'Record not found');
-    error.should.have.property('message', 'Internal server error');
-    error.should.have.property('code', 500);
-    error.should.have.property('moreInfo', 'http://localhost:3000/api/v0/docs/errors/500');
+  it('should create new JsonError based on AuthError', function () {
+    var err =
+    { name: 'AuthError',
+      message: "You aren't authorized",
+      status: 401
+    };
+    var error = new JsonError(err);
+    expect(error.message).to.be(err.message);
+    expect(error.code).to.be(err.status);
+    expect(error.moreInfo).to.be('http://localhost:3000/api/docs/errors/401');
   });
 
-  it('should create new ApiError based on code and message', function () {
-    var error = new ApiError(null, 404, 'Record not found');
-    error.should.have.property('message', 'Record not found');
-    error.should.have.property('code', 404);
-    error.should.have.property('moreInfo', 'http://localhost:3000/api/v0/docs/errors/404');
+  it('should create new JsonError based on error', function () {
+    var error = new JsonError({}, 404, 'Record not found');
+    expect(error.message).to.be('Internal server error');
+    expect(error.code).to.be(500);
+    expect(error.moreInfo).to.be('http://localhost:3000/api/docs/errors/500');
+  });
+
+  it('should create new JsonError based on code and message', function () {
+    var error = new JsonError(null, 404, 'Record not found');
+    expect(error.message).to.be('Record not found');
+    expect(error.code).to.be(404);
+    expect(error.moreInfo).to.be('http://localhost:3000/api/docs/errors/404');
   });
 });

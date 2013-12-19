@@ -5,7 +5,7 @@ var rootDir = process.cwd().split('/').slice(-1)[0];
 function getLogger(module) {
   var path = module.filename.split('/');
   path = path.slice(path.indexOf(rootDir) - path.length + 1).join('/');
-  if (ENV == 'test') {
+  if (ENV === 'test') {
     var fs = require('fs');
     var filename = './.tmp/tests.log';
     fs.writeFileSync(filename, '');
@@ -26,7 +26,7 @@ function getLogger(module) {
       transports: [
         new winston.transports.Console({
           colorize: true,
-          level: ENV == 'development' ? 'debug' : 'error',
+          level: ENV === 'development' ? 'debug' : 'error',
           label: path
         })
       ]

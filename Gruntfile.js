@@ -28,7 +28,7 @@ module.exports = function (grunt) {
         tasks: ['coffee:dist']
       },
       coffeeTest: {
-        files: ['test/app/spec/{,*/}*.coffee'],
+        files: ['test/client/spec/{,*/}*.coffee'],
         tasks: ['coffee:test']
       },
       styles: {
@@ -130,7 +130,7 @@ module.exports = function (grunt) {
       test: {
         files: [{
           expand: true,
-          cwd: 'test/app/spec',
+          cwd: 'test/client/spec',
           src: '{,*/}*.coffee',
           dest: '.tmp/spec',
           ext: '.js'
@@ -234,6 +234,7 @@ module.exports = function (grunt) {
             '.htaccess',
             'bower_components/**/*',
             'images/{,*/}*.{gif,webp}',
+            'uploads/**/*.*',
             'fonts/*'
           ]
         }, {
@@ -271,17 +272,30 @@ module.exports = function (grunt) {
     },
     karma: {
       unit: {
-        configFile: './test/app/karma.conf.js',
+        configFile: './test/client/karma.conf.js',
         singleRun: true
+      },
+      e2e: {
+        configFile: './test/client/karma-e2e.conf.js',
+        singleRun: true
+      },
+      unitWatch: {
+        configFile: './test/client/karma.conf.js',
+        singleRun: false,
+        autoWatch: true
+      },
+      e2eWatch: {
+        configFile: './test/client/karma-e2e.conf.js',
+        singleRun: false,
+        autoWatch: true
       }
     },
     mochaTest: {
       test: {
         options: {
-          reporter: 'progress',
-          bail: false
+          reporter: 'progress'
         },
-        src: ['test/server/spec/{,*/}*.js']
+        src: ['test/server/**/*.js']
       }
     },
     cdnify: {
@@ -310,8 +324,6 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-mocha-test');
-
   grunt.registerTask('server', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -331,7 +343,20 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma',
+    'karma:unit',
+    'karma:e2e',
+    'mochaTest'
+  ]);
+
+  grunt.registerTask('unitWatch', [
+    'karma:unitWatch'
+  ]);
+
+  grunt.registerTask('e2eWatch', [
+    'karma:e2eWatch'
+  ]);
+
+  grunt.registerTask('serverTest', [
     'mochaTest'
   ]);
 
