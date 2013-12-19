@@ -3,9 +3,9 @@ var User = require('../../../models/user'),
     checkDB = require('../../../middleware/checkDB');
 
 module.exports = function (app) {
-  app.get('/api/v0/users', checkDB, rest.get);
-  app.get('/api/v0/users/:id', checkDB, rest.getById);
+  app.get('/api/v0/users', checkDB, rest.query);
+  app.get('/api/v0/users/:id', checkDB, rest.get);
   app.post('/api/v0/users', checkDB, rest.post);
-  app.delete('/api/v0/users', checkDB, rest.deleteById);
-  app.put('/api/v0/users', checkDB, rest.putById);
+  app.delete('/api/v0/users', checkDB, rest.delete);
+  app.put('/api/v0/users', checkDB, rest.put);
 };

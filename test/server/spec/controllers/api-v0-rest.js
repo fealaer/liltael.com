@@ -20,7 +20,7 @@ describe('REST API v0 method', function () {
       TestModel.find = function (query, callback) {
         callback(null, records);
       };
-      rest.get(req, res, next);
+      rest.query(req, res, next);
       expect(res.result.result).to.be(records);
       expect(res.result.status).to.be(Status.S200);
       expect(Object.keys(res.result.error).length === 0).to.be(true);
@@ -31,7 +31,7 @@ describe('REST API v0 method', function () {
         var error = new Error(500, 'Internal server error');
         callback(error, null);
       };
-      rest.get(req, res, next);
+      rest.query(req, res, next);
       expect(Object.keys(res.result.result).length === 0).to.be(true);
       expect(res.result.status).to.be(Status.S500);
       expect(res.result.error).not.to.be(undefined);
@@ -122,7 +122,7 @@ describe('REST API v0 method', function () {
     it('should respond with \'Incorrect record ID\' error', function () {
       var params = {id: 'abba'};
       req = new Request(null, params);
-      rest.getById(req, res, next);
+      rest.get(req, res, next);
       expect(res.result.status).to.be(Status.S400);
       expect(res.result.error).not.to.be(undefined);
       expect(res.result.error.message).to.be('Incorrect record ID');
@@ -137,7 +137,7 @@ describe('REST API v0 method', function () {
       };
       var params = {id: '5260001073657b99d0000001'};
       req = new Request(null, params);
-      rest.getById(req, res, next);
+      rest.get(req, res, next);
       expect(res.result.status).to.be(Status.S500);
       expect(res.result.error).not.to.be(undefined);
       expect(res.result.error.message).to.be('Internal server error');
@@ -152,7 +152,7 @@ describe('REST API v0 method', function () {
       };
       var params = {id: '5260001073657b99d0000001'};
       req = new Request(null, params);
-      rest.getById(req, res, next);
+      rest.get(req, res, next);
       expect(res.result.status).to.be(Status.S404);
       expect(res.result.error).not.to.be(undefined);
       expect(res.result.error.message).to.be('Record not found');
@@ -168,7 +168,7 @@ describe('REST API v0 method', function () {
       var data = {_id: '5260001073657b99d0000001', name: 'test', fake: true};
       var params = {id: '5260001073657b99d0000001'};
       req = new Request(null, params);
-      rest.getById(req, res, next);
+      rest.get(req, res, next);
       expect(res.result.status).to.be(Status.S200);
       expect(res.result.result).to.be(data);
       expect(Object.keys(res.result.error).length === 0).to.be(true);
@@ -179,7 +179,7 @@ describe('REST API v0 method', function () {
     it('should respond with \'Incorrect record ID\' error', function () {
       var data = {id: 'abba'};
       req = new Request(data);
-      rest.deleteById(req, res, next);
+      rest.delete(req, res, next);
       expect(res.result.status).to.be(Status.S400);
       expect(res.result.error).not.to.be(undefined);
       expect(res.result.error.message).to.be('Incorrect record ID');
@@ -194,7 +194,7 @@ describe('REST API v0 method', function () {
       };
       var data = {id: '5260001073657b99d0000001'};
       req = new Request(data);
-      rest.deleteById(req, res, next);
+      rest.delete(req, res, next);
       expect(res.result.status).to.be(Status.S500);
       expect(res.result.error).not.to.be(undefined);
       expect(res.result.error.message).to.be('Internal server error');
@@ -209,7 +209,7 @@ describe('REST API v0 method', function () {
       };
       var data = {id: '5260001073657b99d0000001'};
       req = new Request(data);
-      rest.deleteById(req, res, next);
+      rest.delete(req, res, next);
       expect(res.result.status).to.be(Status.S404);
       expect(res.result.error).not.to.be(undefined);
       expect(res.result.error.message).to.be('Record does not exist');
@@ -224,7 +224,7 @@ describe('REST API v0 method', function () {
       };
       var data = {id: '5260001073657b99d0000001'};
       req = new Request(data);
-      rest.deleteById(req, res, next);
+      rest.delete(req, res, next);
       expect(res.result.status).to.be(Status.S200);
       expect(res.result.result).not.to.be(undefined);
       expect(res.result.result.recordsAffected).to.be(1);
@@ -236,7 +236,7 @@ describe('REST API v0 method', function () {
     it('should respond with \'Incorrect record ID\' error', function () {
       var data = {id: 'abba'};
       req = new Request(data);
-      rest.putById(req, res, next);
+      rest.put(req, res, next);
       expect(res.result.status).to.be(Status.S400);
       expect(res.result.error).not.to.be(undefined);
       expect(res.result.error.message).to.be('Incorrect record ID');
@@ -251,7 +251,7 @@ describe('REST API v0 method', function () {
       };
       var data = {id: '5260001073657b99d0000001'};
       req = new Request(data);
-      rest.putById(req, res, next);
+      rest.put(req, res, next);
       expect(res.result.status).to.be(Status.S500);
       expect(res.result.error).not.to.be(undefined);
       expect(res.result.error.message).to.be('Internal server error');
@@ -266,7 +266,7 @@ describe('REST API v0 method', function () {
       };
       var data = {id: '5260001073657b99d0000001'};
       req = new Request(data);
-      rest.putById(req, res, next);
+      rest.put(req, res, next);
       expect(res.result.status).to.be(Status.S404);
       expect(res.result.error).not.to.be(undefined);
       expect(res.result.error.message).to.be('Record does not exist');
@@ -284,7 +284,7 @@ describe('REST API v0 method', function () {
       };
       var data = {id: '5260001073657b99d0000001', newField: 'newField'};
       req = new Request(data);
-      rest.putById(req, res, next);
+      rest.put(req, res, next);
       expect(res.result.status).to.be(Status.S200);
       expect(res.result.result).not.to.be(undefined);
       expect(res.result.result.recordsAffected).to.be(1);

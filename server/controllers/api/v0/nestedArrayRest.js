@@ -2,37 +2,24 @@ var JsonResponse = require('../../../helpers/json/response'),
     JsonError = require('../../../helpers/json/error'),
     validateObjectId = require('../../../helpers/validateObjectId');
 
-module.exports = function (Model) {
-  return new RestApi(Model);
+module.exports = function (Model, path) {
+  return new NestedArrayRestApi(Model, path);
 };
 
-function RestApi(_Model) {
+function NestedArrayRestApi(_Model, _path) {
   var Model = _Model;
-
-  this.query = function (req, res, next) {
-    Model.find({}, function (err, records) {
-      if (err) {
-        res.json(new JsonResponse(new JsonError(err), null));
-      } else {
-        res.json(new JsonResponse(null, records));
-      }
-    });
-  };
+  var path = _path;
 
   this.get = function (req, res, next) {
     validateObjectId(req.params.id, function (err, _id) {
       if (err) {
         res.json(new JsonResponse(err, null));
       } else {
-        Model.findById(_id, function (err, record) {
+        Model.findById(_id, project(path), function (err, records) {
           if (err) {
             res.json(new JsonResponse(new JsonError(err), null));
           } else {
-            if (!record) {
-              res.json(new JsonResponse(new JsonError(null, 404, 'Record not found'), null));
-            } else {
-              res.json(new JsonResponse(null, record));
-            }
+            res.json(new JsonResponse(null, records));
           }
         });
       }
@@ -41,17 +28,15 @@ function RestApi(_Model) {
 
   this.post = function (req, res, next) {
     var rawData = req.body.data || req.body;
-    delete rawData._id;
-    var newModel = new Model(rawData);
-    newModel.validate(function (err) {
+    validateObjectId(req.params.id, function (err, _id) {
       if (err) {
-        res.json(new JsonResponse(new JsonError(err), null));
+        res.json(new JsonResponse(err, null));
       } else {
-        newModel.save(function (err) {
+        Model.update({'_id': _id}, post(path, rawData[path]), function (err, affected) {
           if (err) {
             res.json(new JsonResponse(new JsonError(err), null));
           } else {
-            res.json(new JsonResponse(null, newModel));
+            res.json(new JsonResponse(null, {recordsAffected: affected}));
           }
         });
       }
@@ -60,13 +45,11 @@ function RestApi(_Model) {
 
   this.put = function (req, res, next) {
     var rawData = req.body.data || req.body;
-    validateObjectId(rawData.id, function (err, _id) {
+    validateObjectId(req.params.id, function (err, _id) {
       if (err) {
         res.json(new JsonResponse(err, null));
       } else {
-        delete rawData._id;
-        delete rawData.id;
-        Model.update({'_id': _id}, rawData, {upsert: true}, function (err, affected) {
+        Model.update(select(path, _id, req.params.value), put(path, rawData[path]), function (err, affected) {
           if (err) {
             res.json(new JsonResponse(new JsonError(err), null));
           } else {
@@ -83,11 +66,11 @@ function RestApi(_Model) {
 
   this.delete = function (req, res, next) {
     var rawData = req.body.data || req.body;
-    validateObjectId(rawData.id, function (err, _id) {
+    validateObjectId(req.params.id, function (err, _id) {
       if (err) {
         res.json(new JsonResponse(err, null));
       } else {
-        Model.remove({'_id': _id}, function (err, affected) {
+        Model.update({'_id': _id}, del(path, req.params.value), function (err, affected) {
           if (err) {
             res.json(new JsonResponse(new JsonError(err), null));
           } else {
@@ -103,4 +86,34 @@ function RestApi(_Model) {
   };
 }
 
-RestApi.prototype.name = 'RestApi';
+function project(path) {
+  var project = {'_id': 0};
+  project[path] = 1;
+  return project;
+}
+
+function select(path, id, oldValue) {
+  var select = {'_id': id};
+  select[path] = oldValue;
+  return select;
+}
+
+function post(path, newValue) {
+  var update = {'$push': {}};
+  update['$push'][path] = newValue;
+  return update;
+}
+
+function put(path, newValue) {
+  var update = {'$set': {}};
+  update['$set'][path + '.$'] = newValue;
+  return update;
+}
+
+function del(path, oldValue) {
+  var update = {'$pull': {}};
+  update['$pull'][path] = oldValue;
+  return update;
+}
+
+NestedArrayRestApi.prototype.name = 'NestedArrayRestApi';
