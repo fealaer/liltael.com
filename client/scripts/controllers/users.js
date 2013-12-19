@@ -16,10 +16,10 @@ angular.module('startingPointJsApp')
         data.userId = $scope.user._id;
         var newQuote = new Quotes(data);
         newQuote.$save().then(function (api) {
-          if (api.status.code === 200) {
+          if (api.status.code === 200 && api.result.recordsAffected === 1) {
             for (var i = 0; i < $scope.users.length; i++) {
-              if ($scope.users[i]._id === api.result.userId) {
-                $scope.users[i].quotes.push(api.result.quote);
+              if ($scope.users[i]._id === data.userId) {
+                $scope.users[i].quotes.push(data.quotes);
                 break;
               }
             }

@@ -9,7 +9,7 @@ describe('Controller: UsersCtrl', function () {
     quote = 'Test quote';
     userId = '5260001073657b99d0000001';
     user = {username: 'Neo', _id: userId};
-    data = {quote: quote};
+    data = {quotes: quote};
     getUserResult = {
       'status': {'code': 200, 'name': 'OK'},
       'result': [
@@ -20,7 +20,7 @@ describe('Controller: UsersCtrl', function () {
     };
     saveQuoteResult = {
       'status': {'code': 200, 'name': 'OK'},
-      'result': {quote: quote, userId: userId},
+      'result': {'recordsAffected': 1},
       'error': {}
     };
     error = {

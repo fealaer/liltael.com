@@ -37,7 +37,7 @@ describe('Controller: UsersCtrl', function () {
 
     var quoteInput, submitButton, quoteInputElement, quote1, quote2, errorMessages;
     beforeEach(function () {
-      quoteInput = input('data.quote');
+      quoteInput = input('data.quotes');
       submitButton = 'div.addQuote :submit';
       quoteInputElement = 'div.addQuote :input';
       errorMessages = 'div.addQuote div:visible.alert';

@@ -28,13 +28,13 @@
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-10">
                 <textarea class="form-control"
-                          ng-model="data.quote" name="quote"
+                          ng-model="data.quotes" name="quotes"
                           ng-change="changed=true"
                           placeholder="Quote" required autofocus></textarea>
             </div>
         </div>
         <div class="alert alert-danger col-sm-offset-1 col-sm-10"
-             ng-show="changed && addQuoteForm.quote.$error.required">
+             ng-show="changed && addQuoteForm.quotes.$error.required">
             <strong>Error!</strong> Please fill out quote.
         </div>
         <div class="form-group ">
