@@ -8,7 +8,7 @@ var express = require('express'),
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || config.get('port'));
 var ENV = app.get('env');
 
 if ('production' === ENV) {
@@ -68,6 +68,6 @@ process.on('uncaughtException', function (err) {
   log.error(err.stack);
 });
 
-http.createServer(app).listen(config.get('port'), function () {
-  log.info('Express server listening on port ' + config.get('port'));
+http.createServer(app).listen(app.get('port'), function () {
+  log.info('Express server listening on port ' + app.get('port'));
 });

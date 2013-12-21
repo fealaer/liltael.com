@@ -77,13 +77,12 @@
     "sinon": "~1.7.3"
   },
   "engines": {
-    "node": "~0.10.21",
-    "npm": "1.3.11"
+    "node": ">=0.10.0",
+    "npm": "1.3.0"
   },
   "private": true,
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/grunt test; echo '\\n'; echo '\\033[00;32mINFO [npm test]:\\033[0m Run \\033[04;32mcat .tmp/tests.log\\033[0m to see an application log'",
-    "start": "node server/app.js",
-    "postinstall": "echo '\\033[00;32mINFO\\033[00m  postinstall time'; ./node_modules/.bin/grunt build"
+    "start": "NODE_ENV=production node server/app.js"
   }
 }
