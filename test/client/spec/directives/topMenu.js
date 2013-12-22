@@ -2,7 +2,7 @@
 
 describe('Directive: topMenu', function () {
 
-  beforeEach(module('startingPointJsApp'));
+  beforeEach(module('liltaelApp'));
 
   beforeEach(module('views/topMenu.html'));
 

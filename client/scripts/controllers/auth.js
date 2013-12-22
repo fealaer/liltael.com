@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('startingPointJsApp')
+angular.module('liltaelApp')
     .controller('AuthCtrl', ['$scope', '$modal', 'Auth', function ($scope, $modal, Auth) {
       $scope.user = Auth.getUser();
       Auth.subscribe($scope, function (){

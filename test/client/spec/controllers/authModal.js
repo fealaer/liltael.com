@@ -2,7 +2,7 @@
 
 describe('Controller: AuthModalCtrl', function () {
 
-  beforeEach(module('startingPointJsApp'));
+  beforeEach(module('liltaelApp'));
   beforeEach(module('ui.bootstrap.modal'));
 
   var res, err;

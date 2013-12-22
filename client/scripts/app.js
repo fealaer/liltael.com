@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('LocalStorageModule').value('prefix', 'startingPointJsApp');
-angular.module('startingPointJsApp', [
+angular.module('LocalStorageModule').value('prefix', 'liltaelApp');
+angular.module('liltaelApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',

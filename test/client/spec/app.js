@@ -1,11 +1,11 @@
 'use strict';
 
-describe('StartingPointJsApp', function () {
+describe('liltaelApp', function () {
 
   var module;
 
   beforeEach(function () {
-    module = angular.module('startingPointJsApp');
+    module = angular.module('liltaelApp');
   });
 
   it('should be registered', function () {

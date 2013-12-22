@@ -2,7 +2,7 @@
 
 describe('Controller: AuthCtrl', function () {
 
-  beforeEach(module('startingPointJsApp'));
+  beforeEach(module('liltaelApp'));
 
   var error, result;
   beforeEach(function(){

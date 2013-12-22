@@ -2,7 +2,7 @@
 
 describe('Service: User', function () {
 
-  beforeEach(module('startingPointJsApp'));
+  beforeEach(module('liltaelApp'));
 
   var Users, $httpBackend;
   beforeEach(inject(function (_Users_, _$httpBackend_) {

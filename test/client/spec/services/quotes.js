@@ -2,7 +2,7 @@
 
 describe('Service: Quotes', function () {
 
-  beforeEach(module('startingPointJsApp'));
+  beforeEach(module('liltaelApp'));
 
   var Quotes, httpBackend;
   beforeEach(inject(function (_Quotes_, _$httpBackend_) {
