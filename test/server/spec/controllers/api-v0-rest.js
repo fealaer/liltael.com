@@ -14,7 +14,7 @@ describe('REST API v0 method', function () {
     res = new Response();
   });
 
-  describe('Get:', function () {
+  describe('Query:', function () {
     it('should respond with all test records', function () {
       var records = [1, 2];
       TestModel.find = function (query, callback) {
@@ -28,7 +28,7 @@ describe('REST API v0 method', function () {
 
     it('should respond with error', function () {
       TestModel.find = function (query, callback) {
-        var error = new Error(500, 'Internal server error');
+        var error = {code: 500, message: 'Internal server error'};
         callback(error, null);
       };
       rest.query(req, res, next);
@@ -118,7 +118,7 @@ describe('REST API v0 method', function () {
     });
   });
 
-  describe('Get by Id:', function () {
+  describe('Get:', function () {
     it('should respond with \'Incorrect record ID\' error', function () {
       var params = {id: 'abba'};
       req = new Request(null, params);
@@ -175,7 +175,7 @@ describe('REST API v0 method', function () {
     });
   });
 
-  describe('Delete by Id:', function () {
+  describe('Delete:', function () {
     it('should respond with \'Incorrect record ID\' error', function () {
       var data = {id: 'abba'};
       req = new Request(data);
@@ -232,7 +232,7 @@ describe('REST API v0 method', function () {
     });
   });
 
-  describe('Put by Id:', function () {
+  describe('Put:', function () {
     it('should respond with \'Incorrect record ID\' error', function () {
       var data = {id: 'abba'};
       req = new Request(data);
