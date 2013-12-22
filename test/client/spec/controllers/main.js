@@ -2,7 +2,7 @@
 
 describe('Controller: MainCtrl', function () {
 
-  beforeEach(module('startingPointJsApp'));
+  beforeEach(module('liltaelApp'));
 
   var MainCtrl, scope;
 

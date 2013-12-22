@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('startingPointJsApp')
+angular.module('liltaelApp')
     .directive('topMenu', ['$location', 'Menu', function ($location, Menu) {
       return {
         restrict: 'A',

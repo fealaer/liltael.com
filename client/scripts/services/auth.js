@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('startingPointJsApp')
+angular.module('liltaelApp')
     .service('Auth', ['$rootScope', '$http', 'localStorageService', function Auth($rootScope, $http, localStorageService) {
       this.eventName = 'Auth.changes';
       Auth.prototype.getUser = function () {

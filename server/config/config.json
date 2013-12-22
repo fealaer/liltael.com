@@ -1,7 +1,7 @@
 {
   "port": 3000,
   "mongoose": {
-    "uri": "mongodb://localhost/start_point",
+    "uri": "mongodb://localhost/liltaelcom",
     "options": {
       "server": {
         "auto_reconnect": false,

@@ -2,7 +2,7 @@
 
 describe('Service: Auth', function () {
 
-  beforeEach(module('startingPointJsApp'));
+  beforeEach(module('liltaelApp'));
 
   var mockScope, Auth, httpBackend, err, user, localStorageService;
   beforeEach(inject(function (_Auth_, _$httpBackend_, _localStorageService_) {

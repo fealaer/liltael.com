@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('startingPointJsApp')
+angular.module('liltaelApp')
     .service('Menu', function Menu() {
       Menu.prototype.get = function () {
         return [

@@ -2,7 +2,7 @@
 
 describe('Controller: UsersCtrl', function () {
 
-  beforeEach(module('startingPointJsApp'));
+  beforeEach(module('liltaelApp'));
 
   var data, userId, error, getUserResult, saveQuoteResult, quote, user;
   beforeEach(function () {

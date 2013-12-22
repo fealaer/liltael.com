@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('startingPointJsApp')
+angular.module('liltaelApp')
     .controller('AuthModalCtrl', ['$scope', '$modalInstance', 'Auth', function ($scope, $modalInstance, Auth) {
       var defaultError = {error: false};
       $scope.error = defaultError;

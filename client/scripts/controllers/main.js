@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('startingPointJsApp')
+angular.module('liltaelApp')
   .controller('MainCtrl', function ($scope) {
     $scope.awesomeThings = [
       {name: 'Yeoman', description: 'It\'s a workflow; a collection of tools and best practices working in harmony to make developing for the web even better.'},
