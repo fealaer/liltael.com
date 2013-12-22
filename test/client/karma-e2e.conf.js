@@ -38,7 +38,7 @@ module.exports = function (config) {
     singleRun: true,
 
     proxies: {
-      '/': 'http://localhost:3000/'
+      '/': 'http://localhost:9001/'
     },
 
     plugins: [
