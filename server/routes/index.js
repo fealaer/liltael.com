@@ -4,6 +4,6 @@ var auth = require('./auth'),
 module.exports = function (app) {
   require('./api/v0')(app);
 
-  app.post('/signin', checkDB, auth.signIn);
-  app.post('/signout', checkDB, auth.signOut);
+  app.post('/signin', auth.signIn);
+  app.post('/signout', auth.signOut);
 };

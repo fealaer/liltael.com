@@ -13,7 +13,7 @@ function connect(keepAlive) {
   mongoose.connect(uri, config.get('mongoose:options'), function (err) {
     log.info('Try to connect to MongoDB');
     if (err) {
-      log.error(err.message);
+      log.error(err.stack);
       if (closeTimeout) {
         clearTimeout(closeTimeout);
         closeTimeout = null;
