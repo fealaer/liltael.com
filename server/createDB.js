@@ -1,11 +1,13 @@
-var mongoose = require('./lib/mongoose');
+var mongoose = require('./lib/mongoose'),
+    async = require('async'),
+    ObjectID = require('mongodb').ObjectID;
+
 mongoose.set('debug', true);
-var async = require('async');
-var ObjectID = require('mongodb').ObjectID;
+require('./models/user');
 
 async.series([
   open,
-  dropDatabase,
+  removeRecords,
   requireModels,
   createUsers
 ], function (err, results) {
@@ -17,14 +19,13 @@ function open(callback) {
   mongoose.connection.on('open', callback);
 }
 
-function dropDatabase(callback) {
-  var db = mongoose.connection.db;
-  db.dropDatabase(callback);
+function removeRecords(callback) {
+  async.each(Object.keys(mongoose.models), function (modelName, callback) {
+    mongoose.models[modelName].remove({}, callback);
+  }, callback);
 }
 
 function requireModels(callback) {
-  require('./models/user');
-
   async.each(Object.keys(mongoose.models), function (modelName, callback) {
     mongoose.models[modelName].ensureIndexes(callback);
   }, callback);
