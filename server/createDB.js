@@ -3,10 +3,6 @@ mongoose.set('debug', true);
 var async = require('async');
 var ObjectID = require('mongodb').ObjectID;
 
-// 1. drop database
-// 2. create & save 3 users
-// 3. close connection
-
 async.series([
   open,
   dropDatabase,
@@ -42,9 +38,8 @@ function createUsers(callback) {
     {username: 'Mouse', password: 'pipipi', avatar: 'uploads/images/users/mouse.jpeg', quotes: ['To deny our own impulses is to deny the very thing that makes us human.']}
   ];
 
-  async.each(users,
-      function (userData, callback) {
-        var user = new mongoose.models.User(userData);
-        user.save(callback);
-      }, callback);
+  async.each(users, function (userData, callback) {
+    var user = new mongoose.models.User(userData);
+    user.save(callback);
+  }, callback);
 }

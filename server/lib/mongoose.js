@@ -4,11 +4,12 @@ var mongoose = require('mongoose'),
     mongoStore = require('./mongoStore');
 
 var uri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || config.get('mongoose:uri');
+var keepAlive = process.env.MONGO_KEEP_ALIVE || true;
 
 module.exports = mongoose;
 
 var connectTimeout, closeTimeout;
-function connect() {
+function connect(keepAlive) {
   mongoose.connect(uri, config.get('mongoose:options'), function (err) {
     log.info('Try to connect to MongoDB');
     if (err) {
@@ -19,15 +20,17 @@ function connect() {
       }
       connectTimeout = setTimeout(connect, 2000);
     } else {
-      mongoose.connection.on('close', function () {
-        log.error('Connection to MongoDB was closed');
-        mongoose.readyState = 0;
-        if (connectTimeout) {
-          clearTimeout(connectTimeout);
-          connectTimeout = null;
-        }
-        closeTimeout = setTimeout(connect, 2000);
-      });
+      if (keepAlive) {
+        mongoose.connection.on('close', function () {
+          log.error('Connection to MongoDB was closed');
+          mongoose.readyState = 0;
+          if (connectTimeout) {
+            clearTimeout(connectTimeout);
+            connectTimeout = null;
+          }
+          closeTimeout = setTimeout(connect, 2000);
+        });
+      }
       mongoose.connection.on('error', function (err) {
         log.error(err.stack);
       });
@@ -43,7 +46,7 @@ function connect() {
         log.info('Connection to MongoDB was opened');
         mongoose.readyState = 1;
         try {
-          mongoStore.getMongoStore().collection = null;
+          if (mongoStore.getMongoStore()) mongoStore.getMongoStore().collection = null;
         } catch (err) {
           log.error(err.stack);
         }
@@ -52,4 +55,4 @@ function connect() {
   });
 }
 
-connect();
+connect(keepAlive);
