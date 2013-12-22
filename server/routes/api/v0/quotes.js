@@ -3,8 +3,8 @@ var User = require('../../../models/user'),
     checkDB = require('../../../middleware/checkDB');
 
 module.exports = function (app) {
-  app.get('/api/v0/users/:id/quotes', checkDB, arrayRest.get);
-  app.post('/api/v0/users/:id/quotes', checkDB, arrayRest.post);
-  app.put('/api/v0/users/:id/quotes', checkDB, arrayRest.put);
-  app.delete('/api/v0/users/:id/quotes', checkDB, arrayRest.delete);
+  app.get('/api/v0/users/:id/quotes', arrayRest.get);
+  app.post('/api/v0/users/:id/quotes', arrayRest.post);
+  app.put('/api/v0/users/:id/quotes', arrayRest.put);
+  app.delete('/api/v0/users/:id/quotes', arrayRest.delete);
 };

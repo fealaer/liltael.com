@@ -25,8 +25,12 @@ app.use(express.bodyParser());
 app.use(express.cookieParser());
 app.use(express.methodOverride());
 
-var mongoose = require('./lib/mongoose'),
-    mongoStore = require('./lib/mongoStore');
+var mongoose = require('./lib/mongoose');
+
+app.use(require('./middleware/sendHttpError'));
+app.use(require('./middleware/checkDB'));
+
+var mongoStore = require('./lib/mongoStore');
 var store = mongoStore.createMongoStore(express, mongoose);
 
 app.use(express.session({
@@ -37,7 +41,6 @@ app.use(express.session({
 }));
 
 app.use(require('./middleware/loadUser'));
-app.use(require('./middleware/sendHttpError'));
 app.use(app.router);
 
 require('./routes')(app);
