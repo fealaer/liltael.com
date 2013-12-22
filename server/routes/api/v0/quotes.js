@@ -5,6 +5,6 @@ var User = require('../../../models/user'),
 module.exports = function (app) {
   app.get('/api/v0/users/:id/quotes', checkDB, arrayRest.get);
   app.post('/api/v0/users/:id/quotes', checkDB, arrayRest.post);
-  app.put('/api/v0/users/:id/quotes/:value', checkDB, arrayRest.put);
-  app.delete('/api/v0/users/:id/quotes/:value', checkDB, arrayRest.delete);
+  app.put('/api/v0/users/:id/quotes', checkDB, arrayRest.put);
+  app.delete('/api/v0/users/:id/quotes', checkDB, arrayRest.delete);
 };

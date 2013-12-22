@@ -19,7 +19,11 @@ function NestedArrayRestApi(_Model, _path) {
           if (err) {
             res.json(new JsonResponse(new JsonError(err), null));
           } else {
-            res.json(new JsonResponse(null, records));
+            if (!records) {
+              res.json(new JsonResponse(new JsonError(null, 404, 'Record not found'), null));
+            } else {
+              res.json(new JsonResponse(null, records));
+            }
           }
         });
       }
@@ -49,7 +53,7 @@ function NestedArrayRestApi(_Model, _path) {
       if (err) {
         res.json(new JsonResponse(err, null));
       } else {
-        Model.update(select(path, _id, req.params.value), put(path, rawData[path]), function (err, affected) {
+        Model.update(select(path, _id, rawData['oldValue']), put(path, rawData[path]), function (err, affected) {
           if (err) {
             res.json(new JsonResponse(new JsonError(err), null));
           } else {
@@ -70,7 +74,7 @@ function NestedArrayRestApi(_Model, _path) {
       if (err) {
         res.json(new JsonResponse(err, null));
       } else {
-        Model.update({'_id': _id}, del(path, req.params.value), function (err, affected) {
+        Model.update({'_id': _id}, del(path, rawData[path]), function (err, affected) {
           if (err) {
             res.json(new JsonResponse(new JsonError(err), null));
           } else {
