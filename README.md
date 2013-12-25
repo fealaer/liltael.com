@@ -65,7 +65,7 @@ Configure heroku
 For release on heroku
 
 * **Note:** you need to configure heroku first
-* **Note:** branch master will be released
+* **Note:** branch release will be updated to master and released
 
 ```shell
 ./release.sh
