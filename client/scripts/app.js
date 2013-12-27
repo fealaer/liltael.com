@@ -11,15 +11,15 @@ angular.module('liltaelApp', [
 ])
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+      .when('/:pageLink', {
+        templateUrl: 'views/pages.html',
+        controller: 'PagesCtrl'
       })
-      .when('/users', {
-        templateUrl: 'views/users.html',
-        controller: 'UsersCtrl'
+      .when('/artworks/:gallery', {
+        templateUrl: 'views/artworks.html',
+        controller: 'ArtworksCtrl'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/about'
       });
   });

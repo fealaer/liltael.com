@@ -8,16 +8,19 @@ angular.module('liltaelApp')
         controller: function ($scope) {
           var menuItems = $scope.menuItems = Menu.get();
 
-          angular.forEach(menuItems, function (menuItem) {
-            if (menuItem.link === $location.path()) menuItem.selected = true;
-          });
-
-          $scope.select = function (menuItem) {
+          $scope.select = function (path) {
             angular.forEach(menuItems, function (menuItem) {
-              menuItem.selected = false;
+              menuItem.selected = menuItem.link === path;
+              angular.forEach(menuItem.nestedMenu, function (nestedMenuItem) {
+                nestedMenuItem.selected = false;
+                if (nestedMenuItem.link === path) {
+                  nestedMenuItem.selected = menuItem.selected = true;
+                }
+              });
             });
-            menuItem.selected = true;
           };
+
+          $scope.select($location.path());
         },
         templateUrl: 'views/topMenu.html'
       };
