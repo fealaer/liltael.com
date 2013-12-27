@@ -8,14 +8,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title></title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/bootstrap.css">
         <link rel="stylesheet" href="styles/main.css">
-        <link rel="stylesheet" href="styles/auth.css">
         <!-- endbuild -->
+
+      <link rel="stylesheet"
+            href="bower_components/blueimp-gallery/css/blueimp-gallery.min.css">
 </head>
   <body ng-app="liltaelApp">
     <!--[if lt IE 7]>
@@ -26,20 +28,33 @@
       <script src="bower_components/es5-shim/es5-shim.js"></script>
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
-    <div class="container">
-        <div class="header">
-            <div ng-include="'views/auth.html'" ng-controller="AuthCtrl"></div>
+    <div id="wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-7 hidden-xs"></div>
+                <div class="col-xs-12 col-sm-5">
+                    <img class="img-responsive" ng-src="images/henry.png">
+                </div>
+            </div>
             <div data-top-menu></div>
-            <h3 class="text-muted">liltael.com</h3>
-        </div>
-
-        <!-- Add your site or application content here -->
-        <div ng-view=""></div>
-
-        <div class="footer">
-            <p>♥ from the Yeoman team</p>
+            <div class="row">
+                <div class="col-xs-12 col-sm-8">
+                    <div ng-view></div>
+                </div>
+                <div class="col-sm-4 hidden-xs">
+                    <div data-recent-posts></div>
+                    <div data-recent-works></div>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="footer">
+        <div class="container">
+            <p class="text-muted">© Ekaterina Pushkareva 1991 - 2014</p>
+        </div>
+    </div>
+    <div data-gallery-viewer data-gallery="blueimp-gallery-artWorks"></div>
+    <div data-gallery-viewer data-gallery="blueimp-gallery-recentWorks"></div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -69,6 +84,7 @@
         <script src="bower_components/sass-bootstrap/js/popover.js"></script>
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <script src="bower_components/angular-local-storage/angular-local-storage.js"></script>
+        <script src="bower_components/blueimp-gallery/js/jquery.blueimp-gallery.min.js"></script>
         <!-- endbuild -->
 
         <!-- build:js scripts/modules.js -->
@@ -80,22 +96,29 @@
 
         <!-- build:js scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/users.js"></script>
+        <script src="scripts/controllers/pages.js"></script>
+        <script src="scripts/controllers/artworks.js"></script>
         <script src="scripts/controllers/auth.js"></script>
-        <script src="scripts/controllers/authModal.js"></script>
         <script src="scripts/directives/topMenu.js"></script>
+        <script src="scripts/directives/recentPosts.js"></script>
+        <script src="scripts/directives/recentWorks.js"></script>
+        <script src="scripts/directives/galleryViewer.js"></script>
+        <script src="scripts/directives/videoPlayer.js"></script>
         <script src="scripts/services/users.js"></script>
         <script src="scripts/services/menu.js"></script>
         <script src="scripts/services/auth.js"></script>
         <script src="scripts/services/quotes.js"></script>
+        <script src="scripts/services/pages.js"></script>
+        <script src="scripts/services/recent.js"></script>
+        <script src="scripts/services/galleries.js"></script>
         <!-- endbuild -->
         <!--
         <!-- build:remove -->
         <script src="bower_components/angular-mocks/angular-mocks.js"></script>
-        <script src="test/mock/users.js"></script>
         <script src="test/mock/auth.js"></script>
-        <script src="test/mock/quotes.js"></script>
+        <script src="test/mock/pages.js"></script>
+        <script src="test/mock/galleries.js"></script>
+        <script src="test/mock/recent.js"></script>
         <script src="test/mock/http.js"></script>
         <!-- endbuild -->
         <!-- -->

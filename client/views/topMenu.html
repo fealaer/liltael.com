@@ -1,5 +1,33 @@
-<ul class="nav nav-pills pull-right">
-    <li ng-repeat="menuItem in menuItems" ng-class="{active:menuItem.selected}">
-        <a href="#{{menuItem.link}}" ng-click="select(menuItem)">{{menuItem.title}}</a>
-    </li>
-</ul>
+<div class="navbar-wrapper">
+  <div class="container">
+    <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" ng-click="select('/about')">Ekaterina Pushkareva</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li ng-repeat="menuItem in menuItems"
+                ng-class="{active:menuItem.selected}">
+              <a ng-if="!menuItem.dropdown" href="#{{menuItem.link}}"
+                 ng-click="select(menuItem.link)">{{menuItem.title}}</a>
+              <a ng-if="menuItem.dropdown" href="#"
+                 class="dropdown-toggle" data-toggle="dropdown">{{menuItem.title}} <b class="caret"></b></a>
+                <ul ng-if="menuItem.dropdown" class="dropdown-menu">
+                    <li ng-repeat="nestedMenuItem in menuItem.nestedMenu"
+                        ng-class="{active:nestedMenuItem.selected}">
+                        <a href="#{{nestedMenuItem.link}}" ng-click="select(nestedMenuItem.link)">{{nestedMenuItem.title}}</a>
+                    </li>
+                </ul>
+              </li>
+            </li>
+          </ul>
+        </div>
+    </div>
+  </div>
+</div>
