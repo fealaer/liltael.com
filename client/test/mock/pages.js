@@ -1,7 +1,7 @@
 var pagesMocks = [
   {
     method: 'GET',
-    url: 'api/v0/pages/animation',
+    url: '/api/v0/pages/path/animation',
     result: {
       'status': {
         'code': 200,
@@ -40,7 +40,7 @@ var pagesMocks = [
   },
   {
     method: 'GET',
-    url: 'api/v0/pages/resume',
+    url: '/api/v0/pages/path/resume',
     result: {
       'status': {
         'code': 200,
@@ -177,7 +177,7 @@ var pagesMocks = [
   },
   {
     method: 'GET',
-    url: 'api/v0/pages/about',
+    url: '/api/v0/pages/path/about',
     result: {
       'status': {
         'code': 200,

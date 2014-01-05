@@ -83,6 +83,6 @@
   "private": true,
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/grunt test; echo '\\n'; echo '\\033[00;32mINFO [npm test]:\\033[0m Run \\033[04;32mcat .tmp/tests.log\\033[0m to see an application log'",
-    "start": "NODE_ENV=production node server/app.js"
+    "start": "NODE_ENV=development node server/app.js"
   }
 }

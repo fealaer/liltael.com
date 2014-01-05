@@ -11,28 +11,20 @@ var recentMocks =
           },
           'result': [
             {
-              'title': 'Fast sketches',
-              'image': 'sketches10012013_1_XqGaWB.jpg'
+              'title': 'Piony',
+              'image': 'piony__neCCzh.jpg'
             },
             {
-              'title': 'Faces',
-              'image': 'sketches10012013_3_OXxKEj.jpg'
+              'title': 'Rose',
+              'image': 'rose_uvCtAA.jpg'
             },
             {
-              'title': 'Fast sketches',
-              'image': 'sketches10012013_2_qxtJru.jpg'
+              'title': 'Orchids',
+              'image': 'orchids_wEMrpG.jpg'
             },
             {
-              'title': 'Thailand Ao Nang Rock',
-              'image': 'aoNang_uBBqSL.jpg'
-            },
-            {
-              'title': 'Thailand Krabi Mountain',
-              'image': 'thai_krabi_wuWffr.jpg'
-            },
-            {
-              'title': 'Girl',
-              'image': 'girl_EoGXqs.jpg'
+              'title': 'Rose',
+              'image': 'IMG_2311_RaDkiv.jpg'
             }
           ],
           'error': {}

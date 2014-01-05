@@ -27,6 +27,10 @@ app.use(express.methodOverride());
 
 var mongoose = require('./lib/mongoose');
 
+if ('production' !== ENV) {
+  mongoose.set('debug', true);
+}
+
 app.use(require('./middleware/sendHttpError'));
 app.use(require('./middleware/checkDB'));
 
