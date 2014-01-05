@@ -6,14 +6,21 @@ angular.module('mainApp')
         restrict: 'A',
         transclude: true,
         controller: function ($scope) {
-          var menuItems = $scope.menuItems = Menu.get();
+          $scope.menuItems = [];
+          Menu.get(function(err, result) {
+            if (err) {
+              console.log(err);
+            } else {
+              $scope.menuItems = result;
+            }
+          });
 
           $scope.select = function (path) {
-            angular.forEach(menuItems, function (menuItem) {
-              menuItem.selected = menuItem.link === path;
+            angular.forEach($scope.menuItems, function (menuItem) {
+              menuItem.selected = menuItem.path === path;
               angular.forEach(menuItem.nestedMenu, function (nestedMenuItem) {
                 nestedMenuItem.selected = false;
-                if (nestedMenuItem.link === path) {
+                if (nestedMenuItem.path === path) {
                   nestedMenuItem.selected = menuItem.selected = true;
                 }
               });

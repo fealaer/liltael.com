@@ -14,14 +14,14 @@
           <ul class="nav navbar-nav">
             <li ng-repeat="menuItem in menuItems"
                 ng-class="{active:menuItem.selected}">
-              <a ng-if="!menuItem.dropdown" href="#{{menuItem.link}}"
-                 ng-click="select(menuItem.link)">{{menuItem.title}}</a>
+              <a ng-if="!menuItem.dropdown" href="#{{menuItem.path}}"
+                 ng-click="select(menuItem.path)">{{menuItem.title}}</a>
               <a ng-if="menuItem.dropdown" href="#"
                  class="dropdown-toggle" data-toggle="dropdown">{{menuItem.title}} <b class="caret"></b></a>
                 <ul ng-if="menuItem.dropdown" class="dropdown-menu">
                     <li ng-repeat="nestedMenuItem in menuItem.nestedMenu"
                         ng-class="{active:nestedMenuItem.selected}">
-                        <a href="#{{nestedMenuItem.link}}" ng-click="select(nestedMenuItem.link)">{{nestedMenuItem.title}}</a>
+                        <a href="#{{nestedMenuItem.path}}" ng-click="select(nestedMenuItem.path)">{{nestedMenuItem.title}}</a>
                     </li>
                 </ul>
               </li>

@@ -12,12 +12,9 @@ var schema = new Schema({
     unique: true,
     required: 'Title required'
   },
-  html: {
-    type: String
-  },
-  raw: {
-    type: String
+  images: {
+    type: Array
   }
 }, { versionKey: false });
 
-module.exports = mongoose.model('Page', schema);
+module.exports = mongoose.model('Gallery', schema);

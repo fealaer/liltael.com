@@ -5,7 +5,9 @@ angular.module('e2e-http-mock', ['mainApp', 'ngMockE2E'])
           authMocks,
           pagesMocks,
           galleriesMocks,
-          recentMocks);
+          recentMocks,
+          menuMocks
+      );
       for (var i = 0; i < mocks.length; ++i) {
         $httpBackend.when(mocks[i].method, mocks[i].url, mocks[i].data).respond(mocks[i].result);
       }
