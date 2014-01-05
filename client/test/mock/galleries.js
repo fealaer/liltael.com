@@ -1,7 +1,7 @@
 var galleriesMocks = [
   {
     method: 'GET',
-    url: 'api/v0/galleries/sketches',
+    url: 'api/v0/galleries/path/sketches',
     result: {
       'status': {
         'code': 200,
@@ -48,7 +48,7 @@ var galleriesMocks = [
   },
   {
     method: 'GET',
-    url: 'api/v0/galleries/classical_drawings',
+    url: 'api/v0/galleries/path/classical_drawings',
     result: {
       'status': {
         'code': 200,
@@ -83,7 +83,7 @@ var galleriesMocks = [
   },
   {
     method: 'GET',
-    url: 'api/v0/galleries/3d',
+    url: 'api/v0/galleries/path/3d',
     result: {
       'status': {
         'code': 200,
@@ -122,7 +122,7 @@ var galleriesMocks = [
   },
   {
     method: 'GET',
-    url: 'api/v0/galleries/2d',
+    url: 'api/v0/galleries/path/2d',
     result: {
       'status': {
         'code': 200,
