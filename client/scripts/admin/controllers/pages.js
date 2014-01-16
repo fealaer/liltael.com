@@ -29,7 +29,7 @@ angular.module('adminApp')
 
       function resize() {
         var height = $scope.getHeight() - $('.form-inline').height() - $('.footer').height() - $('.navbar').height() - 80;
-        $('.preview').height(height);
+        $('.markdown-preview').height(height);
         $('.markdown-editor').height(height);
       }
 

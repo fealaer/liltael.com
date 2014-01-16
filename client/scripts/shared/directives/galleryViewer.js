@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mainApp')
+angular.module('sharedApp')
     .directive('galleryViewer', [function () {
       return {
         restrict: 'A',
@@ -8,6 +8,6 @@ angular.module('mainApp')
         scope: {
           gallery: '@'
         },
-        templateUrl: 'views/main/galleryViewer.html'
+        templateUrl: 'views/shared/galleryViewer.html'
       };
     }]);

@@ -43,12 +43,12 @@ body {
     }
 }
 
-.preview {
+.markdown-preview {
     background-color: #eeeeee;
     overflow: scroll;
 }
 
-.container .preview {
+.container .markdown-preview {
   border-radius: 6px;
 }
 
@@ -63,10 +63,10 @@ body {
 }
 
 /* Fixes display of rendered syntax highlighting in preview pane */
-.preview pre {
+.markdown-preview pre {
   background-color: black;
 }
-.preview pre, .preview code {
+.markdown-preview pre, .preview code {
   overflow: auto;
   word-wrap: normal;
   white-space: pre;
