@@ -15,6 +15,10 @@ angular.module('adminApp')
           {
             link: '/images',
             title: 'Images'
+          },
+          {
+            link: '/galleries',
+            title: 'Galleries'
           }
         ];
       }
