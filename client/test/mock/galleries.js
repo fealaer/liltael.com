@@ -139,7 +139,7 @@ var galleriesMocks = [
         {
           'position': 5,
           'title': 'Room',
-          "url": "http://liltael.com/files/img/big/small_color_WZVrXr.jpg",
+          "url": "http://liltael.com/files/img/big/big_color_WZVrXr.jpg",
           "thumbnailUrl": "http://liltael.com/files/img/small/small_color_WZVrXr.jpg"
         },
         {
