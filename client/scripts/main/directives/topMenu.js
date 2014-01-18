@@ -12,6 +12,7 @@ angular.module('mainApp')
               console.log(err);
             } else {
               $scope.menuItems = result;
+              $scope.select($location.path());
             }
           });
 
@@ -26,8 +27,6 @@ angular.module('mainApp')
               });
             });
           };
-
-          $scope.select($location.path());
         },
         templateUrl: 'views/main/topMenu.html'
       };
