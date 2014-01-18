@@ -8,6 +8,7 @@ angular.module('adminApp', [
       'ngRoute',
       'LocalStorageModule',
       'ui.bootstrap',
+      'ui.sortable',
       'sharedApp',
       'blueimp.fileupload'
     ])
@@ -22,11 +23,11 @@ angular.module('adminApp', [
               templateUrl: '/views/admin/pages.html',
               controller: 'PagesCtrl'
             })
-            .when('/galleries/:id?/:action?', {
+            .when('/galleries/:path?/:action?', {
               templateUrl: '/views/admin/galleries.html',
               controller: 'GalleriesCtrl'
             })
-            .when('/images/:id?/:action?', {
+            .when('/images', {
               templateUrl: '/views/admin/images.html',
               controller: 'ImagesCtrl'
             })
