@@ -12,19 +12,23 @@ var recentMocks =
           'result': [
             {
               'title': 'Piony',
-              'image': 'piony__neCCzh.jpg'
+              "url": "http://liltael.com/files/img/big/piony__neCCzh.jpg",
+              "thumbnailUrl": "http://liltael.com/files/img/small/piony__neCCzh.jpg"
             },
             {
               'title': 'Rose',
-              'image': 'rose_uvCtAA.jpg'
-            },
-            {
-              'title': 'Orchids',
-              'image': 'orchids_wEMrpG.jpg'
+              "url": "http://liltael.com/files/img/big/rose_uvCtAA.jpg",
+              "thumbnailUrl": "http://liltael.com/files/img/small/rose_uvCtAA.jpg"
             },
             {
               'title': 'Rose',
-              'image': 'IMG_2311_RaDkiv.jpg'
+              "url": "http://liltael.com/files/img/big/IMG_2311_RaDkiv.jpg",
+              "thumbnailUrl": "http://liltael.com/files/img/small/IMG_2311_RaDkiv.jpg"
+            },
+            {
+              'title': 'Syringa',
+              "url": "http://liltael.com/files/img/big/lilac2_eLHRlY.jpg",
+              "thumbnailUrl": "http://liltael.com/files/img/small/lilac2_eLHRlY.jpg"
             }
           ],
           'error': {}
