@@ -14,11 +14,11 @@ var ENV = app.get('env');
 if ('production' === ENV) {
   app.use(express.static(path.join(__dirname, '../dist')));
   app.use(express.logger('default'));
-  app.set('views', __dirname + '/dist');
+  app.set('views', path.join(__dirname, '../dist'));
 } else {
   app.use(express.static(path.join(__dirname, '../client')));
   app.use(express.logger('dev'));
-  app.set('views', __dirname + '/client');
+  app.set('views', path.join(__dirname, '../client'));
 }
 
 app.use(express.bodyParser());
