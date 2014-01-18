@@ -3,6 +3,6 @@
 angular.module('sharedApp')
     .factory('Images', ['$resource',
       function ($resource) {
-        return $resource('/images/:_id', {}, {
+        return $resource('/api/v0/images/:_id', {}, {
         });
       }]);
