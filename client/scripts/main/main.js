@@ -17,8 +17,8 @@ angular.module('mainApp', [
         controller: 'PagesCtrl'
       })
       .when('/artworks/:gallery', {
-        templateUrl: 'views/main/artworks.html',
-        controller: 'ArtworksCtrl'
+        templateUrl: 'views/main/galleries.html',
+        controller: 'GalleriesCtrl'
       })
       .otherwise({
         redirectTo: '/about'

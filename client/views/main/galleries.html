@@ -1,0 +1,9 @@
+<div id="links">
+    <a ng-repeat="image in images | orderBy:'position'"
+       href="{{image.url}}"
+       title="{{image.title}}" data-gallery="#blueimp-gallery-galleries">
+        <img ng-src="{{image.thumbnailUrl}}"
+             class="img-thumbnail"
+             alt="{{image.title}}">
+    </a>
+</div>
