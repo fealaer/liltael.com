@@ -1,10 +1,10 @@
 var auth = require('./auth'),
     menu = require('./menu'),
-    recent = require('./recent'),
-    images = require('./images');
+    recent = require('./recent');
 
 module.exports = function (app) {
   require('./api/v0')(app);
+  require('./uploadImages')(app);
 
   app.post('/signin', auth.signIn);
   app.post('/signout', auth.signOut);
@@ -12,7 +12,5 @@ module.exports = function (app) {
   app.get('/recent/posts', recent.recentPosts);
   app.get('/recent/works', recent.recentWorks);
 
-  app.post('/images', images.upload);
-  app.get('/images', images.get);
-  app.delete('/images/:imageName', images.delete);
+  app.get('/images/in/gallery/:path', require('./imagesInGallery').get);
 };
