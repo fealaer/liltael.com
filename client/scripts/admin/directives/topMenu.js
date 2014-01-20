@@ -7,9 +7,19 @@ angular.module('adminApp')
         transclude: true,
         controller: function ($scope) {
           $scope.user = Auth.getUser();
+          $scope.menuItems = [];
+
+          function setUpMenu() {
+            if (Auth.isLoggedIn()) {
+              $scope.menuItems = Menu.get();
+            } else {
+              $scope.menuItems = [];
+            }
+          }
 
           Auth.subscribe($scope, function () {
             $scope.user = Auth.getUser();
+            setUpMenu();
           });
 
           $scope.signOutBtn = function () {
@@ -22,10 +32,10 @@ angular.module('adminApp')
             });
           };
 
-          var menuItems = $scope.menuItems = Menu.get();
+          $scope.menuItems = Menu.get();
 
           $scope.select = function (path) {
-            angular.forEach(menuItems, function (menuItem) {
+            angular.forEach($scope.menuItems, function (menuItem) {
               menuItem.selected = menuItem.link === path;
               angular.forEach(menuItem.nestedMenu, function (nestedMenuItem) {
                 nestedMenuItem.selected = false;
@@ -36,6 +46,7 @@ angular.module('adminApp')
             });
           };
 
+          setUpMenu();
           $scope.select($location.path());
         },
         templateUrl: '/views/admin/topMenu.html'
