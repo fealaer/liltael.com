@@ -22,7 +22,7 @@ if ('production' === ENV) {
 }
 
 app.use(express.bodyParser());
-app.use(express.cookieParser());
+app.use(express.cookieParser(config.get('cookieSecret')));
 app.use(express.methodOverride());
 
 var mongoose = require('./lib/mongoose');
