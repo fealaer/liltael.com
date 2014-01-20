@@ -38,7 +38,6 @@ module.exports.recentWorks = function (req, res, next) {
     if (err) {
       res.json(new JsonResponse(JsonError(err)));
     } else {
-      console.log(result[0].images);
       var query = Image.find({_id: {$in: result[0].images}}, {_id: 1, url: 1, thumbnailUrl: 1, title: 1});
       query.sort({_id: -1});
       query.limit(6);
