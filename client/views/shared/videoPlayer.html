@@ -1,0 +1,17 @@
+<a ng-if="video.youtube"
+   ng-href="https://www.youtube.com/watch?v={{video.youtube}}"
+   target="_blank">{{video.title}}</a>
+<a ng-if="video.vimeo"
+   ng-href="https://vimeo.com/{{video.vimeo}}"
+   target="_blank">{{video.title}}</a>
+<div class="flex-video widescreen">
+    <iframe ng-if="video.vimeo" width="280" height="210"
+            ng-src="{{trustSrc('http://player.vimeo.com/video/' + video.vimeo)}}"
+            frameborder="0" allowfullscreen
+            webkitallowfullscreen mozallowfullscreen>
+    </iframe>
+    <iframe ng-if="video.youtube" width="280" height="210"
+            ng-src="{{trustSrc('http://www.youtube.com/embed/' + video.youtube)}}"
+            frameborder="0" allowfullscreen>
+    </iframe>
+</div>

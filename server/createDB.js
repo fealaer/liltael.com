@@ -11,7 +11,6 @@ async.series([
   requireModels,
   createUsers
 ], function (err, results) {
-  console.log(arguments);
   mongoose.disconnect();
 });
 

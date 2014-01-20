@@ -39,6 +39,26 @@ function RestApi(_Model) {
     });
   };
 
+  this.getByField = function (req, res, next) {
+    var field = req.params.field;
+    var value = req.params.value;
+    if (!(field && value)) {
+      res.json(new JsonResponse(new JsonError(null, 400, 'You need specify parameter and value'), null));
+    } else {
+      Model.findOne(select(field, value), function (err, record) {
+        if (err) {
+          res.json(new JsonResponse(new JsonError(err), null));
+        } else {
+          if (!record) {
+            res.json(new JsonResponse(new JsonError(null, 404, 'Record not found'), null));
+          } else {
+            res.json(new JsonResponse(null, record));
+          }
+        }
+      });
+    }
+  };
+
   this.post = function (req, res, next) {
     var rawData = req.body.data || req.body;
     delete rawData._id;
@@ -60,7 +80,7 @@ function RestApi(_Model) {
 
   this.put = function (req, res, next) {
     var rawData = req.body.data || req.body;
-    validateObjectId(rawData.id, function (err, _id) {
+    validateObjectId(rawData._id, function (err, _id) {
       if (err) {
         res.json(new JsonResponse(err, null));
       } else {
@@ -82,8 +102,7 @@ function RestApi(_Model) {
   };
 
   this.delete = function (req, res, next) {
-    var rawData = req.body.data || req.body;
-    validateObjectId(rawData.id, function (err, _id) {
+    validateObjectId(req.params.id, function (err, _id) {
       if (err) {
         res.json(new JsonResponse(err, null));
       } else {
@@ -101,6 +120,12 @@ function RestApi(_Model) {
       }
     });
   };
+}
+
+function select(field, value) {
+  var select = {};
+  select[field] = value;
+  return select;
 }
 
 RestApi.prototype.name = 'RestApi';

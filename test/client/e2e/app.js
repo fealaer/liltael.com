@@ -1,6 +1,6 @@
 'use strict';
 
-describe('startingPointJsApp', function () {
+describe('liltaelApp', function () {
   it('should redirect / to index.html/#/', function () {
     browser().navigateTo('/');
     expect(browser().location().url()).toBe('/');

@@ -3,7 +3,7 @@
 describe('Service: Menu', function () {
 
   // load the service's module
-  beforeEach(module('startingPointJsApp'));
+  beforeEach(module('liltaelApp'));
 
   // instantiate service
   var Menu;

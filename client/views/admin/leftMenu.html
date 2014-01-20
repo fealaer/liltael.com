@@ -1,0 +1,6 @@
+<div class="list-group">
+    <a ng-repeat="menuItem in menuItems"
+       ng-href="#{{menuItem.link}}" ng-click="select(menuItem.link)"
+       class="list-group-item" ng-class="{active:menuItem.selected}">
+        <span ng-if="menuItem.badge" class="badge">+</span>{{menuItem.title}}</a>
+</div>

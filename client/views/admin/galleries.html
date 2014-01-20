@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-sm-2">
+        <div data-left-menu data-path="galleries" data-items="galleries"
+             data-link="path" data-title="title">
+        </div>
+    </div>
+    <div class="col-sm-10">
+        <form role="form" class="form-inline">
+            <div class="form-group">
+                <input type="text" class="form-control"
+                       ng-model="data.path" placeholder="Path"
+                       required autofocus>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control"
+                       ng-model="data.title" placeholder="Title"
+                       required>
+            </div>
+            <button class="btn btn-success"
+                    ng-click="submit(data, action)">Save</button>
+            <button ng-show="{{action !== 'add'}}" class="btn btn-danger"
+                    ng-click="delete(data)">Delete</button>
+        </form>
+        <div>
+            <ul id="sortable" ng-model="images" data-ui-sortable>
+                <li ng-repeat="image in images"
+                      style="cursor:move"
+                      class="ui-state-default">
+                    <img ng-src="{{image.thumbnailUrl}}"
+                         class="img-thumbnail"
+                         alt="{{image.title}}"
+                         ng-class="{ 'selected-for-gallery': image.selected }"
+                         ng-click="imageSelection(image)">
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

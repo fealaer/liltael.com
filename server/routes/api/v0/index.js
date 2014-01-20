@@ -1,4 +1,5 @@
 module.exports = function (app) {
-  require('./users')(app);
-  require('./quotes')(app);
+  require('./pages')(app);
+  require('./galleries')(app);
+  require('./images')(app);
 };

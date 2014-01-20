@@ -16,11 +16,13 @@ module.exports.signIn = function (req, res, next) {
     user = JSON.parse(JSON.stringify(user));
     delete user['hashedPassword'];
     delete user['salt'];
+    res.cookie('user', JSON.stringify(user), {maxAge: 3600000});
     return res.json(new JsonResponse(null, user));
   });
 };
 
 module.exports.signOut = function(req, res) {
   if (req.session) req.session.destroy();
+  res.clearCookie('user');
   res.json(new JsonResponse(null, {}));
 };
