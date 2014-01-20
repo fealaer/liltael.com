@@ -64,18 +64,10 @@ schema.statics.authorize = function (username, password, callback) {
       User.findOne({username: username}, {_id: 1, username: 1, hashedPassword: 1, salt: 1, avatar: 1, quotes: 1}, callback);
     },
     function(user, callback) {
-      if (user){
-        if (user.checkPassword(password)) {
+      if (user && user.checkPassword(password)) {
           callback(null, user);
-        } else {
-          callback(new AuthError(400, 'Wrong username or password'));
-        }
       } else {
-        user = new User({username: username, password: password});
-        user.save(function (err) {
-          if (err) return callback(err);
-          callback(null, user);
-        });
+        callback(new AuthError(400, 'Wrong username or password'));
       }
     }
   ], callback);
