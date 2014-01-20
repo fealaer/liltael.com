@@ -9,7 +9,7 @@ angular.module('mainApp')
           $scope.menuItems = [];
           Menu.get(function(err, result) {
             if (err) {
-              console.log(err);
+              // TODO add error handler
             } else {
               $scope.menuItems = result;
               $scope.select($location.path());
