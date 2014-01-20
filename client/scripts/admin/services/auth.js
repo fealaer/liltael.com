@@ -1,10 +1,14 @@
 'use strict';
 
-angular.module('mainApp')
-    .service('Auth', ['$rootScope', '$http', 'localStorageService', function Auth($rootScope, $http, localStorageService) {
+angular.module('adminApp')
+    .service('Auth', ['$rootScope', '$http', '$cookies', 'localStorageService', function Auth($rootScope, $http, $cookies) {
       this.eventName = 'Auth.changes';
+      var user = {};
+      Auth.prototype.isLoggedIn = function () {
+        return $cookies.user ? true : false;
+      };
       Auth.prototype.getUser = function () {
-        return localStorageService.get('user');
+        return $cookies.user ? JSON.parse($cookies.user) : user;
       };
       Auth.prototype.signIn = function (data, callback) {
         $http.post('/signin', data).success(function (result) {
@@ -12,8 +16,7 @@ angular.module('mainApp')
             callback(result.error, null);
           } else {
             callback(null, result.result);
-            localStorageService.set('user', result.result);
-            Auth.prototype.broadcast();
+            waitForCookiesAndBroadcast();
           }
         });
       };
@@ -23,7 +26,7 @@ angular.module('mainApp')
             callback(result.error, null);
           } else {
             callback(null, result.result);
-            localStorageService.clearAll();
+            delete $cookies.user;
             Auth.prototype.broadcast();
           }
         });
@@ -34,4 +37,11 @@ angular.module('mainApp')
       Auth.prototype.broadcast = function () {
         $rootScope.$broadcast(Auth.eventName);
       };
+      function waitForCookiesAndBroadcast () {
+        if ($cookies.user) {
+          Auth.prototype.broadcast();
+        } else {
+          setTimeout(waitForCookiesAndBroadcast, 50);
+        }
+      }
     }]);

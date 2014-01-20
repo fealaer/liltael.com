@@ -6,6 +6,7 @@ angular.module('adminApp', [
       'ngResource',
       'ngSanitize',
       'ngRoute',
+      'ngCookies',
       'LocalStorageModule',
       'ui.bootstrap',
       'ui.sortable',
@@ -31,6 +32,10 @@ angular.module('adminApp', [
               templateUrl: '/views/admin/images.html',
               controller: 'ImagesCtrl'
             })
+            .when('/signIn', {
+              templateUrl: '/views/admin/signIn.html',
+              controller: 'AuthCtrl'
+            })
             .otherwise({
               redirectTo: '/'
             });
@@ -48,4 +53,9 @@ angular.module('adminApp', [
           maxFileSize: 10000000,
           acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
         });
-      }]);
+      }])
+    .run(['$rootScope', '$location', '$http', 'Auth', function ($rootScope, $location, $http, Auth) {
+      $rootScope.$on("$routeChangeStart", function (event, next, current) {
+          if(!Auth.isLoggedIn() && next.templateUrl !== '/views/admin/signIn.html' ) $location.path('/signIn');
+      });
+    }]);

@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#" ng-click="select('/about')">Admin Panel</a>
+        <a class="navbar-brand" href="#" ng-click="select('/')">Admin Panel</a>
     </div>
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
@@ -26,7 +26,10 @@
                     </li>
                 </ul>
             </li>
-            </li>
         </ul>
+        <div class="auth">
+            <button ng-show="user.username" ng-click="signOutBtn()"
+                class="btn btn-warning btn-auth pull-right">Sign out</button>
+        </div>
     </div>
 </div>

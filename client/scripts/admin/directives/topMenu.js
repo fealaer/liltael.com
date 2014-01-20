@@ -1,11 +1,27 @@
 'use strict';
 
 angular.module('adminApp')
-    .directive('topMenu', ['$location', 'Menu', function ($location, Menu) {
+    .directive('topMenu', ['$location', 'Menu', 'Auth', function ($location, Menu, Auth) {
       return {
         restrict: 'A',
         transclude: true,
         controller: function ($scope) {
+          $scope.user = Auth.getUser();
+
+          Auth.subscribe($scope, function () {
+            $scope.user = Auth.getUser();
+          });
+
+          $scope.signOutBtn = function () {
+            Auth.signOut(function (err, res) {
+              if (err) {
+                $scope.error = {error: true, message: err.message};
+              } else {
+                $location.path('/signIn');
+              }
+            });
+          };
+
           var menuItems = $scope.menuItems = Menu.get();
 
           $scope.select = function (path) {
