@@ -7,7 +7,8 @@ var im = require('imagemagick'),
     JsonResponse = require('../helpers/json/response'),
     ObjectID = require('mongodb').ObjectID,
     log = require('../lib/log')(module),
-    Image = require('../models/image');
+    Image = require('../models/image'),
+    checkAuth = require('../middleware/checkAuth');
 
 module.exports = function (app) {
   var root = app.get('views'),
@@ -197,7 +198,7 @@ module.exports = function (app) {
     });
   }
 
-  app.post('/images', uploadImage);
+  app.post('/images', checkAuth, uploadImage);
   app.get('/images', getImages);
-  app.delete('/images/:imageName', deleteImage);
+  app.delete('/images/:imageName', checkAuth, deleteImage);
 };

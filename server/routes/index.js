@@ -1,6 +1,7 @@
 var auth = require('./auth'),
     menu = require('./menu'),
-    recent = require('./recent');
+    recent = require('./recent'),
+    path = require('path');
 
 module.exports = function (app) {
   require('./api/v0')(app);
@@ -13,4 +14,10 @@ module.exports = function (app) {
   app.get('/recent/works', recent.recentWorks);
 
   app.get('/images/in/gallery/:path', require('./imagesInGallery').get);
+  app.get('/*admin*', function(req, res, next) {
+    res.sendfile(path.join(app.get('views'), 'admin.html'));
+  });
+  app.get('/', function(req, res, next) {
+    res.sendfile(path.join(app.get('views'), 'index.html'));
+  });
 };
