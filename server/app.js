@@ -14,18 +14,22 @@ var ENV = app.get('env');
 if ('production' === ENV) {
   app.use(express.static(path.join(__dirname, '../dist')));
   app.use(express.logger('default'));
-  app.set('views', __dirname + '/dist');
+  app.set('views', path.join(__dirname, '../dist'));
 } else {
   app.use(express.static(path.join(__dirname, '../client')));
   app.use(express.logger('dev'));
-  app.set('views', __dirname + '/client');
+  app.set('views', path.join(__dirname, '../client'));
 }
 
 app.use(express.bodyParser());
-app.use(express.cookieParser());
+app.use(express.cookieParser(config.get('cookieSecret')));
 app.use(express.methodOverride());
 
 var mongoose = require('./lib/mongoose');
+
+if ('production' !== ENV) {
+  mongoose.set('debug', true);
+}
 
 app.use(require('./middleware/sendHttpError'));
 app.use(require('./middleware/checkDB'));

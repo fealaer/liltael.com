@@ -19,5 +19,6 @@
       "httpOnly": true,
       "maxAge": 3600000
     }
-  }
+  },
+  "cookieSecret": "CatchMeIfYouCan"
 }

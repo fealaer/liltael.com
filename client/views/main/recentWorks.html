@@ -1,0 +1,12 @@
+<div class="panel panel-default recent-panel">
+    <div class="panel-heading">Recent Works</div>
+    <div class="panel-body">
+        <a ng-repeat="image in works"
+           href="{{image.url}}"
+           title="{{image.title}}" data-gallery="#blueimp-gallery-recentWorks">
+            <img ng-src="{{image.thumbnailUrl}}"
+                 class="img-thumbnail"
+                 alt="{{image.title}}">
+        </a>
+    </div>
+</div>

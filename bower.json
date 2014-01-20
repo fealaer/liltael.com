@@ -15,7 +15,12 @@
     "angular-route": "~1.2.0",
     "angular-bootstrap": "~0.6.0",
     "angular-local-storage": "*",
-    "blueimp-gallery": "~2.12.4"
+    "blueimp-gallery": "~2.12.4",
+    "marked": "~0.3.0",
+    "blueimp-file-upload": "~9.5.2",
+    "blueimp-load-image": "~1.11.0",
+    "angular-ui-sortable": "~0.10.0",
+    "jquery-ui": "~1.10.3"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",

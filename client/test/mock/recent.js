@@ -11,28 +11,24 @@ var recentMocks =
           },
           'result': [
             {
-              'title': 'Fast sketches',
-              'image': 'sketches10012013_1_XqGaWB.jpg'
+              'title': 'Piony',
+              "url": "http://liltael.com/files/img/big/piony__neCCzh.jpg",
+              "thumbnailUrl": "http://liltael.com/files/img/small/piony__neCCzh.jpg"
             },
             {
-              'title': 'Faces',
-              'image': 'sketches10012013_3_OXxKEj.jpg'
+              'title': 'Rose',
+              "url": "http://liltael.com/files/img/big/rose_uvCtAA.jpg",
+              "thumbnailUrl": "http://liltael.com/files/img/small/rose_uvCtAA.jpg"
             },
             {
-              'title': 'Fast sketches',
-              'image': 'sketches10012013_2_qxtJru.jpg'
+              'title': 'Rose',
+              "url": "http://liltael.com/files/img/big/IMG_2311_RaDkiv.jpg",
+              "thumbnailUrl": "http://liltael.com/files/img/small/IMG_2311_RaDkiv.jpg"
             },
             {
-              'title': 'Thailand Ao Nang Rock',
-              'image': 'aoNang_uBBqSL.jpg'
-            },
-            {
-              'title': 'Thailand Krabi Mountain',
-              'image': 'thai_krabi_wuWffr.jpg'
-            },
-            {
-              'title': 'Girl',
-              'image': 'girl_EoGXqs.jpg'
+              'title': 'Syringa',
+              "url": "http://liltael.com/files/img/big/lilac2_eLHRlY.jpg",
+              "thumbnailUrl": "http://liltael.com/files/img/small/lilac2_eLHRlY.jpg"
             }
           ],
           'error': {}

@@ -194,3 +194,21 @@ body {
         padding-top: 0;
     }
 }
+
+.recent-panel {
+    background-color: rgba(255, 255, 255, 0);
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.recent-panel > .panel-heading {
+    background-color: rgba(255, 255, 255, 0);
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
