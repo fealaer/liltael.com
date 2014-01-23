@@ -2,22 +2,10 @@ var mongoose = require('../lib/mongoose'),
     Schema = mongoose.Schema;
 
 var schema = new Schema({
-  srcPath: {
+  src: {
     type: String,
     unique: true,
-    required: 'Path to src image is required',
-    select: false
-  },
-  bigPath: {
-    type: String,
-    unique: true,
-    required: 'Path to big image is required',
-    select: false
-  },
-  thumbnailPath: {
-    type: String,
-    unique: true,
-    required: 'Path to thumbnail image is required',
+    required: 'Src Url is required',
     select: false
   },
   url: {
@@ -30,13 +18,13 @@ var schema = new Schema({
     unique: true,
     required: 'Thumbnail Url is required'
   },
+  originalName: {
+    type: String
+  },
   name: {
     type: String,
+    unique: true,
     required: 'Image name is required'
-  },
-  savedName: {
-    type: String,
-    unique: true
   },
   title: {
     type: String
@@ -57,6 +45,10 @@ var schema = new Schema({
   deleteType: {
     type: String,
     default: 'DELETE'
+  },
+  cloudinary: {
+    type: Object,
+    select: false
   }
 }, { versionKey: false });
 
