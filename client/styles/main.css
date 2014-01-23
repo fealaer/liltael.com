@@ -1,7 +1,7 @@
 /* Space out content a bit */
 body {
     padding-top: 10px;
-    background-image: url("/images/paper_texture.jpg");
+    background-size: cover;
 }
 
 .container {
@@ -53,7 +53,7 @@ body {
 }
 
 .navbar-default .navbar-toggle:hover .icon-bar,
-.navbar-default .navbar-toggle:focus .icon-bar  {
+.navbar-default .navbar-toggle:focus .icon-bar {
     background-color: #ffffff;
 }
 
@@ -211,4 +211,92 @@ body {
     border-radius: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
+}
+
+/* <= 320 */
+@media only screen
+and (max-width: 320px) {
+    body {
+        background-image: url("/images/320/paper_texture.jpg");
+    }
+}
+
+/* 320 < ... <= 768 */
+@media only screen
+and (min-width: 321px)
+and (max-width: 768px) {
+    body {
+        background-image: url("/images/768/paper_texture.jpg");
+    }
+}
+
+/* 769 < ... <= 1024 */
+@media only screen
+and (min-width: 769px)
+and (max-width: 1024px) {
+    body {
+        background-image: url("/images/1024/paper_texture.jpg");
+    }
+}
+
+/* 1024 < ... <= 1280 */
+@media only screen
+and (min-width: 1025px)
+and (max-width: 1280px) {
+    body {
+        background-image: url("/images/1280/paper_texture.jpg");
+    }
+}
+
+/* 1281 < ... <= 1366 */
+@media only screen
+and (min-width: 1281px)
+and (max-width: 1366px) {
+    body {
+        background-image: url("/images/1366/paper_texture.jpg");
+    }
+}
+
+/* 1367 < ... <= 1440 */
+@media only screen
+and (min-width: 1367px)
+and (max-width: 1440px) {
+    body {
+        background-image: url("/images/1440/paper_texture.jpg");
+    }
+}
+
+/* 1441 < ... <= 1680 */
+@media only screen
+and (min-width: 1441px)
+and (max-width: 1680px) {
+    body {
+        background-image: url("/images/1680/paper_texture.jpg");
+    }
+}
+
+/* 1681 < ... <= 1920 */
+@media only screen
+and (min-width: 1681px)
+and (max-width: 1920px) {
+    body {
+        background-image: url("/images/1920/paper_texture.jpg");
+    }
+}
+
+/* 1920 < ... <= 2560 */
+@media only screen
+and (min-width: 1921px)
+and (max-width: 2560px) {
+    body {
+        background-image: url("/images/2560/paper_texture.jpg");
+    }
+}
+
+/* 2561 < ... <= 3200 */
+@media only screen
+and (min-width: 2561px) {
+    body {
+        background-image: url("/images/3200/paper_texture.jpg");
+    }
 }
