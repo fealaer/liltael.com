@@ -35,12 +35,15 @@ angular.module('adminApp')
             url: file.deleteUrl,
             method: file.deleteType
           }).then(
-              function () {
-                state = 'resolved';
-                $scope.clear(file);
-              },
-              function () {
-                state = 'rejected';
+              function (response) {
+                console.log(response);
+                if (response.data.error) {
+                  state = 'rejected';
+                  file.error = response.data.error;
+                } else {
+                  state = 'resolved';
+                  $scope.clear(file);
+                }
               }
           );
         };
