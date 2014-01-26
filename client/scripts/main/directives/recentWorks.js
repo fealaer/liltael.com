@@ -12,6 +12,6 @@ angular.module('mainApp')
             }
           });
         },
-        templateUrl: 'views/main/recentWorks.html'
+        templateUrl: '/views/main/recentWorks.html'
       };
     }]);

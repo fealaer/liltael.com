@@ -13,11 +13,11 @@ angular.module('mainApp', [
   .config(function ($routeProvider) {
     $routeProvider
       .when('/:pageLink', {
-        templateUrl: 'views/main/pages.html',
+        templateUrl: '/views/main/pages.html',
         controller: 'PagesCtrl'
       })
       .when('/artworks/:gallery', {
-        templateUrl: 'views/main/galleries.html',
+        templateUrl: '/views/main/galleries.html',
         controller: 'GalleriesCtrl'
       })
       .otherwise({
