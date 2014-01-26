@@ -14,12 +14,12 @@ var ENV = app.get('env');
 if ('production' === ENV) {
   app.use(express.compress());
   app.use(express.static(path.join(__dirname, '../dist'), { maxAge: 86400000 }));
-  app.use(express.logger('default'));
   app.set('views', path.join(__dirname, '../dist'));
+  app.use(express.logger('default'));
 } else {
   app.use(express.static(path.join(__dirname, '../client')));
-  app.use(express.logger('dev'));
   app.set('views', path.join(__dirname, '../client'));
+  app.use(express.logger('dev'));
 }
 
 app.use(express.bodyParser());
