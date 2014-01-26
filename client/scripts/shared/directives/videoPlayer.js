@@ -13,6 +13,6 @@ angular.module('sharedApp')
             return $sce.trustAsResourceUrl(src);
           }
         },
-        templateUrl: 'views/shared/videoPlayer.html'
+        templateUrl: '/views/shared/videoPlayer.html'
       };
     }]);

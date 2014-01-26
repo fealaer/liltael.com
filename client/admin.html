@@ -6,7 +6,8 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <meta http-equiv="Cache-Control" content="public">
+    <title>Admin panel</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -45,20 +46,20 @@
         </div>
     </div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+     <!--<script>-->
+       <!--(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){-->
+       <!--(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),-->
+       <!--m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)-->
+       <!--})(window,document,'script','//www.google-analytics.com/analytics.js','ga');-->
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
+       <!--ga('create', 'UA-XXXXX-X');-->
+       <!--ga('send', 'pageview');-->
+    <!--</script>-->
 
+    <!-- build:js scripts/frameworks.js -->
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-ui-sortable/src/sortable.js"></script>
-    <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
+    <!-- endbuild -->
 
     <!-- build:js scripts/adminPlugins.js -->
     <script src="bower_components/sass-bootstrap/js/affix.js"></script>
@@ -73,8 +74,10 @@
     <script src="bower_components/sass-bootstrap/js/tab.js"></script>
     <script src="bower_components/sass-bootstrap/js/tooltip.js"></script>
     <script src="bower_components/sass-bootstrap/js/popover.js"></script>
+    <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angular-local-storage/angular-local-storage.js"></script>
+    <script src="bower_components/angular-ui-sortable/src/sortable.js"></script>
     <script src="bower_components/marked/lib/marked.js"></script>
     <script src="bower_components/google-code-prettify/src/prettify.js"></script>
     <script src="bower_components/blueimp-load-image/js/load-image.min.js"></script>

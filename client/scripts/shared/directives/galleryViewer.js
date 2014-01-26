@@ -8,6 +8,6 @@ angular.module('sharedApp')
         scope: {
           gallery: '@'
         },
-        templateUrl: 'views/shared/galleryViewer.html'
+        templateUrl: '/views/shared/galleryViewer.html'
       };
     }]);
