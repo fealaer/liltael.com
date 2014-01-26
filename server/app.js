@@ -42,6 +42,7 @@ app.use(express.session({
   secret: config.get('session:secret'),
   key: config.get('session:key'),
   cookie: config.get('session:cookie'),
+  rolling: config.get('session:rolling'),
   store: store
 }));
 
