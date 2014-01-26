@@ -1,6 +1,6 @@
 angular.module('e2e-http-mock', ['mainApp', 'ngMockE2E'])
     .run(function ($httpBackend) {
-      $httpBackend.whenGET(/^views.*/).passThrough();
+      $httpBackend.whenGET(/^\/views.*/).passThrough();
       var mocks = [].concat(
           authMocks,
           pagesMocks,
