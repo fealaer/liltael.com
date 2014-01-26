@@ -12,6 +12,6 @@ angular.module('mainApp')
             }
           });
         },
-        templateUrl: 'views/main/recentPosts.html'
+        templateUrl: '/views/main/recentPosts.html'
       };
     }]);

@@ -28,6 +28,6 @@ angular.module('mainApp')
             });
           };
         },
-        templateUrl: 'views/main/topMenu.html'
+        templateUrl: '/views/main/topMenu.html'
       };
     }]);
