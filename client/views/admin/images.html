@@ -101,6 +101,13 @@
                     <i class="glyphicon glyphicon-trash"></i>
                     <span>Delete</span>
                 </button>
+                <button data-ng-controller="FileEditController" type="button"
+                        class="btn btn-warning"
+                        data-ng-click="file.$edit()"
+                        data-ng-hide="!file.$edit">
+                    <i class="glyphicon glyphicon-edit"></i>
+                    <span>Edit</span>
+                </button>
             </td>
         </tr>
     </table>

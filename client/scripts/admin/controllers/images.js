@@ -36,7 +36,6 @@ angular.module('adminApp')
             method: file.deleteType
           }).then(
               function (response) {
-                console.log(response);
                 if (response.data.error) {
                   state = 'rejected';
                   file.error = response.data.error;
@@ -46,6 +45,32 @@ angular.module('adminApp')
                 }
               }
           );
+        };
+      } else if (!file.$cancel && !file._index) {
+        file.$cancel = function () {
+          $scope.clear(file);
+        };
+      }
+    }])
+    .controller('FileEditController', ['$scope', 'Images', function ($scope, Images) {
+      var file = $scope.file,
+          state;
+      if (file.url) {
+        file.$state = function () {
+          return state;
+        };
+        file.$edit = function () {
+          state = 'pending';
+
+          return Images.update(file).$promise
+              .then(function (api) {
+                if (api.status.code === 200) {
+                  state = 'resolved';
+                } else {
+                  state = 'rejected';
+                  file.error = api.error.message;
+                }
+              });
         };
       } else if (!file.$cancel && !file._index) {
         file.$cancel = function () {

@@ -85,7 +85,7 @@ module.exports = function (app) {
   }
 
   function getImages(req, res, next) {
-    Image.find({}, {'_id': 0, 'srcPath': 0}, function (err, records) {
+    Image.find({}, {'srcPath': 0}, function (err, records) {
       if (err) {
         res.json({"files": [], "error": err.message});
       } else {
