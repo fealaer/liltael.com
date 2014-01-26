@@ -43,7 +43,7 @@ angular.module('adminApp')
                 })
               });
             }
-            $scope.images = [].concat(inGallery, notInGallery);
+            $scope.images = [].concat(inGallery, notInGallery.reverse());
           }
         });
       }
