@@ -49,11 +49,16 @@ angular.module('adminApp')
       }
 
       $scope.imageSelection = function(image) {
-        var index = -1;
+        var index = $scope.images.indexOf(image);
+        if (index > -1) {
+          $scope.images.splice(index, 1);
+        }
         if (image.selected) {
           image.selected = false;
+          $scope.images.push(image);
         } else {
           image.selected = true;
+          $scope.images.unshift(image);
         }
       };
 
