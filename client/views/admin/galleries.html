@@ -22,7 +22,7 @@
                     ng-click="delete(data)">Delete</button>
         </form>
         <div>
-            <ul id="sortable" ng-model="images" data-ui-sortable>
+            <ul class="sortable-images" ng-model="images" data-ui-sortable>
                 <li ng-repeat="image in images"
                       style="cursor:move"
                       class="ui-state-default">
