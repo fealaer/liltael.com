@@ -7,12 +7,13 @@ angular.module('adminApp')
         transclude: true,
         scope: {
           items: '=',
+          move: '=',
           path: '@',
           link: '@',
           title: '@'
         },
         controller: function ($scope) {
-          var defMenu = [{link: '/' + $scope.path, title: 'Add New', selected: true, badge: '+'}];
+          var defMenu = [{link: '/' + $scope.path, title: 'Add New', selected: true, badge: '+', pos: 0}];
           $scope.menuItems = angular.copy(defMenu);
           $scope.items = [];
           $scope.makeLink = function (link) {
@@ -24,9 +25,18 @@ angular.module('adminApp')
             angular.forEach(items, function (menuItem) {
               $scope.menuItems.push({
                 link: $scope.makeLink(menuItem[$scope.link]),
-                title: menuItem[$scope.title]
+                title: menuItem[$scope.title],
+                pos: menuItem.pos || 0
               });
             });
+          };
+
+          $scope.sortableOptions = ! $scope.move ? {} : {
+            stop: function(e, ui) {
+              if (ui.item.sortable.dropindex) {
+                $scope.move(ui.item.sortable.index, ui.item.sortable.dropindex, $scope.menuItems[ui.item.sortable.dropindex].title);
+              }
+            }
           };
 
           $scope.$watch('items', function() {
