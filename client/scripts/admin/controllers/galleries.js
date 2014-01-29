@@ -2,6 +2,7 @@
 
 angular.module('adminApp')
     .controller('GalleriesCtrl', ['$scope', '$routeParams', '$location', 'Galleries', 'Images', function ($scope, $routeParams, $location, Galleries, Images) {
+      $scope.galleries = [];
       $scope.action = $routeParams.action;
       $scope.path = $routeParams.path;
       if (!$scope.action) {
@@ -13,7 +14,9 @@ angular.module('adminApp')
       function refresh() {
         Galleries.get().$promise.then(function (api) {
           if (api.status.code === 200) {
-            $scope.galleries = api.result;
+            $scope.galleries = api.result.sort(function (a, b) {
+              return a.pos - b.pos;
+            });
             if ($scope.path) {
               angular.forEach($scope.galleries, function (gallery) {
                 if ($scope.path === gallery.path) {
@@ -49,11 +52,16 @@ angular.module('adminApp')
       }
 
       $scope.imageSelection = function(image) {
-        var index = -1;
+        var index = $scope.images.indexOf(image);
+        if (index > -1) {
+          $scope.images.splice(index, 1);
+        }
         if (image.selected) {
           image.selected = false;
+          $scope.images.push(image);
         } else {
           image.selected = true;
+          $scope.images.unshift(image);
         }
       };
 
@@ -105,6 +113,16 @@ angular.module('adminApp')
           }
         });
       };
+
+      $scope.move = function (index, dropindex, title) {
+        Galleries.move({index: index, dropindex: dropindex, title: title}).$promise.then(function (api) {
+          if (api.status.code === 200) {
+            // TODO add msg for user
+            refresh();
+          }
+        });
+      };
+
       // TODO too many refreshes - need to improve
       refresh();
     }]);

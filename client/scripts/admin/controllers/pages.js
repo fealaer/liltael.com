@@ -2,6 +2,7 @@
 
 angular.module('adminApp')
     .controller('PagesCtrl', ['$scope', '$routeParams', '$location', 'Pages', function ($scope, $routeParams, $location, Pages) {
+      $scope.pages = [];
       $scope.action = $routeParams.action;
       $scope.path = $routeParams.path;
       if (!$scope.action) {
@@ -48,7 +49,9 @@ angular.module('adminApp')
       function refresh() {
         Pages.get().$promise.then(function (api) {
           if (api.status.code === 200) {
-            $scope.pages = api.result;
+            $scope.pages = api.result.sort(function (a, b) {
+              return a.pos - b.pos;
+            });
             if ($scope.path) {
               angular.forEach($scope.pages, function(page) {
                 if ($scope.path === page.path) {
@@ -96,6 +99,16 @@ angular.module('adminApp')
           }
         });
       };
+
+      $scope.move = function (index, dropindex, title) {
+        Pages.move({index: index, dropindex: dropindex, title: title}).$promise.then(function (api) {
+          if (api.status.code === 200) {
+            // TODO add msg for user
+            refresh();
+          }
+        });
+      };
+
       // TODO too many refreshes - need to improve
       refresh();
     }]);
