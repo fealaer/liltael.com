@@ -9,4 +9,5 @@ module.exports = function (app) {
   app.post('/api/v0/galleries', checkAuth, rest.post);
   app.delete('/api/v0/galleries/:id', checkAuth, rest.delete);
   app.put('/api/v0/galleries', checkAuth, rest.put);
+  app.put('/api/v0/galleries/move', checkAuth, rest.move);
 };

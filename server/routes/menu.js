@@ -8,7 +8,7 @@ var Page = require('../models/page'),
 function getMenu(callback, Model, nested) {
   var path = nested ? nested.path + '/' || '/' : '/';
 
-  Model.find({}, {_id: 0, title: 1, path: 1}, function (err, records) {
+  Model.find({}, {_id: 0, title: 1, path: 1}, {sort: {pos: 1}}, function (err, records) {
     if (err) callback(err);
     else {
       var menu = [];
